@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e7a248</color>
+    <color name="colorPrimaryDark">#FF8B00</color>
+    <color name="colorAccent">#444444</color>
+
+    <color name="Primary">#3F51B5</color>
+    <color name="PrimaryDark">#303F9F</color>
+    <color name="accent">#FF4081</color>
+
+    <color name="background">#FEFFDB</color>
+    <color name="one">#FFC60B</color>
+    <color name="two">#FF8B00</color>
+    <color name="three">#444444</color>
+    <color name="four">#e7a248</color>
+
+    <color name="loading">#A5DC86</color>
+
+</resources>

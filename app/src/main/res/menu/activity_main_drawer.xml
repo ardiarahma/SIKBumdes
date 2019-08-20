@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Beranda"
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home">
+
+    </item>
+
+    <group android:checkableBehavior="single">
+        <item android:title="Master">
+            <menu>
+                <item
+                    android:id="@+id/nav_akun"
+                    android:icon="@drawable/ic_account"
+                    android:title="Data Akun" />
+                <item
+                    android:id="@+id/nav_neraca"
+                    android:icon="@drawable/ic_balance"
+                    android:title="Neraca Awal" />
+                <item
+                    android:id="@+id/nav_rab"
+                    android:icon="@drawable/ic_add"
+                    android:title="Rancangan Anggaran "/>
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="Pengaturan">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="Pengaturan Perusahaan" />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>
