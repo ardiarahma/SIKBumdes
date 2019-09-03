@@ -55,4 +55,7 @@ dependencies {
     implementation 'com.diegodobelo.expandingview:expanding-view:0.9.4'
 
     implementation 'com.getbase:floatingactionbutton:1.10.1'
+
+    implementation 'com.ramotion.garlandview:garland-view:0.3.2'
+//    implementation 'com.github.blocoio:faker:1.2.5'
 }

@@ -28,6 +28,7 @@
         <activity android:name=".activities.dashboard.NeracaActivity" />
         <activity android:name=".activities.dashboard.LabaRugiActivity" />
         <activity android:name=".activities.dashboard.EkuitasActivity" />
+        <activity android:name=".activities.dashboard.JurnalDetailsActivity" />
     </application>
 
 </manifest>

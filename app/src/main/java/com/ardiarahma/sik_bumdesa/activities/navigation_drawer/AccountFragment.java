@@ -213,7 +213,6 @@ public class AccountFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        vDialog.dismiss();
     }
 
     public void validationAccount(){
@@ -227,6 +226,7 @@ public class AccountFragment extends Fragment {
                 sweet_dialog.setTitleText("Klasifikasi akun berhasil ditambahkan");
                 sweet_dialog.show();
                 dialog.dismiss();
+                vDialog.dismiss();
             }
         }).show();
     }

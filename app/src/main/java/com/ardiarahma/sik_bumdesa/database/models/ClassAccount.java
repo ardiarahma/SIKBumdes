@@ -10,7 +10,7 @@ public class ClassAccount {
 
     private int id;
     private String name;
-    private int level;
+    public int level;
     private String posisi_normal;
     public enum STATE{
         CLOSED, OPENED

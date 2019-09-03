@@ -1,6 +1,10 @@
 package com.ardiarahma.sik_bumdesa.activities.navigation_drawer;
 
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,31 +12,50 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.database.adapters.Neraca_AsetTetap;
 import com.ardiarahma.sik_bumdesa.database.models.Aset;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BalanceFragment extends Fragment {
+public class BalanceFragment extends Fragment{
 
-    Spinner sp_months, sp_years;
+    TextView date;
+    ImageButton datepicker;
+    EditText jumlah_balance;
+    Spinner sp_months, sp_years, sp_account;
     public static final String[] months = new String[]{
             "Januari", "Februari", "Maret", "April", "Mei", "Juni",
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
     };
 
+    private int mYear, mMonth, mDay;
+
+    FloatingActionButton fab1;
+
     RecyclerView rv_aset_tetap, rv_aset_lancar, rv_utang_lancar, rv_utang_jp, rv_ekuitas, rv_pendapatan, rv_pendapatan_2, rv_biaya, rv_biaya_2;
     Neraca_AsetTetap adapter;
     ArrayList<Aset> asets;
+
+    Dialog dialog;
+    SweetAlertDialog vDialog;
 
     public BalanceFragment() {
         // Required empty public constructor
@@ -47,6 +70,59 @@ public class BalanceFragment extends Fragment {
 
         sp_months = v.findViewById(R.id.sp_month);
         sp_years = v.findViewById(R.id.sp_year);
+
+        sp_account = v.findViewById(R.id.nama_akun);
+        date = v.findViewById(R.id.date);
+        datepicker = v.findViewById(R.id.date_btn);
+        jumlah_balance = v.findViewById(R.id.jumlah_balance);
+
+        fab1 = v.findViewById(R.id.fab_1);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog = new Dialog(getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.add_balance);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                datepicker.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Calendar c = Calendar.getInstance();
+                        mYear = c.get(Calendar.YEAR);
+                        mMonth = c.get(Calendar.MONTH);
+                        mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                date.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                            }
+                        }, mYear, mMonth, mDay);
+                        datePickerDialog.show();
+                    }
+                });
+
+                Button dCancel = dialog.findViewById(R.id.cancel_button);
+                dCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                Button dSave = dialog.findViewById(R.id.save_button);
+                dSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.hide();
+                        validationAccount();
+                    }
+                });
+                dialog.show();
+            }
+        });
 
         //set year
         ArrayList<String> years = new ArrayList<String>();
@@ -103,4 +179,18 @@ public class BalanceFragment extends Fragment {
         return v;
     }
 
+    public void validationAccount(){
+        final SweetAlertDialog vDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE);
+        vDialog.setTitleText("Apakah data sudah benar?");
+        vDialog.setConfirmText("Ya, benar");
+        vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                SweetAlertDialog sweet_dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
+                sweet_dialog.setTitleText("Klasifikasi akun berhasil ditambahkan");
+                sweet_dialog.show();
+                dialog.dismiss();
+            }
+        }).show();
+    }
 }

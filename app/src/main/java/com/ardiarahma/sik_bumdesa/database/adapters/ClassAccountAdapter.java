@@ -28,7 +28,7 @@ import static com.ardiarahma.sik_bumdesa.database.models.ClassAccount.STATE.OPEN
 public class ClassAccountAdapter extends RecyclerView.Adapter<ClassAccountAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<ClassAccount> classAccounts = new ArrayList<>();
+    private ArrayList<ClassAccount> accountAll = new ArrayList<>();
 
     public ClassAccountAdapter(Context context) {
         this.context = context;
@@ -42,18 +42,18 @@ public class ClassAccountAdapter extends RecyclerView.Adapter<ClassAccountAdapte
 
     @Override
     public void onBindViewHolder(ClassAccountAdapter.ViewHolder holder, final int position) {
-        final ClassAccount account = classAccounts.get(position);
+        final ClassAccount account = accountAll.get(position);
         holder.name.setText(account.getName());
         holder.id.setText(String.valueOf(account.getId()));
 
-        holder.itemView.setTag(R.string.CLASSACCOUNT, classAccounts);
-        holder.itemView.setTag(R.string.position, classAccounts);
+        holder.itemView.setTag(R.string.MODEL, "list");
+        holder.itemView.setTag(R.string.position, "posistion");
 
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) holder.content.getLayoutParams();
-        layoutParams.setMargins(((int) convertDpToPixel(20, context)) * classAccounts.get(position).getLevel(), layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
+        layoutParams.setMargins(((int) convertDpToPixel(20, context)) * accountAll.get(position).getLevel(), layoutParams.topMargin, layoutParams.rightMargin, layoutParams.bottomMargin);
 
 
-        switch (account.getState()){
+        switch (account.state){
             case CLOSED:
                 holder.arrow.setImageResource(R.drawable.svg_arrow_right_filled);
                 break;
@@ -62,7 +62,7 @@ public class ClassAccountAdapter extends RecyclerView.Adapter<ClassAccountAdapte
                 break;
         }
 
-        if (account.getClassAccounts().isEmpty()){
+        if (account.classAccounts.isEmpty()){
             holder.arrow.setVisibility(View.INVISIBLE);
             holder.view.setVisibility(View.VISIBLE);
         }else {
@@ -73,34 +73,44 @@ public class ClassAccountAdapter extends RecyclerView.Adapter<ClassAccountAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (classAccounts.isEmpty()){
+//                int position = context.getString(R.string.position);
+//                ClassAccount rootModel = (ClassAccount) v.getTag(R.string.MODEL);
+                ClassAccount rootModel = accountAll.get(position);
+
+                if (rootModel.classAccounts.isEmpty()){
                     return;
                 }
-
-                if (classAccounts.get(position).getState().equals("CLOSED")){
-                    classAccounts.addAll(position + 1, classAccounts.get(position).getClassAccounts());
-                    notifyItemRangeInserted(position + 1, classAccounts.get(position).getClassAccounts().size());
-                    notifyItemRangeChanged(position + 1, classAccounts.get(position).getClassAccounts().size(), classAccounts.size() - (position + account.getClassAccounts().size()));
-                    notifyItemRangeChanged(position, classAccounts.size() - position);
-                    classAccounts.get(position).state = OPENED;
-                }else if (classAccounts.get(position).getState().equals("OPENED")){
-                    int start = position + 1;
-                    int end = classAccounts.size();
-                    for (int i=start; i < classAccounts.size(); i++){
-                        ClassAccount account1 = classAccounts.get(i);
-                        if (account1.getLevel() <= classAccounts.get(position).getLevel()){
-                            end = i;
-                            break;
+                switch (rootModel.state){
+                    case CLOSED:
+                        accountAll.addAll(position + 1, rootModel.classAccounts);
+                        notifyItemRangeInserted(position + 1, rootModel.classAccounts.size());
+                        notifyItemRangeChanged(position + rootModel.classAccounts.size(), accountAll.size() - (position + rootModel.classAccounts.size()));
+                        notifyItemRangeChanged(position, accountAll.size() - position);
+                        rootModel.state = ClassAccount.STATE.OPENED;
+                        break;
+                    case OPENED:
+                        int start = position + 1;
+                        int end = accountAll.size();
+                        for (int i = start; i < accountAll.size(); i++){
+                            ClassAccount model = accountAll.get(i);
+                            if (model.level <= rootModel.level){
+                                end = i;
+                                break;
+                            }else {
+                                if (model.state == ClassAccount.STATE.OPENED){
+                                    model.state = ClassAccount.STATE.CLOSED;
+                                }
+                            }
                         }
-                    }
+                        if (end != -1){
+                            accountAll.subList(start, end).clear();
+                            notifyItemRangeRemoved(start, end - start);
+                            notifyItemRangeChanged(start, end - start);
+                            notifyItemRangeChanged(position, accountAll.size() - position);
+                        }
 
-                    if (end != -1){
-                        classAccounts.subList(start, end).clear();
-                        notifyItemRangeRemoved(start, end - start);
-                        notifyItemRangeChanged(start, end - start);
-                        notifyItemRangeChanged(position, classAccounts.size() - position);
-                    }
-                    classAccounts.get(position).state = ClassAccount.STATE.CLOSED;
+                        rootModel.state = ClassAccount.STATE.CLOSED;
+                        break;
                 }
             }
         });
@@ -110,11 +120,11 @@ public class ClassAccountAdapter extends RecyclerView.Adapter<ClassAccountAdapte
 
     @Override
     public int getItemCount() {
-        return classAccounts.size();
+        return accountAll.size();
     }
 
     public void setData(ArrayList<ClassAccount> list){
-        classAccounts = list;
+        accountAll = list;
         notifyDataSetChanged();
     }
 

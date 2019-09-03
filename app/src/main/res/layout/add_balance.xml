@@ -27,17 +27,28 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:text="Parent"
+                android:text="Tanggal"
+                android:paddingTop="5dp"
                 android:textColor="@color/three"
                 android:textSize="16dp" />
 
-            <Spinner
-                android:id="@+id/parentAcc_spinner"
+            <ImageButton
+                android:id="@+id/date_btn"
+                android:layout_width="0dp"
+                android:background="#ffffff"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_date"/>
+            <TextView
+                android:id="@+id/date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.4"
+                android:paddingTop="5dp"
+                android:text="26/08/2019"
+                android:textSize="16dp"/>
 
         </LinearLayout>
 
@@ -51,57 +62,26 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Klasifikasi Akun"
+                android:layout_weight="0.3"
+                android:text="Nama Akun"
                 android:textColor="@color/three"
                 android:textSize="16dp" />
 
             <Spinner
-                android:id="@+id/childAcc_spinner"
+                android:id="@+id/nama_akun"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.7" />
 
         </LinearLayout>
 
         <EditText
-            android:id="@+id/kode_akun"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:hint="Kode Akun"
-            android:textSize="16dp" />
-
-        <EditText
-            android:id="@+id/nama_akun"
+            android:id="@+id/jumlah_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:hint="Nama Akun"
+            android:hint="Jumlah"
             android:textSize="16dp" />
-
-        <LinearLayout
-            android:id="@+id/linear3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Posisi Normal"
-                android:textColor="@color/three"
-                android:textSize="16dp" />
-
-            <Spinner
-                android:id="@+id/posisi_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -135,7 +115,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
-            />
         </LinearLayout>
 
     </LinearLayout>
