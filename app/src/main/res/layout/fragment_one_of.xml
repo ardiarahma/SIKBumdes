@@ -1,0 +1,580 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ardiarahma.sik_bumdesa.activities.dashboard.OneOfFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardBackgroundColor="@color/four">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="4 September 2019"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:gravity="center"
+                />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#ffffff"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="5dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_jurnal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"/>
+
+        </android.support.v7.widget.CardView>
+
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<android.support.v7.widget.CardView-->
+                    <!--android:id="@+id/jurnal_item"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--app:cardCornerRadius="10dp"-->
+                    <!--android:layout_marginTop="20dp">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:padding="15dp">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_keterangan"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginBottom="5dp"-->
+                            <!--android:text="Pembayaran Gaji Karyawan"-->
+                            <!--android:textSize="17dp"-->
+                            <!--android:ellipsize="end"/>-->
+
+                        <!--<view-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="2dp"-->
+                            <!--android:background="@drawable/lib_avatar_border_details" />-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="5dp"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_marginBottom="5dp">-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="No Akun"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="5110"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp"-->
+                                    <!--android:id="@+id/tv_nAkun"/>-->
+
+                            <!--</LinearLayout>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="1dp"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginLeft="10dp"-->
+                                <!--android:layout_marginRight="10dp"-->
+                                <!--android:layout_marginTop="7dp"-->
+                                <!--android:background="@color/three" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="No Kwitansi"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_kwitansi"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="A123"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp" />-->
+
+                            <!--</LinearLayout>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="1dp"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginLeft="10dp"-->
+                                <!--android:layout_marginRight="10dp"-->
+                                <!--android:layout_marginTop="7dp"-->
+                                <!--android:background="@color/three" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:text="Posisi Normal"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_posisi"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="D"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp" />-->
+
+                            <!--</LinearLayout>-->
+
+                        <!--</LinearLayout>-->
+
+                    <!--</LinearLayout>-->
+
+                <!--</android.support.v7.widget.CardView>-->
+                <!--<android.support.v7.widget.CardView-->
+                    <!--android:id="@+id/jurnal_item_1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--app:cardCornerRadius="10dp"-->
+                    <!--android:layout_marginTop="20dp">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:padding="15dp">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_keterangan_1"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginBottom="5dp"-->
+                            <!--android:text="Pembayaran Gaji Karyawan"-->
+                            <!--android:textSize="17dp"-->
+                            <!--android:ellipsize="end"/>-->
+
+                        <!--<view-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="2dp"-->
+                            <!--android:background="@drawable/lib_avatar_border_details" />-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="5dp"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_marginBottom="5dp">-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="No Akun"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="5110"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp"-->
+                                    <!--android:id="@+id/tv_nAkun_1"/>-->
+
+                            <!--</LinearLayout>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="1dp"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginLeft="10dp"-->
+                                <!--android:layout_marginRight="10dp"-->
+                                <!--android:layout_marginTop="7dp"-->
+                                <!--android:background="@color/three" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="No Kwitansi"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_kwitansi_1"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="A123"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp" />-->
+
+                            <!--</LinearLayout>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="1dp"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginLeft="10dp"-->
+                                <!--android:layout_marginRight="10dp"-->
+                                <!--android:layout_marginTop="7dp"-->
+                                <!--android:background="@color/three" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:text="Posisi Normal"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_posisi_1"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="K"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp" />-->
+
+                            <!--</LinearLayout>-->
+
+                        <!--</LinearLayout>-->
+
+                    <!--</LinearLayout>-->
+
+                <!--</android.support.v7.widget.CardView>-->
+                <!--<android.support.v7.widget.CardView-->
+                    <!--android:id="@+id/jurnal_item_2"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--app:cardCornerRadius="10dp"-->
+                    <!--android:layout_marginTop="20dp">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:padding="15dp">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_keterangan_2"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginBottom="5dp"-->
+                            <!--android:text="Sewa Rakit"-->
+                            <!--android:textSize="17dp"-->
+                            <!--android:ellipsize="end"/>-->
+
+                        <!--<view-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="2dp"-->
+                            <!--android:background="@drawable/lib_avatar_border_details" />-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="5dp"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_marginBottom="5dp">-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="No Akun"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="3210"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp"-->
+                                    <!--android:id="@+id/tv_nAkun_2"/>-->
+
+                            <!--</LinearLayout>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="1dp"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginLeft="10dp"-->
+                                <!--android:layout_marginRight="10dp"-->
+                                <!--android:layout_marginTop="7dp"-->
+                                <!--android:background="@color/three" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="No Kwitansi"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_kwitansi_2"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="B123"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp" />-->
+
+                            <!--</LinearLayout>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="1dp"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginLeft="10dp"-->
+                                <!--android:layout_marginRight="10dp"-->
+                                <!--android:layout_marginTop="7dp"-->
+                                <!--android:background="@color/three" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:text="Posisi Normal"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_posisi_2"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="D"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp" />-->
+
+                            <!--</LinearLayout>-->
+
+                        <!--</LinearLayout>-->
+
+                    <!--</LinearLayout>-->
+
+                <!--</android.support.v7.widget.CardView>-->
+                <!--<android.support.v7.widget.CardView-->
+                    <!--android:id="@+id/jurnal_item_3"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--app:cardCornerRadius="10dp"-->
+                    <!--android:layout_marginTop="20dp">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:padding="15dp">-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tv_keterangan_3"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginBottom="5dp"-->
+                            <!--android:text="Sewa Rakit"-->
+                            <!--android:textSize="17dp"-->
+                            <!--android:ellipsize="end"/>-->
+
+                        <!--<view-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="2dp"-->
+                            <!--android:background="@drawable/lib_avatar_border_details" />-->
+
+                        <!--<LinearLayout-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="5dp"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_marginBottom="5dp">-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="No Akun"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="3210"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp"-->
+                                    <!--android:id="@+id/tv_nAkun_3"/>-->
+
+                            <!--</LinearLayout>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="1dp"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginLeft="10dp"-->
+                                <!--android:layout_marginRight="10dp"-->
+                                <!--android:layout_marginTop="7dp"-->
+                                <!--android:background="@color/three" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:gravity="center"-->
+                                    <!--android:text="No Kwitansi"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_kwitansi_3"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="B123"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp" />-->
+
+                            <!--</LinearLayout>-->
+
+                            <!--<ImageView-->
+                                <!--android:layout_width="1dp"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_marginLeft="10dp"-->
+                                <!--android:layout_marginRight="10dp"-->
+                                <!--android:layout_marginTop="7dp"-->
+                                <!--android:background="@color/three" />-->
+
+                            <!--<LinearLayout-->
+                                <!--android:layout_width="0dp"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="0.3"-->
+                                <!--android:orientation="vertical">-->
+
+                                <!--<TextView-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="50dp"-->
+                                    <!--android:text="Posisi Normal"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textColor="@color/three"-->
+                                    <!--android:textSize="17dp" />-->
+
+                                <!--<TextView-->
+                                    <!--android:id="@+id/tv_posisi_3"-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="K"-->
+                                    <!--android:textAlignment="center"-->
+                                    <!--android:textSize="16dp" />-->
+
+                            <!--</LinearLayout>-->
+
+                        <!--</LinearLayout>-->
+
+                    <!--</LinearLayout>-->
+
+                <!--</android.support.v7.widget.CardView>-->
+
+            <!--</LinearLayout>-->
+
+        <!--</ScrollView>-->
+
+
+    </LinearLayout>
+
+</FrameLayout>

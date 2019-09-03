@@ -76,29 +76,43 @@
 
         </android.support.v4.view.ViewPager>
 
-        <!--<LinearLayout-->
-        <!--android:id="@+id/progressBar"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/fab_accounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            app:fab_addButtonColorNormal="@color/four"
+            app:fab_addButtonColorPressed="@color/two"
+            app:fab_addButtonPlusIconColor="#FFFFFF"
+            app:fab_labelStyle="@style/customFab">
 
-        <!--<ProgressBar-->
-        <!--style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content" />-->
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/four"
+                app:fab_colorPressed="@color/two"
+                app:fab_icon="@drawable/ic_add"
+                app:fab_size="mini"
+                app:fab_title="Tambah Jurnal Debit" />
 
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--android:textSize="14sp"-->
-        <!--android:text="Memuat.."/>-->
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="@color/four"
+                app:fab_colorPressed="@color/two"
+                app:fab_icon="@drawable/ic_add"
+                app:fab_size="mini"
+                app:fab_title="Tambah Jurnal Kredit" />
 
-        <!--</LinearLayout>-->
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
     </RelativeLayout>
 
 </LinearLayout>

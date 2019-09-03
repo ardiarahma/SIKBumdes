@@ -232,7 +232,7 @@ public class AccountFragment extends Fragment {
     }
 
     public void validationCAccount(){
-        SweetAlertDialog vDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE);
+        final SweetAlertDialog vDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE);
         vDialog.setTitleText("Apakah data sudah benar?");
         vDialog.setConfirmText("Ya, benar");
         vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -242,6 +242,7 @@ public class AccountFragment extends Fragment {
                 sweet_dialog.setTitleText("Akun berhasil ditambahkan");
                 sweet_dialog.show();
                 dialog.dismiss();
+                vDialog.dismiss();
             }
         }).show();
     }
