@@ -34,7 +34,7 @@ public class OneOfFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_one_of, container, false);
+        View v = inflater.inflate(R.layout.fragment_one_of, container, true);
         final RecyclerView rv = v.findViewById(R.id.rv_jurnal);
         JurnalAdapter adapter = new JurnalAdapter(getContext(), jurnals);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
@@ -46,7 +46,7 @@ public class OneOfFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         jurnals = new ArrayList<>();

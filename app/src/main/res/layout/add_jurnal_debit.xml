@@ -76,7 +76,30 @@
                 android:textSize="16dp" />
 
             <Spinner
-                android:id="@+id/childAcc_spinner"
+                android:id="@+id/debit_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Nama Akun"
+                android:textColor="@color/three"
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/kredit_spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5" />
@@ -99,28 +122,28 @@
             android:hint="Nomor Kwitansi"
             android:textSize="16dp" />
 
-        <LinearLayout
-            android:id="@+id/linear3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/linear3"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:orientation="horizontal">-->
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Posisi Normal"
-                android:textColor="@color/three"
-                android:textSize="16dp" />
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.5"-->
+                <!--android:text="Posisi Normal"-->
+                <!--android:textColor="@color/three"-->
+                <!--android:textSize="16dp" />-->
 
-            <Spinner
-                android:id="@+id/posisi_spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5" />
+            <!--<Spinner-->
+                <!--android:id="@+id/posisi_spinner"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.5" />-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

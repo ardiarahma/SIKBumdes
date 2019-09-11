@@ -1,6 +1,7 @@
 package com.ardiarahma.sik_bumdesa.activities.dashboard;
 
 import android.animation.ArgbEvaluator;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,18 +14,22 @@ import android.view.Window;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.database.adapters.JurnalViewPagerAdapter;
 import com.ardiarahma.sik_bumdesa.database.models.Jurnal;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -46,6 +51,14 @@ public class JurnalActivity extends AppCompatActivity {
     Dialog dialog;
     SweetAlertDialog vDialog;
 
+    DatePickerDialog datePickerDialog;
+    ImageButton date_btn;
+    TextView date;
+    SimpleDateFormat dateFormat;
+
+    TextView tv_keterangan, tv_jumlah, tv_kwitansi;
+    Spinner debit_spinner, kredit_spinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +72,6 @@ public class JurnalActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-//        ((GarlandApp)getApplication()).addListener(this);
 
         sp_months = findViewById(R.id.sp_month);
         sp_years = findViewById(R.id.sp_year);
@@ -101,6 +112,24 @@ public class JurnalActivity extends AppCompatActivity {
                 dialog.setCancelable(false);
                 dialog.setContentView(R.layout.add_jurnal_debit);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                tv_keterangan = dialog.findViewById(R.id.tv_keterangan);
+                tv_jumlah = dialog.findViewById(R.id.tv_jumlah);
+                tv_kwitansi = dialog.findViewById(R.id.tv_kwitansi);
+                debit_spinner = dialog.findViewById(R.id.debit_spinner);
+                kredit_spinner = dialog.findViewById(R.id.kredit_spinner);
+                date_btn = dialog.findViewById(R.id.date_btn);
+                date = dialog.findViewById(R.id.date);
+
+                dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+
+                date_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDatePicker();
+                    }
+                });
+
 
                 Button dCancel = dialog.findViewById(R.id.cancel_button);
                 dCancel.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +180,21 @@ public class JurnalActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void showDatePicker(){
+        Calendar calendar = Calendar.getInstance();
+
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, month, dayOfMonth);
+
+                date.setText(dateFormat.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 
     public void validationAccount(){
