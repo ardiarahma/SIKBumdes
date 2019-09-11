@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -23,8 +23,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.database.adapters.Neraca_AsetTetap;
-import com.ardiarahma.sik_bumdesa.database.models.Aset;
+import com.ardiarahma.sik_bumdesa.database.adapters.Neraca_AsetLancarAdapter;
+import com.ardiarahma.sik_bumdesa.database.adapters.Neraca_AsetTetapAdapter;
+import com.ardiarahma.sik_bumdesa.database.models.Neraca_AsetLancar;
+import com.ardiarahma.sik_bumdesa.database.models.Neraca_AsetTetap;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -50,9 +52,13 @@ public class BalanceFragment extends Fragment{
 
     FloatingActionButton fab1;
 
-    RecyclerView rv_aset_tetap, rv_aset_lancar, rv_utang_lancar, rv_utang_jp, rv_ekuitas, rv_pendapatan, rv_pendapatan_2, rv_biaya, rv_biaya_2;
-    Neraca_AsetTetap adapter;
-    ArrayList<Aset> asets;
+    RecyclerView rv_aset_tetap, rv_aset_lancar, rv_utang_lancar, rv_utang_jp, rv_ekuitas,
+            rv_pendapatan, rv_pendapatan_2, rv_biaya, rv_biaya_2;
+    Neraca_AsetTetapAdapter adapter_asetTetap;
+    Neraca_AsetLancarAdapter adapter_asetLancar;
+
+    ArrayList<Neraca_AsetTetap> neracaAsetTetaps;
+    ArrayList<Neraca_AsetLancar> neracaAsetLancars;
 
     Dialog dialog;
     SweetAlertDialog vDialog;
@@ -137,9 +143,25 @@ public class BalanceFragment extends Fragment{
         ArrayAdapter<String> adapter_month = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, months);
         sp_months.setAdapter(adapter_month);
 
-
         rv_aset_lancar = v.findViewById(R.id.rv_aset_lancar);
+        adapter_asetLancar = new Neraca_AsetLancarAdapter(getContext(), neracaAsetLancars);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
+                false);
+        rv_aset_lancar.setAdapter(adapter_asetLancar);
+        rv_aset_lancar.setHasFixedSize(true);
+        rv_aset_lancar.setLayoutManager(linearLayoutManager);
+        adapter_asetLancar.notifyDataSetChanged();
+
         rv_aset_tetap = v.findViewById(R.id.rv_aset_tetap);
+        adapter_asetTetap= new Neraca_AsetTetapAdapter(getContext(), neracaAsetTetaps);
+        LinearLayoutManager linearLayoutManager_1 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
+                false);
+        rv_aset_tetap.setAdapter(adapter_asetTetap);
+        rv_aset_tetap.setHasFixedSize(true);
+        rv_aset_tetap.setLayoutManager(linearLayoutManager_1);
+        adapter_asetTetap.notifyDataSetChanged();
+
+
         rv_utang_lancar = v.findViewById(R.id.rv_utang_lancar);
         rv_utang_jp = v.findViewById(R.id.rv_utang_jp);
         rv_ekuitas = v.findViewById(R.id.rv_ekuitas);
@@ -148,35 +170,30 @@ public class BalanceFragment extends Fragment{
         rv_pendapatan = v.findViewById(R.id.rv_pendapatan);
         rv_pendapatan_2 = v.findViewById(R.id.rv_pendapatan_2);
 
-        adapter = new Neraca_AsetTetap(getActivity(), asets);
 
-        rv_aset_tetap.setAdapter(adapter);
-        rv_aset_lancar.setAdapter(adapter);
-        rv_utang_lancar.setAdapter(adapter);
-        rv_utang_jp.setAdapter(adapter);
-        rv_ekuitas.setAdapter(adapter);
-        rv_pendapatan.setAdapter(adapter);
-        rv_biaya.setAdapter(adapter);
-        rv_pendapatan_2.setAdapter(adapter);
-        rv_biaya_2.setAdapter(adapter);
-
-        rv_aset_lancar.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rv_aset_tetap.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rv_utang_lancar.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rv_utang_jp.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rv_ekuitas.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rv_pendapatan.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rv_biaya.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rv_pendapatan_2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        rv_biaya_2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
-        adapter.notifyDataSetChanged();
 
 
 
 
 
         return v;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        neracaAsetLancars = new ArrayList<>();
+        neracaAsetLancars.add(new Neraca_AsetLancar("Kas", 5000000));
+        neracaAsetLancars.add(new Neraca_AsetLancar("Kas di Bank", 3000000));
+        neracaAsetTetaps = new ArrayList<>();
+        neracaAsetTetaps.add(new Neraca_AsetTetap("Tanah", 5000000));
+        neracaAsetTetaps.add(new Neraca_AsetTetap("Gedung", 3000000));
+//
+//        ningrum = new ArrayList<>();
+//        ningrum.add(new Ningrum("", 4566))
+
+
     }
 
     public void validationAccount(){

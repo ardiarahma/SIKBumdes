@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.ardiarahma.sik_bumdesa.activities.navigation_drawer.BalanceFragment">
 
@@ -48,9 +48,9 @@
 
     <ScrollView
         android:id="@+id/area"
-        android:layout_below="@id/card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/card">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,6 +85,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:text="Aset Tetap"
                 android:textColor="@color/three"
@@ -108,6 +109,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:text="Utang Lancar"
                 android:textColor="@color/three"
@@ -123,6 +125,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:text="Utang Jangka Panjang"
                 android:textColor="@color/three"
@@ -245,11 +248,11 @@
         android:id="@+id/fab_accounts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         app:fab_addButtonColorNormal="@color/four"
         app:fab_addButtonColorPressed="@color/two"
         app:fab_addButtonPlusIconColor="#FFFFFF"

@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SIKBumdes.iml" filepath="$PROJECT_DIR$/SIKBumdes.iml" />
-      <module fileurl="file://D:\#BUMDES\ANDROID BASED\SIKBumdes\SIKBumdes.iml" filepath="D:\#BUMDES\ANDROID BASED\SIKBumdes\SIKBumdes.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\#BUMDES\ANDROID BASED\SIKBumdes\app\app.iml" filepath="D:\#BUMDES\ANDROID BASED\SIKBumdes\app\app.iml" />
     </modules>
   </component>
 </project>

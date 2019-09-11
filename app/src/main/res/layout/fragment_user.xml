@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
     tools:context="com.ardiarahma.sik_bumdesa.activities.navigation_drawer.UserFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,7 +16,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true">
 
         <LinearLayout
             android:layout_width="match_parent"

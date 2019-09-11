@@ -4,12 +4,12 @@ package com.ardiarahma.sik_bumdesa.database.models;
  * Created by Windows 10 on 8/19/2019.
  */
 
-public class Aset {
+public class Neraca_AsetLancar {
 
     String akun;
     int jumlah;
 
-    public Aset(String akun, int jumlah) {
+    public Neraca_AsetLancar(String akun, int jumlah) {
         this.akun = akun;
         this.jumlah = jumlah;
     }
@@ -29,4 +29,6 @@ public class Aset {
     public void setJumlah(int jumlah) {
         this.jumlah = jumlah;
     }
+
+
 }
