@@ -29,8 +29,10 @@ import com.ardiarahma.sik_bumdesa.database.models.Neraca_AsetLancar;
 import com.ardiarahma.sik_bumdesa.database.models.Neraca_AsetTetap;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -48,6 +50,15 @@ public class BalanceFragment extends Fragment{
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
     };
 
+    public static final String[] akun = new String[]{
+            "Kas", "Kas di Bank", "Piutang Dagang", " Sewa Dibayar Dimuka", "Aset Lainnya", "Utang Dagang",
+            "Utang Gaji", "Utang Bank", "Obligasi", "Modal Disetor", "Saldo Laba Ditahan", "Saldo Laba Tahun Berjalan",
+            "Pendapatan Wisata", "Pendapatan Homestay", "Pendapatan Resto", "Pendapatan Event", "Biaya Gaji", "Biaya Listrik, Air, dan Telepon",
+            "Biaya Administrasi dan Umum", "Biaya Pemasaran", "Biaya Perlengkapan Kantor", "Biaya Sewa", "Biaya Asuransi", "Biaya Penyusutan Gedung",
+            "Biaya Penyusutan Kendaraan", "Biaya Penyusutan Peralatan Kantor", "Pendapatan Lain-lain",
+            "Biaya Lain-lain"
+    };
+
     private int mYear, mMonth, mDay;
 
     FloatingActionButton fab1;
@@ -63,6 +74,9 @@ public class BalanceFragment extends Fragment{
     Dialog dialog;
     SweetAlertDialog vDialog;
 
+    DatePickerDialog datePickerDialog;
+    SimpleDateFormat dateFormat;
+
     public BalanceFragment() {
         // Required empty public constructor
     }
@@ -77,10 +91,7 @@ public class BalanceFragment extends Fragment{
         sp_months = v.findViewById(R.id.sp_month);
         sp_years = v.findViewById(R.id.sp_year);
 
-        sp_account = v.findViewById(R.id.nama_akun);
-        date = v.findViewById(R.id.date);
-        datepicker = v.findViewById(R.id.date_btn);
-        jumlah_balance = v.findViewById(R.id.jumlah_balance);
+
 
         fab1 = v.findViewById(R.id.fab_1);
         fab1.setOnClickListener(new View.OnClickListener() {
@@ -92,21 +103,21 @@ public class BalanceFragment extends Fragment{
                 dialog.setContentView(R.layout.add_balance);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+                sp_account = dialog.findViewById(R.id.nama_akun);
+                date = dialog.findViewById(R.id.date);
+                datepicker = dialog.findViewById(R.id.date_btn);
+                jumlah_balance = dialog.findViewById(R.id.jumlah_balance);
+
+                ArrayAdapter<String> account_adapter = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, akun);
+                account_adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                sp_account.setAdapter(account_adapter);
+
+                dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+
                 datepicker.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final Calendar c = Calendar.getInstance();
-                        mYear = c.get(Calendar.YEAR);
-                        mMonth = c.get(Calendar.MONTH);
-                        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                date.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                            }
-                        }, mYear, mMonth, mDay);
-                        datePickerDialog.show();
+                        showDatePicker();
                     }
                 });
 
@@ -189,11 +200,22 @@ public class BalanceFragment extends Fragment{
         neracaAsetTetaps = new ArrayList<>();
         neracaAsetTetaps.add(new Neraca_AsetTetap("Tanah", 5000000));
         neracaAsetTetaps.add(new Neraca_AsetTetap("Gedung", 3000000));
-//
-//        ningrum = new ArrayList<>();
-//        ningrum.add(new Ningrum("", 4566))
 
+    }
 
+    public void showDatePicker(){
+        Calendar calendar = Calendar.getInstance();
+
+        datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, month, dayOfMonth);
+
+                date.setText(dateFormat.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 
     public void validationAccount(){
@@ -207,6 +229,7 @@ public class BalanceFragment extends Fragment{
                 sweet_dialog.setTitleText("Klasifikasi akun berhasil ditambahkan");
                 sweet_dialog.show();
                 dialog.dismiss();
+                vDialog.dismiss();
             }
         }).show();
     }

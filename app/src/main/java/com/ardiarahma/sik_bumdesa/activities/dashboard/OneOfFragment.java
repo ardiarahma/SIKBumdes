@@ -35,13 +35,13 @@ public class OneOfFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_one_of, container, true);
-        final RecyclerView rv = v.findViewById(R.id.rv_jurnal);
-        JurnalAdapter adapter = new JurnalAdapter(getContext(), jurnals);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
-                false);
-        rv.setAdapter(adapter);
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(linearLayoutManager);
+//        final RecyclerView rv = v.findViewById(R.id.rv_jurnal);
+//        JurnalAdapter adapter = new JurnalAdapter(getContext(), jurnals);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
+//                false);
+//        rv.setAdapter(adapter);
+//        rv.setHasFixedSize(true);
+//        rv.setLayoutManager(linearLayoutManager);
         return v;
     }
 

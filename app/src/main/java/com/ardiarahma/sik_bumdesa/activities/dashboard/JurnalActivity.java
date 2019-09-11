@@ -35,10 +35,19 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class JurnalActivity extends AppCompatActivity {
 
-    Spinner sp_months, sp_years, sp_account;
+    Spinner sp_months, sp_years;
     public static final String[] months = new String[]{
             "Januari", "Februari", "Maret", "April", "Mei", "Juni",
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    };
+
+    public static final String[] akun = new String[]{
+            "Kas", "Kas di Bank", "Piutang Dagang", " Sewa Dibayar Dimuka", "Aset Lainnya", "Utang Dagang",
+            "Utang Gaji", "Utang Bank", "Obligasi", "Modal Disetor", "Saldo Laba Ditahan", "Saldo Laba Tahun Berjalan",
+            "Pendapatan Wisata", "Pendapatan Homestay", "Pendapatan Resto", "Pendapatan Event", "Biaya Gaji", "Biaya Listrik, Air, dan Telepon",
+            "Biaya Administrasi dan Umum", "Biaya Pemasaran", "Biaya Perlengkapan Kantor", "Biaya Sewa", "Biaya Asuransi", "Biaya Penyusutan Gedung",
+            "Biaya Penyusutan Kendaraan", "Biaya Penyusutan Peralatan Kantor", "Pendapatan Lain-lain",
+            "Biaya Lain-lain"
     };
 
     ImageButton toolbar_back;
@@ -46,7 +55,7 @@ public class JurnalActivity extends AppCompatActivity {
     private ViewPager viewPager = null;
     private JurnalViewPagerAdapter pagerAdapter = null;
 
-    FloatingActionButton fab1, fab2;
+    FloatingActionButton fab1;
 
     Dialog dialog;
     SweetAlertDialog vDialog;
@@ -102,7 +111,6 @@ public class JurnalActivity extends AppCompatActivity {
         pagerAdapter.notifyDataSetChanged();
 
         fab1 = findViewById(R.id.fab_1);
-        fab2 = findViewById(R.id.fab_2);
 
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +129,7 @@ public class JurnalActivity extends AppCompatActivity {
                 date_btn = dialog.findViewById(R.id.date_btn);
                 date = dialog.findViewById(R.id.date);
 
-                dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+                dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
                 date_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -129,6 +137,14 @@ public class JurnalActivity extends AppCompatActivity {
                         showDatePicker();
                     }
                 });
+
+                ArrayAdapter<String> debit_adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, akun);
+                debit_adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                debit_spinner.setAdapter(debit_adapter);
+
+                ArrayAdapter<String> kredit_adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, akun);
+                kredit_adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                kredit_spinner.setAdapter(kredit_adapter);
 
 
                 Button dCancel = dialog.findViewById(R.id.cancel_button);
@@ -151,35 +167,6 @@ public class JurnalActivity extends AppCompatActivity {
             }
         });
 
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog = new Dialog(JurnalActivity.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setCancelable(false);
-                dialog.setContentView(R.layout.add_jurnal_kredit);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                Button dCancel = dialog.findViewById(R.id.cancel_button);
-                dCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-                Button dSave = dialog.findViewById(R.id.save_button);
-                dSave.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.hide();
-                        validationCAccount();
-                    }
-                });
-                dialog.show();
-            }
-        });
-
     }
 
     public void showDatePicker(){
@@ -190,7 +177,6 @@ public class JurnalActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, month, dayOfMonth);
-
                 date.setText(dateFormat.format(newDate.getTime()));
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -206,22 +192,6 @@ public class JurnalActivity extends AppCompatActivity {
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
                 sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
-                sweet_dialog.show();
-                dialog.dismiss();
-                vDialog.dismiss();
-            }
-        }).show();
-    }
-
-    public void validationCAccount(){
-        final SweetAlertDialog vDialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.WARNING_TYPE);
-        vDialog.setTitleText("Apakah data sudah benar?");
-        vDialog.setConfirmText("Ya, benar");
-        vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-            @Override
-            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-                sweet_dialog.setTitleText("Jurnal kredit berhasil ditambahkan");
                 sweet_dialog.show();
                 dialog.dismiss();
                 vDialog.dismiss();
