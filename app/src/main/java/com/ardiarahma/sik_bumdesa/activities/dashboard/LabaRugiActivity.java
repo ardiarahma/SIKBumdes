@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -22,27 +23,18 @@ import com.ardiarahma.sik_bumdesa.database.models.LabaRugi_Pendapatan;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class LabaRugiActivity extends AppCompatActivity {
 
-    ImageButton datepicker;
-    EditText jumlah_balance;
-    Spinner sp_months, sp_years, sp_account;
-    public static final String[] months = new String[]{
-            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
-            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
-    };
-
     ImageButton toolbar_back;
 
-    Dialog dialog;
-    SweetAlertDialog vDialog;
     DatePickerDialog datePickerDialog;
     ImageButton date_btn;
-    TextView date;
-    SimpleDateFormat dateFormat;
+    SimpleDateFormat monthFormat, yearFormat;
+    TextView tv_months, tv_years;
 
     TextView tv_totalPendapatan, tv_totalBiaya, tv_Laba, tv_totalAll;
     RecyclerView rv_pendapatan, rv_biaya;
@@ -64,22 +56,35 @@ public class LabaRugiActivity extends AppCompatActivity {
             }
         });
 
-        sp_months = findViewById(R.id.sp_month);
-        sp_years = findViewById(R.id.sp_year);
+        monthFormat = new SimpleDateFormat("MM", Locale.US);
+        yearFormat = new SimpleDateFormat("yyyy", Locale.US);
+        tv_months = findViewById(R.id.month);
+        tv_years = findViewById(R.id.year);
+
+        date_btn = findViewById(R.id.date_btn);
+        date_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDate();
+            }
+        });
+
+//        sp_months = findViewById(R.id.sp_month);
+//        sp_years = findViewById(R.id.sp_year);
 
         //set year
-        ArrayList<String> years = new ArrayList<String>();
-        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = 1900; i <= thisYear; i++){
-            years.add(Integer.toString(i));
-        }
+//        ArrayList<String> years = new ArrayList<String>();
+//        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+//        for (int i = 1900; i <= thisYear; i++){
+//            years.add(Integer.toString(i));
+//        }
 
-        ArrayAdapter<String> adapter_year = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, years);
-        sp_years.setAdapter(adapter_year);
-
-        //set months
-        final ArrayAdapter<String> adapter_month = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, months);
-        sp_months.setAdapter(adapter_month);
+//        ArrayAdapter<String> adapter_year = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, years);
+//        sp_years.setAdapter(adapter_year);
+//
+//        //set months
+//        final ArrayAdapter<String> adapter_month = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, months);
+//        sp_months.setAdapter(adapter_month);
 
         tv_totalPendapatan = findViewById(R.id.total_pendapatan);
         tv_totalBiaya = findViewById(R.id.total_biaya);
@@ -109,5 +114,26 @@ public class LabaRugiActivity extends AppCompatActivity {
         biayaAdapter.notifyDataSetChanged();
         labaRugi_biayas.add(new LabaRugi_Biaya("Biaya Gaji", 1000000));
         labaRugi_biayas.add(new LabaRugi_Biaya("Biaya Listrik", 800000));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showDate();
+    }
+
+    public void showDate(){
+        Calendar calendar = Calendar.getInstance();
+
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, month, dayOfMonth);
+                tv_months.setText(monthFormat.format(newDate.getTime()));
+                tv_years.setText(yearFormat.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 }
