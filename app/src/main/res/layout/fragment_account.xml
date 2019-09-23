@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,15 +13,16 @@
         android:id="@+id/fab_accounts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="20dp"
         app:fab_addButtonColorNormal="@color/four"
         app:fab_addButtonColorPressed="@color/two"
         app:fab_addButtonPlusIconColor="#FFFFFF"
-        app:fab_labelStyle="@style/customFab">
+        app:fab_labelStyle="@style/customFab"
+        app:layout_anchorGravity="bottom|right|end">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_1"
@@ -45,4 +46,4 @@
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

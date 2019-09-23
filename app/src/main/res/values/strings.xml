@@ -30,4 +30,6 @@
     <string name="details_close">CLOSE</string>
     <string name="details_details">DETAILS</string>
     <string name="initializing_faker">Initializing Faker...</string>
+    <string name="title_activity_jurnal2">Jurnal2Activity</string>
+    <string name="title_activity_account">AccountActivity</string>
 </resources>

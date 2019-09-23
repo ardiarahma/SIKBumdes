@@ -1,118 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/four"
-        app:popupTheme="@style/AppTheme.PopupOverlay">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <ImageButton
-            android:id="@+id/toolbar_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/toolbar_back" />
-
-        <TextView
-            android:id="@+id/title_toolbar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45dp"
-            android:text="Jurnal"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:textColor="#FFFFFF" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/four"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-    </android.support.v7.widget.Toolbar>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="15dp">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:gravity="center"
-
-                android:src="@drawable/ic_date" />
-
-            <Spinner
-                android:id="@+id/sp_month"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:gravity="center" />
-
-            <Spinner
-                android:id="@+id/sp_year"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:gravity="center" />
-        </LinearLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/date"
-            android:layout_marginTop="5dp"
-            android:clipToPadding="false"
-            android:foregroundGravity="center"
-            android:overScrollMode="never">
-
-        </android.support.v4.view.ViewPager>
-
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
-            android:id="@+id/fab_accounts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="20dp"
-            app:fab_addButtonColorNormal="@color/four"
-            app:fab_addButtonColorPressed="@color/two"
-            app:fab_addButtonPlusIconColor="#FFFFFF"
-            app:fab_labelStyle="@style/customFab">
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_1"
+            <ImageButton
+                android:id="@+id/toolbar_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/four"
-                app:fab_colorPressed="@color/two"
-                app:fab_icon="@drawable/ic_add"
-                app:fab_size="mini"
-                app:fab_title="Tambah Jurnal Debit" />
+                android:background="@drawable/toolbar_back" />
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_2"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/title_toolbar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/four"
-                app:fab_colorPressed="@color/two"
-                app:fab_icon="@drawable/ic_add"
-                app:fab_size="mini"
-                app:fab_title="Tambah Jurnal Kredit" />
+                android:layout_marginLeft="45dp"
+                android:text="Jurnal"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+                android:textColor="#FFFFFF" />
 
-        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        </android.support.v7.widget.Toolbar>
 
+    </android.support.design.widget.AppBarLayout>
 
-    </RelativeLayout>
+    <include layout="@layout/content_jurnal" />
 
-</LinearLayout>
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/fab_accounts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        app:fab_addButtonColorNormal="@color/four"
+        app:fab_addButtonColorPressed="@color/two"
+        app:fab_addButtonPlusIconColor="#FFFFFF"
+        app:fab_labelStyle="@style/customFab">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_colorNormal="@color/four"
+            app:fab_colorPressed="@color/two"
+            app:fab_icon="@drawable/ic_add"
+            app:fab_size="mini"
+            app:fab_title="Tambah Jurnal Debit" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</android.support.design.widget.CoordinatorLayout>

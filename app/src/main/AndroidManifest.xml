@@ -23,12 +23,16 @@
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.dashboard.JurnalActivity" />
-        <activity android:name=".activities.dashboard.BukuBesarActivity" />
+        <activity android:name=".activities.dashboard.BukuBesarActivity"
+            android:screenOrientation="landscape"/>
         <activity android:name=".activities.dashboard.NeracaActivity" />
-        <activity android:name=".activities.dashboard.LabaRugiActivity" />
         <activity android:name=".activities.dashboard.EkuitasActivity" />
         <activity android:name=".activities.dashboard.JurnalDetailsActivity" />
+        <activity
+            android:name=".activities.dashboard.JurnalActivity"
+            android:label="@string/title_activity_jurnal2"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activities.dashboard.LabaRugiActivity"></activity>
     </application>
 
 </manifest>

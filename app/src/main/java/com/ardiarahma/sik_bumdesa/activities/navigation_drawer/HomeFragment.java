@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.activities.MainActivity;
 import com.ardiarahma.sik_bumdesa.activities.dashboard.BukuBesarActivity;
 import com.ardiarahma.sik_bumdesa.activities.dashboard.EkuitasActivity;
 import com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalActivity;
@@ -60,7 +59,7 @@ public class HomeFragment extends Fragment {
         v3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NeracaActivity.class);
+                Intent intent = new Intent(getActivity(), LabaRugiActivity.class);
                 startActivity(intent);
             }
         });
@@ -68,7 +67,7 @@ public class HomeFragment extends Fragment {
         v4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LabaRugiActivity.class);
+                Intent intent = new Intent(getActivity(), EkuitasActivity.class);
                 startActivity(intent);
             }
         });
@@ -76,7 +75,7 @@ public class HomeFragment extends Fragment {
         v5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EkuitasActivity.class);
+                Intent intent = new Intent(getActivity(), NeracaActivity.class);
                 startActivity(intent);
             }
         });

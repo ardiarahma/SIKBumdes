@@ -2,7 +2,6 @@ package com.ardiarahma.sik_bumdesa.activities.dashboard;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,13 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.database.adapters.JurnalViewPagerAdapter;
 import com.ardiarahma.sik_bumdesa.database.adapters.LabaRugi_BiayaAdapter;
 import com.ardiarahma.sik_bumdesa.database.adapters.LabaRugi_PendapatanAdapter;
-import com.ardiarahma.sik_bumdesa.database.adapters.Neraca_AsetLancarAdapter;
 import com.ardiarahma.sik_bumdesa.database.models.LabaRugi_Biaya;
 import com.ardiarahma.sik_bumdesa.database.models.LabaRugi_Pendapatan;
-import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,22 +37,14 @@ public class LabaRugiActivity extends AppCompatActivity {
 
     ImageButton toolbar_back;
 
-    private ViewPager viewPager = null;
-    private JurnalViewPagerAdapter pagerAdapter = null;
-
-    FloatingActionButton fab1;
-
     Dialog dialog;
     SweetAlertDialog vDialog;
-
     DatePickerDialog datePickerDialog;
     ImageButton date_btn;
     TextView date;
     SimpleDateFormat dateFormat;
 
-    TextView tv_keterangan, tv_jumlah, tv_kwitansi;
-    Spinner debit_spinner, kredit_spinner;
-
+    TextView tv_totalPendapatan, tv_totalBiaya, tv_Laba, tv_totalAll;
     RecyclerView rv_pendapatan, rv_biaya;
     LabaRugi_BiayaAdapter biayaAdapter;
     LabaRugi_PendapatanAdapter pendapatanAdapter;
@@ -66,7 +54,7 @@ public class LabaRugiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_laba_rugi);
+        setContentView(R.layout.activity_laba);
 
         toolbar_back = findViewById(R.id.toolbar_back);
         toolbar_back.setOnClickListener(new View.OnClickListener() {
@@ -94,21 +82,29 @@ public class LabaRugiActivity extends AppCompatActivity {
         sp_months.setAdapter(adapter_month);
 
         rv_pendapatan = findViewById(R.id.rv_pendapatan);
-        pendapatanAdapter = new LabaRugi_PendapatanAdapter(this, labaRugi_pendapatans);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
+        pendapatanAdapter = new LabaRugi_PendapatanAdapter(LabaRugiActivity.this, labaRugi_pendapatans);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(LabaRugiActivity.this, LinearLayoutManager.VERTICAL,
                 false);
         rv_pendapatan.setAdapter(pendapatanAdapter);
         rv_pendapatan.setHasFixedSize(true);
         rv_pendapatan.setLayoutManager(linearLayoutManager);
         pendapatanAdapter.notifyDataSetChanged();
 
+        labaRugi_pendapatans = new ArrayList<>();
+        labaRugi_pendapatans.add(new LabaRugi_Pendapatan("Pendapatan Wisata", 10000000));
+        labaRugi_pendapatans.add(new LabaRugi_Pendapatan("Pendapatan lain", 300000));
+
         rv_biaya = findViewById(R.id.rv_biaya);
-        biayaAdapter = new LabaRugi_BiayaAdapter(this, labaRugi_biayas);
-        LinearLayoutManager linearLayoutManager_1 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
+        biayaAdapter = new LabaRugi_BiayaAdapter(LabaRugiActivity.this, labaRugi_biayas);
+        LinearLayoutManager linearLayoutManager_1 = new LinearLayoutManager(LabaRugiActivity.this, LinearLayoutManager.VERTICAL,
                 false);
         rv_biaya.setAdapter(biayaAdapter);
         rv_biaya.setHasFixedSize(true);
         rv_biaya.setLayoutManager(linearLayoutManager_1);
         biayaAdapter.notifyDataSetChanged();
+
+        labaRugi_biayas = new ArrayList<>();
+        labaRugi_biayas.add(new LabaRugi_Biaya("Biaya Gaji", 1000000));
+        labaRugi_biayas.add(new LabaRugi_Biaya("Biaya Listrik", 800000));
     }
 }

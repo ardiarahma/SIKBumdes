@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class LabaRugi_PendapatanAdapter extends RecyclerView.Adapter<LabaRugi_PendapatanAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<LabaRugi_Pendapatan> labaRugi_pendapatans= new ArrayList<>();
+    private ArrayList<LabaRugi_Pendapatan> labaRugi_pendapatans = new ArrayList<>();
 
     public LabaRugi_PendapatanAdapter(Context context, ArrayList<LabaRugi_Pendapatan> labaRugi_pendapatans) {
         this.context = context;

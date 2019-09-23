@@ -1,11 +1,9 @@
 package com.ardiarahma.sik_bumdesa.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,13 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.activities.dashboard.BukuBesarActivity;
-import com.ardiarahma.sik_bumdesa.activities.dashboard.EkuitasActivity;
-import com.ardiarahma.sik_bumdesa.activities.dashboard.LabaRugiActivity;
-import com.ardiarahma.sik_bumdesa.activities.dashboard.NeracaActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountFragment;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.BalanceFragment;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.HomeFragment;

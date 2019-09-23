@@ -28,7 +28,7 @@ public class JurnalAdapter extends RecyclerView.Adapter<JurnalAdapter.ViewHolder
 
     @Override
     public JurnalAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.jurnal_item, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.jurnal_details_item, parent, false);
         ViewHolder vHolder = new ViewHolder(v);
         return vHolder;
     }

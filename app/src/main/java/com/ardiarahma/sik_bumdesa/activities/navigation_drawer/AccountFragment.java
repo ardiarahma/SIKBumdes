@@ -250,13 +250,13 @@ public class AccountFragment extends Fragment {
     public ArrayList<ClassAccount> getList(){
         ArrayList<ClassAccount> classAccounts = new ArrayList<>();
 
-        ClassAccount account_1 = new ClassAccount(1, "Neraca_AsetLancarAdapter", 1, null);
-        ClassAccount account_1_1 = new ClassAccount(11, "Neraca_AsetLancarAdapter Lancar", 2, null);
+        ClassAccount account_1 = new ClassAccount(1, "Aset", 1, null);
+        ClassAccount account_1_1 = new ClassAccount(11, "Aset Lancar", 2, null);
         ClassAccount account_1_1_1 = new ClassAccount(1110, "Kas", 3, "DEBIT");
         ClassAccount account_1_1_2 = new ClassAccount(1111, "Kas di Bank", 3, "DEBIT");
         ClassAccount account_1_1_3 = new ClassAccount(1120, "Piutang Dagang", 3, "DEBIT");
         ClassAccount account_1_1_4 = new ClassAccount(1130, "Sewa Dibayar Dimuka", 3, "DEBIT");
-        ClassAccount account_1_2 = new ClassAccount(12, "Neraca_AsetLancarAdapter Tetap", 2, null);
+        ClassAccount account_1_2 = new ClassAccount(12, "Aset Tetap", 2, null);
         ClassAccount account_1_2_1 = new ClassAccount(1210, "Tanah", 3, "DEBIT");
         ClassAccount account_1_2_2 = new ClassAccount(1220, "Gedung", 3, "DEBIT");
         ClassAccount account_1_2_3 = new ClassAccount(1221, "Akumulasi Penyusutan Gedung", 3, "KREDIT");
@@ -264,7 +264,7 @@ public class AccountFragment extends Fragment {
         ClassAccount account_1_2_5 = new ClassAccount(1231, "Akumulasi Penyusutan Kendaraan", 3, "KREDIT");
         ClassAccount account_1_2_6 = new ClassAccount(1240, "Peralatan Kantor", 3, "DEBIT");
         ClassAccount account_1_2_7 = new ClassAccount(1240, "Akumulasi Penyusutan Peralatan Kantor", 3, "KREDIT");
-        ClassAccount account_1_3 = new ClassAccount(13, "Neraca_AsetLancarAdapter Lainnya", 2, null);
+        ClassAccount account_1_3 = new ClassAccount(13, "Aset Lainnya", 2, null);
         account_1.classAccounts.add(account_1_1);
         account_1_1.classAccounts.add(account_1_1_1);
         account_1_1.classAccounts.add(account_1_1_2);

@@ -65,19 +65,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Nama Akun"
+                android:text="Nama Akun Debit"
                 android:textColor="@color/three"
                 android:textSize="16dp" />
 
             <Spinner
                 android:id="@+id/debit_spinner"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5" />
 
@@ -88,19 +88,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Nama Akun"
+                android:text="Nama Akun Kredit"
                 android:textColor="@color/three"
                 android:textSize="16dp" />
 
             <Spinner
                 android:id="@+id/kredit_spinner"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5" />
 
