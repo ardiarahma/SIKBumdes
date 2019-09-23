@@ -81,29 +81,32 @@ public class LabaRugiActivity extends AppCompatActivity {
         final ArrayAdapter<String> adapter_month = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, months);
         sp_months.setAdapter(adapter_month);
 
+        tv_totalPendapatan = findViewById(R.id.total_pendapatan);
+        tv_totalBiaya = findViewById(R.id.total_biaya);
+        tv_totalAll = findViewById(R.id.total_sum);
+        tv_Laba = findViewById(R.id.total_labausaha);
+
+        labaRugi_pendapatans = new ArrayList<>();
         rv_pendapatan = findViewById(R.id.rv_pendapatan);
-        pendapatanAdapter = new LabaRugi_PendapatanAdapter(LabaRugiActivity.this, labaRugi_pendapatans);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(LabaRugiActivity.this, LinearLayoutManager.VERTICAL,
+        pendapatanAdapter = new LabaRugi_PendapatanAdapter(this, labaRugi_pendapatans);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
                 false);
         rv_pendapatan.setAdapter(pendapatanAdapter);
         rv_pendapatan.setHasFixedSize(true);
         rv_pendapatan.setLayoutManager(linearLayoutManager);
         pendapatanAdapter.notifyDataSetChanged();
-
-        labaRugi_pendapatans = new ArrayList<>();
         labaRugi_pendapatans.add(new LabaRugi_Pendapatan("Pendapatan Wisata", 10000000));
         labaRugi_pendapatans.add(new LabaRugi_Pendapatan("Pendapatan lain", 300000));
 
+        labaRugi_biayas = new ArrayList<>();
         rv_biaya = findViewById(R.id.rv_biaya);
-        biayaAdapter = new LabaRugi_BiayaAdapter(LabaRugiActivity.this, labaRugi_biayas);
-        LinearLayoutManager linearLayoutManager_1 = new LinearLayoutManager(LabaRugiActivity.this, LinearLayoutManager.VERTICAL,
+        biayaAdapter = new LabaRugi_BiayaAdapter(this, labaRugi_biayas);
+        LinearLayoutManager linearLayoutManager_1 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
                 false);
         rv_biaya.setAdapter(biayaAdapter);
         rv_biaya.setHasFixedSize(true);
         rv_biaya.setLayoutManager(linearLayoutManager_1);
         biayaAdapter.notifyDataSetChanged();
-
-        labaRugi_biayas = new ArrayList<>();
         labaRugi_biayas.add(new LabaRugi_Biaya("Biaya Gaji", 1000000));
         labaRugi_biayas.add(new LabaRugi_Biaya("Biaya Listrik", 800000));
     }

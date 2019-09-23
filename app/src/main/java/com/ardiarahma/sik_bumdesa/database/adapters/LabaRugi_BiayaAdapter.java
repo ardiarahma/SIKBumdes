@@ -22,14 +22,15 @@ public class LabaRugi_BiayaAdapter extends RecyclerView.Adapter<LabaRugi_BiayaAd
     Context context;
     private ArrayList<LabaRugi_Biaya> labaRugi_biayas = new ArrayList<>();
 
-    public LabaRugi_BiayaAdapter(Context context, ArrayList<LabaRugi_Biaya> labaRugi_pendapatans) {
+    public LabaRugi_BiayaAdapter(Context context, ArrayList<LabaRugi_Biaya> labaRugi_biayas) {
         this.context = context;
         this.labaRugi_biayas = labaRugi_biayas;
     }
 
     @Override
     public LabaRugi_BiayaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_neraca_awal, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.item_neraca_awal, parent, false);
         return new ViewHolder(v);
     }
 

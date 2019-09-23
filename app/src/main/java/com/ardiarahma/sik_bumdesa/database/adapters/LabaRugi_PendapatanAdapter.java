@@ -29,8 +29,10 @@ public class LabaRugi_PendapatanAdapter extends RecyclerView.Adapter<LabaRugi_Pe
 
     @Override
     public LabaRugi_PendapatanAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_neraca_awal, parent, false);
-        return new ViewHolder(v);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.item_neraca_awal, parent, false);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
     }
 
     @Override
