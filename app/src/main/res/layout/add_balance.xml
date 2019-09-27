@@ -81,7 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:hint="Jumlah"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:inputType="number"/>
 
         <LinearLayout
             android:layout_width="match_parent"

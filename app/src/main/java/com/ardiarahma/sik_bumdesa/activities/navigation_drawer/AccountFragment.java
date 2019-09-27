@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalActivity;
 import com.ardiarahma.sik_bumdesa.database.DatabaseHelper;
 import com.ardiarahma.sik_bumdesa.database.adapters.ClassAccountAdapter;
 import com.ardiarahma.sik_bumdesa.database.models.ClassAccount;
@@ -64,7 +65,7 @@ public class AccountFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_account, container, false);
+        View v = inflater.inflate(R.layout.fragment_account_data, container, false);
 
         rv = v.findViewById(R.id.list);
         adapter = new ClassAccountAdapter(getActivity());
@@ -228,6 +229,13 @@ public class AccountFragment extends Fragment {
                 dialog.dismiss();
                 vDialog.dismiss();
             }
+        });
+        vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                vDialog.dismiss();
+                dialog.show();
+            }
         }).show();
     }
 
@@ -244,7 +252,8 @@ public class AccountFragment extends Fragment {
                 dialog.dismiss();
                 vDialog.dismiss();
             }
-        }).show();
+        });
+
     }
 
     public ArrayList<ClassAccount> getList(){

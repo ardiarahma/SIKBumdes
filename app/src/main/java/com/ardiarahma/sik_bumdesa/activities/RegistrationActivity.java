@@ -7,11 +7,13 @@ import android.graphics.Color;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.UserFragment;
 import com.ardiarahma.sik_bumdesa.database.SharedPref;
 import com.ardiarahma.sik_bumdesa.database.models.User;
@@ -22,6 +24,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     TextInputLayout tilName, tilAddress, tilPhone, tilEmail, tilPassword;
     Button registration;
+
+    SweetAlertDialog vDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     return;
                 }
 
+                validationRegistration();
+
+
+
 //                SweetAlertDialog loading = new SweetAlertDialog(RegistrationActivity.this, SweetAlertDialog.PROGRESS_TYPE);
 //                loading.getProgressHelper().setBarColor(Color.parseColor("#e7a248"));
 //                loading.setTitleText("Memuat");
@@ -58,13 +66,33 @@ public class RegistrationActivity extends AppCompatActivity {
 //                success.setTitleText("Terdaftar!");
 //                success.setContentText("Akun berhasil dibuat");
 
-                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                startActivity(intent);
-
 //                loading.show();
 //                success.show();
             }
         });
+    }
+
+    public void validationRegistration(){
+        final SweetAlertDialog vDialog = new SweetAlertDialog(RegistrationActivity.this, SweetAlertDialog.WARNING_TYPE);
+        vDialog.setTitleText("Apakah data sudah benar?");
+        vDialog.setConfirmText("Ya, benar");
+        vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                SweetAlertDialog sweet_dialog = new SweetAlertDialog(RegistrationActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
+                sweet_dialog.show();
+                vDialog.dismissWithAnimation();
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                vDialog.dismissWithAnimation();
+            }
+        }).show();
     }
 
     private boolean validateCompName(){

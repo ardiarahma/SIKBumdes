@@ -112,7 +112,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="Jumlah"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:inputType="number"/>
 
         <EditText
             android:id="@+id/tv_kwitansi"

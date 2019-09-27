@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -39,7 +40,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @android.support.annotation.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Pengaturan Perusahaan");
+        getActivity().setTitle("Pengaturan Usaha");
     }
 
     @Override
@@ -134,9 +135,10 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 SweetAlertDialog sweet_dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
-                sweet_dialog.setTitleText("Detail Perusahaan berhasil diubah");
-                dialog.dismiss();
+                sweet_dialog.setTitleText("Detail usaha berhasil diubah");
                 sweet_dialog.show();
+                dialog.dismiss();
+                vDialog.dismissWithAnimation();
 //                if (!validateName() || !validationAdrress() || !validatePhone() || !validateEmail()){
 //                    //ini nanti ada manggil helper buat nyimpen datanya
 //                    SweetAlertDialog sweet_dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
@@ -147,6 +149,14 @@ public class UserFragment extends Fragment {
 //                }else {
 //                    dialog.show();
 //                }
+            }
+        });
+
+        vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                vDialog.dismissWithAnimation();
+                dialog.show();
             }
         }).show();
     }
@@ -162,6 +172,7 @@ public class UserFragment extends Fragment {
                 sweet_dialog.setTitleText("Password berhasil diubah");
                 sweet_dialog.show();
                 dialog.dismiss();
+                vDialog.dismissWithAnimation();
 //                if (!validateOldPassword() || !validateNewPassword()){
 //                    //ini nanti ada manggil helper buat nyimpen datanya
 //                    SweetAlertDialog sweet_dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
@@ -171,6 +182,13 @@ public class UserFragment extends Fragment {
 //                }else {
 //                    dialog.show();
 //                }
+            }
+        });
+        vDialog.setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                vDialog.dismissWithAnimation();
+                dialog.show();
             }
         }).show();
     }

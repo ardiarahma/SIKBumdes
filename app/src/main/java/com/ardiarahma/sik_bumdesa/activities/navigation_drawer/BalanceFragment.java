@@ -44,7 +44,7 @@ public class BalanceFragment extends Fragment{
     TextView date;
     ImageButton datepicker;
     EditText jumlah_balance;
-    Spinner sp_months, sp_years, sp_account;
+    Spinner sp_account;
     public static final String[] months = new String[]{
             "Januari", "Februari", "Maret", "April", "Mei", "Juni",
             "Juli", "Agustus", "September", "Oktober", "November", "Desember"
@@ -75,7 +75,9 @@ public class BalanceFragment extends Fragment{
     SweetAlertDialog vDialog;
 
     DatePickerDialog datePickerDialog;
-    SimpleDateFormat dateFormat;
+    ImageButton balance_date;
+    TextView tv_months, tv_years;
+    SimpleDateFormat dateFormat, monthFormat, yearFormat;
 
     public BalanceFragment() {
         // Required empty public constructor
@@ -88,9 +90,19 @@ public class BalanceFragment extends Fragment{
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_balance, container, false);
 
-        sp_months = v.findViewById(R.id.sp_month);
-        sp_years = v.findViewById(R.id.sp_year);
+//        sp_months = v.findViewById(R.id.sp_month);
+//        sp_years = v.findViewById(R.id.sp_year);
 
+        balance_date = v.findViewById(R.id.balance_date);
+        balance_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBalanceDate();
+            }
+        });
+
+        tv_months = v.findViewById(R.id.month);
+        tv_years = v.findViewById(R.id.year);
 
 
         fab1 = v.findViewById(R.id.fab_1);
@@ -142,17 +154,17 @@ public class BalanceFragment extends Fragment{
         });
 
         //set year
-        ArrayList<String> years = new ArrayList<String>();
-        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = 1900; i <= thisYear; i++){
-            years.add(Integer.toString(i));
-        }
-        ArrayAdapter<String> adapter_year = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, years);
-        sp_years.setAdapter(adapter_year);
-
-        //set months
-        ArrayAdapter<String> adapter_month = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, months);
-        sp_months.setAdapter(adapter_month);
+//        ArrayList<String> years = new ArrayList<String>();
+//        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+//        for (int i = 1900; i <= thisYear; i++){
+//            years.add(Integer.toString(i));
+//        }
+//        ArrayAdapter<String> adapter_year = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, years);
+//        sp_years.setAdapter(adapter_year);
+//
+//        //set months
+//        ArrayAdapter<String> adapter_month = new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, months);
+//        sp_months.setAdapter(adapter_month);
 
         rv_aset_lancar = v.findViewById(R.id.rv_aset_lancar);
         adapter_asetLancar = new Neraca_AsetLancarAdapter(getContext(), neracaAsetLancars);
@@ -203,6 +215,21 @@ public class BalanceFragment extends Fragment{
 
     }
 
+    public void showBalanceDate(){
+        Calendar calendar = Calendar.getInstance();
+
+        datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, month, dayOfMonth);
+                tv_months.setText(monthFormat.format(newDate.getTime()));
+                tv_years.setText(yearFormat.format(newDate.getTime()));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
     public void showDatePicker(){
         Calendar calendar = Calendar.getInstance();
 
@@ -229,7 +256,14 @@ public class BalanceFragment extends Fragment{
                 sweet_dialog.setTitleText("Klasifikasi akun berhasil ditambahkan");
                 sweet_dialog.show();
                 dialog.dismiss();
-                vDialog.dismiss();
+                vDialog.dismissWithAnimation();
+            }
+        });
+        vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                vDialog.dismissWithAnimation();
+                dialog.show();
             }
         }).show();
     }

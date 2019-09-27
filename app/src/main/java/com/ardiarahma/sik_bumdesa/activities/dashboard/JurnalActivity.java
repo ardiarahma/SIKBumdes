@@ -159,7 +159,7 @@ public class JurnalActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         dialog.hide();
-                        validationAccount();
+                        validationJurnal();
                     }
                 });
                 dialog.show();
@@ -196,7 +196,7 @@ public class JurnalActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public void validationAccount(){
+    public void validationJurnal(){
         final SweetAlertDialog vDialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.WARNING_TYPE);
         vDialog.setTitleText("Apakah data sudah benar?");
         vDialog.setConfirmText("Ya, benar");
@@ -207,7 +207,14 @@ public class JurnalActivity extends AppCompatActivity {
                 sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
                 sweet_dialog.show();
                 dialog.dismiss();
-                vDialog.dismiss();
+                vDialog.dismissWithAnimation();
+            }
+        });
+        vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                vDialog.dismissWithAnimation();
+                dialog.show();
             }
         }).show();
     }
