@@ -5,4 +5,7 @@ package com.ardiarahma.sik_bumdesa.networks.models.responses;
  */
 
 public class LoginResponse {
+
+
+
 }

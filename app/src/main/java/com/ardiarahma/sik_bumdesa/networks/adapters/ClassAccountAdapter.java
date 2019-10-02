@@ -1,11 +1,9 @@
-package com.ardiarahma.sik_bumdesa.database.adapters;
+package com.ardiarahma.sik_bumdesa.networks.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.ColorSpace;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.MonthDisplayHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.database.models.ClassAccount;
+import com.ardiarahma.sik_bumdesa.networks.models.ClassAccount;
 
 import java.util.ArrayList;
-
-import static com.ardiarahma.sik_bumdesa.database.models.ClassAccount.STATE.CLOSED;
-import static com.ardiarahma.sik_bumdesa.database.models.ClassAccount.STATE.OPENED;
 
 /**
  * Created by Windows 10 on 8/8/2019.

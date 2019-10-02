@@ -1,4 +1,4 @@
-package com.ardiarahma.sik_bumdesa.database.adapters;
+package com.ardiarahma.sik_bumdesa.networks.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.database.models.Neraca_AsetTetap;
-import com.ardiarahma.sik_bumdesa.database.models.Neraca_UtangLancar;
+import com.ardiarahma.sik_bumdesa.networks.models.Neraca_UtangLancar;
 
 import java.util.ArrayList;
 

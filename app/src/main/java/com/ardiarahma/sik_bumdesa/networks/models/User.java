@@ -1,4 +1,4 @@
-package com.ardiarahma.sik_bumdesa.database.models;
+package com.ardiarahma.sik_bumdesa.networks.models;
 
 /**
  * Created by Windows 10 on 8/11/2019.
@@ -7,8 +7,8 @@ package com.ardiarahma.sik_bumdesa.database.models;
 public class User {
 
     private String company_name;
-    private String company_address;
     private int company_telp;
+    private String company_address;
     private String company_email;
     private String company_pass;
 

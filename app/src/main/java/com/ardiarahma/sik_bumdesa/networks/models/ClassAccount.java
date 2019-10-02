@@ -1,4 +1,4 @@
-package com.ardiarahma.sik_bumdesa.database.models;
+package com.ardiarahma.sik_bumdesa.networks.models;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.ardiarahma.sik_bumdesa.database.models;
+package com.ardiarahma.sik_bumdesa.networks.models;
 
 /**
  * Created by Windows 10 on 8/19/2019.

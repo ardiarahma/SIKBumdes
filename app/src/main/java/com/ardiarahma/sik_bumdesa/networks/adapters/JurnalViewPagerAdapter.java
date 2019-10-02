@@ -1,17 +1,11 @@
-package com.ardiarahma.sik_bumdesa.database.adapters;
+package com.ardiarahma.sik_bumdesa.networks.adapters;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalViewFragment;
-
-import java.util.ArrayList;
 
 /**
  * Created by Windows 10 on 8/29/2019.
