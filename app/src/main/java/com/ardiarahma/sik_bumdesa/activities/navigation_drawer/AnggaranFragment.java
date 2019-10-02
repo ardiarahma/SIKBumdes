@@ -40,7 +40,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BalanceFragment extends Fragment{
+public class AnggaranFragment extends Fragment{
 
     TextView date;
     ImageButton datepicker;
@@ -81,7 +81,7 @@ public class BalanceFragment extends Fragment{
     TextView tv_months, tv_years;
     SimpleDateFormat dateFormat, monthFormat, yearFormat;
 
-    public BalanceFragment() {
+    public AnggaranFragment() {
         // Required empty public constructor
     }
 

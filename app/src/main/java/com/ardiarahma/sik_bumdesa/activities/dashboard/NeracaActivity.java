@@ -11,14 +11,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.database.adapters.LabaRugi_BiayaAdapter;
-import com.ardiarahma.sik_bumdesa.database.adapters.LabaRugi_PendapatanAdapter;
-import com.ardiarahma.sik_bumdesa.database.adapters.NeracaUmum_AsetLancarAdapter;
-import com.ardiarahma.sik_bumdesa.database.adapters.NeracaUmum_AsetTetapAdapter;
-import com.ardiarahma.sik_bumdesa.database.models.LabaRugi_Biaya;
-import com.ardiarahma.sik_bumdesa.database.models.LabaRugi_Pendapatan;
-import com.ardiarahma.sik_bumdesa.database.models.NeracaUmum_AsetLancar;
-import com.ardiarahma.sik_bumdesa.database.models.NeracaUmum_AsetTetap;
+import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaUmum_AsetLancarAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaUmum_AsetTetapAdapter;
+import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_AsetLancar;
+import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_AsetTetap;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

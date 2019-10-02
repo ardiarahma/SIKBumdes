@@ -2,21 +2,14 @@ package com.ardiarahma.sik_bumdesa.activities;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalActivity;
-import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.UserFragment;
-import com.ardiarahma.sik_bumdesa.database.SharedPref;
-import com.ardiarahma.sik_bumdesa.database.models.User;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -80,7 +73,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 SweetAlertDialog sweet_dialog = new SweetAlertDialog(RegistrationActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-                sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
+                sweet_dialog.setTitleText("User berhasil daftar");
                 sweet_dialog.show();
                 vDialog.dismissWithAnimation();
                 Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);

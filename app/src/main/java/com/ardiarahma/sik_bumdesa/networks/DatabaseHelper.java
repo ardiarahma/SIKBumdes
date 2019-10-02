@@ -1,17 +1,13 @@
-package com.ardiarahma.sik_bumdesa.database;
+package com.ardiarahma.sik_bumdesa.networks;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.ardiarahma.sik_bumdesa.database.models.ClassAccount;
+import com.ardiarahma.sik_bumdesa.networks.models.ClassAccount;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Windows 10 on 8/6/2019.

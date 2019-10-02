@@ -1,9 +1,9 @@
-package com.ardiarahma.sik_bumdesa.database;
+package com.ardiarahma.sik_bumdesa.networks;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.ardiarahma.sik_bumdesa.database.models.User;
+import com.ardiarahma.sik_bumdesa.networks.models.User;
 
 /**
  * Created by Windows 10 on 8/11/2019.

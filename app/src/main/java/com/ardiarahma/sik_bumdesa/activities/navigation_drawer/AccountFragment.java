@@ -1,15 +1,11 @@
 package com.ardiarahma.sik_bumdesa.activities.navigation_drawer;
 
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,19 +15,16 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalActivity;
-import com.ardiarahma.sik_bumdesa.database.DatabaseHelper;
-import com.ardiarahma.sik_bumdesa.database.adapters.ClassAccountAdapter;
-import com.ardiarahma.sik_bumdesa.database.models.ClassAccount;
+import com.ardiarahma.sik_bumdesa.networks.DatabaseHelper;
+import com.ardiarahma.sik_bumdesa.networks.adapters.ClassAccountAdapter;
+import com.ardiarahma.sik_bumdesa.networks.models.ClassAccount;
 import com.diegodobelo.expandingview.ExpandingItem;
 import com.diegodobelo.expandingview.ExpandingList;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 

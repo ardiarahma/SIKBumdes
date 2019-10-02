@@ -18,10 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.database.adapters.JurnalViewPagerAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.JurnalViewPagerAdapter;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 

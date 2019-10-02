@@ -1,7 +1,6 @@
 package com.ardiarahma.sik_bumdesa.activities.dashboard;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,19 +11,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.database.adapters.Ekuitas_ModalAdapter;
-import com.ardiarahma.sik_bumdesa.database.adapters.Ekuitas_SaldoAdapter;
-import com.ardiarahma.sik_bumdesa.database.adapters.LabaRugi_PendapatanAdapter;
-import com.ardiarahma.sik_bumdesa.database.models.Ekuitas_Modal;
-import com.ardiarahma.sik_bumdesa.database.models.Ekuitas_Saldo;
-import com.ardiarahma.sik_bumdesa.database.models.LabaRugi_Pendapatan;
+import com.ardiarahma.sik_bumdesa.networks.adapters.Ekuitas_ModalAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.Ekuitas_SaldoAdapter;
+import com.ardiarahma.sik_bumdesa.networks.models.Ekuitas_Modal;
+import com.ardiarahma.sik_bumdesa.networks.models.Ekuitas_Saldo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class EkuitasActivity extends AppCompatActivity {
 
