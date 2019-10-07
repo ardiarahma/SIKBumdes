@@ -1,62 +1,92 @@
 package com.ardiarahma.sik_bumdesa.networks.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Windows 10 on 8/11/2019.
  */
 
 public class User {
 
-    private String company_name;
-    private int company_telp;
-    private String company_address;
-    private String company_email;
-    private String company_pass;
+    @SerializedName("id")
+    @Expose
+    private int id;
 
-    public User(String company_name, String company_address, int company_telp, String company_email, String company_pass) {
-        this.company_name = company_name;
-        this.company_address = company_address;
-        this.company_telp = company_telp;
-        this.company_email = company_email;
-        this.company_pass = company_pass;
+    @SerializedName("nama")
+    @Expose
+    private String nama;
+
+    @SerializedName("no_telepon")
+    @Expose
+    private int no_telepon;
+
+    @SerializedName("alamat")
+    @Expose
+    private String alamat;
+
+    @SerializedName("email")
+    @Expose
+    private String email;
+
+    @SerializedName("token")
+    @Expose
+    private String token;
+
+    public User(int id, String nama, int no_telepon, String alamat, String email, String token) {
+        this.id = id;
+        this.nama = nama;
+        this.no_telepon = no_telepon;
+        this.alamat = alamat;
+        this.email = email;
+        this.token = token;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public int getId() {
+        return id;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getCompany_address() {
-        return company_address;
+    public String getNama() {
+        return nama;
     }
 
-    public void setCompany_address(String company_address) {
-        this.company_address = company_address;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public int getCompany_telp() {
-        return company_telp;
+    public int getNo_telepon() {
+        return no_telepon;
     }
 
-    public void setCompany_telp(int company_telp) {
-        this.company_telp = company_telp;
+    public void setNo_telepon(int no_telepon) {
+        this.no_telepon = no_telepon;
     }
 
-    public String getCompany_email() {
-        return company_email;
+    public String getAlamat() {
+        return alamat;
     }
 
-    public void setCompany_email(String company_email) {
-        this.company_email = company_email;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
-    public String getCompany_pass() {
-        return company_pass;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCompany_pass(String company_pass) {
-        this.company_pass = company_pass;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
