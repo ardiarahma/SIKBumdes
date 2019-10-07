@@ -99,8 +99,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-
-
         Call<LoginResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()

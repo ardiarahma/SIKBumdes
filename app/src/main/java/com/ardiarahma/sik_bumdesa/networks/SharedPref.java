@@ -31,7 +31,7 @@ public class SharedPref {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("id", user.getId());
         editor.putString("nama", user.getNama());
-        editor.putInt("no_telepon", user.getNo_telepon());
+        editor.putString("no_telepon", user.getNo_telepon());
         editor.putString("alamat", user.getAlamat());
         editor.putString("email", user.getEmail());
         editor.putString("token", user.getToken());
@@ -43,7 +43,7 @@ public class SharedPref {
         return new User(
                 sharedPref.getInt("id", -1),
                 sharedPref.getString("nama", null),
-                sharedPref.getInt("no_telepon", -1),
+                sharedPref.getString("no_telepon", null),
                 sharedPref.getString("alamat",null),
                 sharedPref.getString("email", null),
                 sharedPref.getString("token", null)

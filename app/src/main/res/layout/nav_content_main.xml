@@ -8,12 +8,309 @@
     tools:context="com.ardiarahma.sik_bumdesa.activities.MainActivity"
     tools:showIn="@layout/nav_app_bar_main">
 
-    <FrameLayout
-        android:id="@+id/screen_area"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:orientation="vertical">
 
-    </FrameLayout>
+        <RelativeLayout
+            android:id="@+id/messagelayout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/brush_stroke">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#FFFFFF"
+                android:text="Selamat datang, "
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:text="nama perusahaannya"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/menus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linear1"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/menu1"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_shape">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/ic_jurnal"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/v1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/wavey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="21dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Jurnal"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/three" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/menu2"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="7.5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_shape">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/ic_buku_besar"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/v2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/wavey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="21dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Buku Besar"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/three" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/menu3"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_shape">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/ic_labarugi"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/v3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/wavey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Laporan Laba Rugi"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/three" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/menu4"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="7.5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_shape">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/ic_ekuitas" />
+
+                    <ImageView
+                        android:id="@+id/v4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/wavey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginRight="5dp"
+                        android:text="Laporan Perubahan Ekuitas"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/three" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/menu5"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_shape">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/ic_neraca"
+
+                        />
+
+                    <ImageView
+                        android:id="@+id/v5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/wavey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="21dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="Neraca"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/three" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/menu6"
+                    android:layout_width="0dp"
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="7.5dp"
+                    android:layout_marginLeft="7.5dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_shape">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/ic_ekuitas" />
+
+                    <ImageView
+                        android:id="@+id/v6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/wavey" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginRight="5dp"
+                        android:text="Laporan Realisasi Anggaran"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/three" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <!--<FrameLayout-->
+        <!--android:id="@+id/screen_area"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--&gt;-->
+
+    <!--</FrameLayout>-->
+
 
 </ScrollView>

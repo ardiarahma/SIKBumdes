@@ -32,4 +32,7 @@
     <string name="initializing_faker">Initializing Faker...</string>
     <string name="title_activity_jurnal2">Jurnal2Activity</string>
     <string name="title_activity_account">AccountActivity</string>
+    <string name="title_activity_neraca_awal">NeracaAwalActivity</string>
+    <string name="title_activity_anggaran">AnggaranActivity</string>
+    <string name="title_activity_user">UserActivity</string>
 </resources>

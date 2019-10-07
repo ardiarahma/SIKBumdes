@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ardiarahma.sik_bumdesa">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -26,8 +26,9 @@
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.dashboard.BukuBesarActivity"
-            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activities.dashboard.BukuBesarActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".activities.dashboard.NeracaActivity" />
         <activity android:name=".activities.dashboard.EkuitasActivity" />
         <activity android:name=".activities.dashboard.JurnalDetailsActivity" />
@@ -35,7 +36,23 @@
             android:name=".activities.dashboard.JurnalActivity"
             android:label="@string/title_activity_jurnal2"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.dashboard.LabaRugiActivity"></activity>
+        <activity android:name=".activities.dashboard.LabaRugiActivity" />
+        <activity
+            android:name=".activities.navigation_drawer.AccountActivity"
+            android:label="@string/title_activity_account"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.navigation_drawer.NeracaAwalActivity"
+            android:label="@string/title_activity_neraca_awal"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.navigation_drawer.AnggaranActivity"
+            android:label="@string/title_activity_anggaran"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.navigation_drawer.UserActivity"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

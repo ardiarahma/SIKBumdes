@@ -1,6 +1,7 @@
 package com.ardiarahma.sik_bumdesa.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,10 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountFragment;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AnggaranActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.BalanceFragment;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.HomeFragment;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.NeracaAwalActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.RABFragment;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.UserActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.UserFragment;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -24,7 +29,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    protected DrawerLayout drawer;
+    DrawerLayout drawer;
+    NavigationView navigationView;
+    Toolbar toolbar = null;
     Context context = this;
 
     @Override
@@ -45,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        displaySelectedScreen(R.id.nav_home);
+//        displaySelectedScreen(R.id.nav_home);
         
 
 
@@ -63,45 +70,69 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void displaySelectedScreen(int id){
-        Fragment fragment = null;
-        switch (id){
-            case R.id.nav_home:
-                fragment = new HomeFragment();
-                break;
-            case R.id.nav_akun:
-                fragment = new AccountFragment();
-                break;
-            case R.id.nav_neraca:
-                fragment = new BalanceFragment();
-                break;
-            case R.id.nav_rab:
-                fragment = new RABFragment();
-                break;
-            case R.id.nav_settings:
-                fragment = new UserFragment();
-                break;
-            case R.id.logout:
-                logoutConfirmation();
-                break;
-        }
-        if (fragment != null){
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.screen_area, fragment);
-            ft.commit();
-        }
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-    }
+//    public void displaySelectedScreen(int id){
+//        Fragment fragment = null;
+//        switch (id){
+//            case R.id.nav_home:
+//                fragment = new HomeFragment();
+//                break;
+//            case R.id.nav_akun:
+//                fragment = new AccountFragment();
+//                break;
+//            case R.id.nav_neraca:
+//                fragment = new BalanceFragment();
+//                break;
+//            case R.id.nav_rab:
+//                fragment = new RABFragment();
+//                break;
+//            case R.id.nav_settings:
+//                fragment = new UserFragment();
+//                break;
+//            case R.id.logout:
+//                logoutConfirmation();
+//                break;
+//        }
+//        if (fragment != null){
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.screen_area, fragment);
+//            ft.commit();
+//        }
+//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        displaySelectedScreen(id);
-
+        switch (id){
+            case R.id.nav_home:
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_akun:
+                Intent intent1 = new Intent(MainActivity.this, AccountActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.nav_neraca:
+                Intent intent2 = new Intent(MainActivity.this, NeracaAwalActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.nav_rab:
+                Intent intent3 = new Intent(MainActivity.this, AnggaranActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.nav_settings:
+                Intent intent4 = new Intent(MainActivity.this, UserActivity.class);
+                break;
+            case R.id.logout:
+                logoutConfirmation();
+                break;
+        }
+//        displaySelectedScreen(id);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

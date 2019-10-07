@@ -19,7 +19,7 @@ public class User {
 
     @SerializedName("no_telepon")
     @Expose
-    private int no_telepon;
+    private String no_telepon;
 
     @SerializedName("alamat")
     @Expose
@@ -33,7 +33,7 @@ public class User {
     @Expose
     private String token;
 
-    public User(int id, String nama, int no_telepon, String alamat, String email, String token) {
+    public User(int id, String nama, String no_telepon, String alamat, String email, String token) {
         this.id = id;
         this.nama = nama;
         this.no_telepon = no_telepon;
@@ -58,11 +58,11 @@ public class User {
         this.nama = nama;
     }
 
-    public int getNo_telepon() {
+    public String getNo_telepon() {
         return no_telepon;
     }
 
-    public void setNo_telepon(int no_telepon) {
+    public void setNo_telepon(String no_telepon) {
         this.no_telepon = no_telepon;
     }
 
