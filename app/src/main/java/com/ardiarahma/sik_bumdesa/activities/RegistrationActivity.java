@@ -199,7 +199,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         try {
                             String errorBody = response.errorBody().string();
                             JSONObject jsonObject = new JSONObject(errorBody.trim());
-                            jsonObject = jsonObject.getJSONObject("errors");
+                            jsonObject = jsonObject.getJSONObject("error");
                             Iterator<String> keys = jsonObject.keys();
                             StringBuilder errors = new StringBuilder();
                             String separator = "";
