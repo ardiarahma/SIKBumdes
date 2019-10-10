@@ -1,9 +1,13 @@
 package com.ardiarahma.sik_bumdesa.activities.navigation_drawer;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,9 +17,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.LoginActivity;
 import com.ardiarahma.sik_bumdesa.activities.MainActivity;
+import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
+import com.ardiarahma.sik_bumdesa.networks.SharedPref;
+import com.ardiarahma.sik_bumdesa.networks.adapters.Neraca_AsetLancarAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.ParentAkunAdapter;
+import com.ardiarahma.sik_bumdesa.networks.models.ParentAkun;
+import com.ardiarahma.sik_bumdesa.networks.models.User;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
+
+import java.util.ArrayList;
+import java.util.prefs.PreferenceChangeEvent;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AccountActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,21 +45,23 @@ public class AccountActivity extends AppCompatActivity
     NavigationView navigationView;
     Toolbar toolbar = null;
 
+    RecyclerView rv_account;
+    private ArrayList<ParentAkun> parentAkuns;
+    ParentAkunAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    User user = SharedPref.getInstance(this).getBaseUser();
+    String token = "Bearer " + user.getToken();
+    String accept = "application/json";
+
+    SweetAlertDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -48,6 +71,61 @@ public class AccountActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        pDialog = new SweetAlertDialog(AccountActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#e7a248"));
+        pDialog.setTitleText("Tunggu sesaat..");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+        rv_account = findViewById(R.id.rv_account);
+        adapter = new ParentAkunAdapter(this, parentAkuns);
+
+        Call<ParentAkunResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .parent_akun(token, accept);
+
+        call.enqueue(new Callback<ParentAkunResponse>() {
+            @Override
+            public void onResponse(Call<ParentAkunResponse> call, Response<ParentAkunResponse> response) {
+                pDialog.dismissWithAnimation();
+                ParentAkunResponse parentAkunResponse = response.body();
+                Log.d("TAG", "message " + response.body());
+                if (response.isSuccessful()){
+                    if (parentAkunResponse.getStatus().equals("success")){
+                        Log.i("debug", "onResponse : Get Parent Akun is Successful");
+                        pDialog.dismissWithAnimation();
+                        parentAkuns = parentAkunResponse.getParentAkuns();
+                        adapter = new ParentAkunAdapter(AccountActivity.this, parentAkuns);
+                        layoutManager = new LinearLayoutManager(
+                                AccountActivity.this, LinearLayoutManager.VERTICAL,false);
+                        rv_account.setAdapter(adapter);
+                        rv_account.setHasFixedSize(true);
+                        rv_account.setLayoutManager(layoutManager);
+                        adapter.notifyDataSetChanged();
+                    }else {
+                        Log.i("debug", "onResponse : Get Parent Akun was Failed");
+                        pDialog.dismissWithAnimation();
+                    /*    Toast.makeText(getApplicationContext(), "Gagal dalam mengambil data parent akun",
+                                Toast.LENGTH_LONG).show();
+                    */  Toast.makeText(getApplicationContext(), response.toString()+" ",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParentAkunResponse> call, Throwable t) {
+                Log.e("debug", "onFailure: ERROR > " + t.getMessage());
+                pDialog.dismissWithAnimation();
+           //     Toast.makeText(AccountActivity.this, "Kesalahan terjadi. Silakan coba beberapa saat lagi.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AccountActivity.this,t.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
     }
 
     @Override

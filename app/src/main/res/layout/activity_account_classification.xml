@@ -1,11 +1,10 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context="com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountClassificationActivity">
 
     <include layout="@layout/content_main2"/>
 
@@ -13,16 +12,14 @@
         android:id="@+id/fab_accounts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         app:fab_addButtonColorNormal="@color/four"
         app:fab_addButtonColorPressed="@color/two"
         app:fab_addButtonPlusIconColor="#FFFFFF"
-        app:fab_labelStyle="@style/customFab"
-        app:layout_anchorGravity="bottom|right|end">
+        app:fab_labelStyle="@style/customFab">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_1"
@@ -46,4 +43,4 @@
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

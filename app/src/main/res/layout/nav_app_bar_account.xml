@@ -22,4 +22,31 @@
 
     <include layout="@layout/nav_content_account" />
 
+    <!--<com.getbase.floatingactionbutton.FloatingActionsMenu-->
+        <!--android:id="@+id/fab_accounts"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_marginEnd="20dp"-->
+        <!--app:fab_addButtonColorNormal="@color/four"-->
+        <!--app:fab_addButtonColorPressed="@color/two"-->
+        <!--app:fab_addButtonPlusIconColor="#FFFFFF"-->
+        <!--app:fab_labelStyle="@style/customFab"-->
+        <!--app:layout_anchorGravity="bottom|right|end">-->
+
+        <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+            <!--android:id="@+id/fab_1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:fab_colorNormal="@color/four"-->
+            <!--app:fab_colorPressed="@color/two"-->
+            <!--app:fab_icon="@drawable/ic_add"-->
+            <!--app:fab_size="mini"-->
+            <!--app:fab_title="Tambah Parent Akun" />-->
+
+    <!--</com.getbase.floatingactionbutton.FloatingActionsMenu>-->
+
 </android.support.design.widget.CoordinatorLayout>
