@@ -6,7 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountClassificationActivity">
 
-    <include layout="@layout/content_main2"/>
+    <include
+        layout="@layout/nav_app_bar_account_class"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab_accounts"

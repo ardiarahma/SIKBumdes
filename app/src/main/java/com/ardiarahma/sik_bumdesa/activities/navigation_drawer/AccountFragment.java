@@ -20,8 +20,6 @@ import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.networks.DatabaseHelper;
 import com.ardiarahma.sik_bumdesa.networks.adapters.ClassAccountAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.ClassAccount;
-import com.diegodobelo.expandingview.ExpandingItem;
-import com.diegodobelo.expandingview.ExpandingList;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -37,9 +35,6 @@ public class AccountFragment extends Fragment {
     RecyclerView rv;
     ClassAccountAdapter adapter;
     ArrayList<ClassAccount> classAccounts;
-
-    ExpandingList expandingList = null;
-    ExpandingItem item;
 
     FloatingActionButton fab1, fab2;
     EditText kode_klasifikasi, nama_klasifikasi;

@@ -1,5 +1,6 @@
 package com.ardiarahma.sik_bumdesa.networks.adapters;
 
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,13 +14,16 @@ import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 public class AkunViewHolder extends ChildViewHolder {
      private TextView mTv;
+     private CardView cardView;
 
     public AkunViewHolder(View itemView) {
         super(itemView);
-        mTv = itemView.findViewById(R.id.mTv);
+        mTv = itemView.findViewById(R.id.child_akun);
+        cardView = itemView.findViewById(R.id.card);
     }
 
-    public void bindViewHolder(AkunExp akunExp){
-        mTv.setText(akunExp.getName());
+    public void setAkunName(String akun){
+        mTv.setText(akun);
     }
+
 }

@@ -8,9 +8,11 @@ import java.util.List;
  * Created by Windows 10 on 10/8/2019.
  */
 
-public class KlasifikasiAkun extends ExpandableGroup<AkunExp> {
+public class KlasifikasiAkun extends ExpandableGroup {
 
-    public KlasifikasiAkun(String title, List<AkunExp> items) {
+    public KlasifikasiAkun(String title, List items) {
         super(title, items);
     }
+
+
 }

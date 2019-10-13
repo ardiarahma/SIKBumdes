@@ -1,5 +1,6 @@
 package com.ardiarahma.sik_bumdesa.networks.adapters;
 
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,13 +15,15 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 public class KlasifikasiViewHolder extends GroupViewHolder {
 
     private TextView mTv;
+    private CardView cardView;
 
     public KlasifikasiViewHolder(View itemView) {
         super(itemView);
-        mTv = itemView.findViewById(R.id.mTv);
+        mTv = itemView.findViewById(R.id.klasifikasi_akun);
+        cardView = itemView.findViewById(R.id.card);
     }
 
-    public void bindViewHolder(KlasifikasiAkun klasifikasiAkun){
-        mTv.setText(klasifikasiAkun.getTitle());
+    public void setKlasifikasi_akun(String klasifikasi_akun) {
+        mTv.setText(klasifikasi_akun);
     }
 }
