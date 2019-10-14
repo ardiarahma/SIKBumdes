@@ -3,8 +3,6 @@ package com.ardiarahma.sik_bumdesa.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,14 +13,9 @@ import android.view.MenuItem;
 
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountActivity;
-import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountFragment;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AnggaranActivity;
-import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.BalanceFragment;
-import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.HomeFragment;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.NeracaAwalActivity;
-import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.RABFragment;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.UserActivity;
-import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.UserFragment;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 

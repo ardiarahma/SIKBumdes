@@ -30,9 +30,9 @@
     <string name="details_close">CLOSE</string>
     <string name="details_details">DETAILS</string>
     <string name="initializing_faker">Initializing Faker...</string>
-    <string name="title_activity_jurnal2">Jurnal2Activity</string>
-    <string name="title_activity_account">AccountActivity</string>
-    <string name="title_activity_neraca_awal">NeracaAwalActivity</string>
-    <string name="title_activity_anggaran">AnggaranActivity</string>
-    <string name="title_activity_user">UserActivity</string>
+    <string name="title_activity_jurnal2">Jurnal</string>
+    <string name="title_activity_account">Data Akun</string>
+    <string name="title_activity_neraca_awal">Neraca Awal</string>
+    <string name="title_activity_anggaran">Rancangan Anggaran Bisnis</string>
+    <string name="title_activity_user">Pengaturan User</string>
 </resources>

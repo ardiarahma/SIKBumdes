@@ -24,13 +24,13 @@ public class AkunAdapter extends ExpandableRecyclerViewAdapter<KlasifikasiViewHo
 
     @Override
     public KlasifikasiViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.expandable_klasifikasi_akun, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_klasifikasi_akun, parent, false);
         return new KlasifikasiViewHolder(v);
     }
 
     @Override
     public AkunViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.expandable_akun, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_akun, parent, false);
         return new AkunViewHolder(v);
     }
 
