@@ -1,5 +1,6 @@
 package com.ardiarahma.sik_bumdesa.activities.navigation_drawer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,9 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.LoginActivity;
 import com.ardiarahma.sik_bumdesa.activities.MainActivity;
+import com.ardiarahma.sik_bumdesa.networks.SharedPref;
+import com.ardiarahma.sik_bumdesa.networks.models.User;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AnggaranActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,6 +31,13 @@ public class AnggaranActivity extends AppCompatActivity
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar = null;
+    Context context = this;
+
+    TextView nav_company_name, nav_company_email;
+
+    User user = SharedPref.getInstance(this).getBaseUser();
+    String token = "Bearer " + user.getToken();
+    String accept = "application/json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +46,11 @@ public class AnggaranActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        View headerView = navigationView.getHeaderView(0);
+        nav_company_name = headerView.findViewById(R.id.nav_company_name);
+        nav_company_email = headerView.findViewById(R.id.nav_company_email);
+        nav_company_name.setText(user.getNama());
+        nav_company_email.setText(user.getEmail());
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -118,6 +138,23 @@ public class AnggaranActivity extends AppCompatActivity
     }
 
     public void logoutConfirmation(){
-
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
+        sweetAlertDialog.setTitleText("Konfirmasi");
+        sweetAlertDialog.setConfirmText("Keluar");
+        sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                SharedPref.getInstance(context).clear();
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+                Toast.makeText(context, "Anda berhasil keluar", Toast.LENGTH_SHORT).show();
+            }
+        });
+        sweetAlertDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        }).show();
     }
 }

@@ -35,4 +35,5 @@
     <string name="title_activity_neraca_awal">Neraca Awal</string>
     <string name="title_activity_anggaran">Rancangan Anggaran Bisnis</string>
     <string name="title_activity_user">Pengaturan User</string>
+    <string name="title_activity_account_data">AccountDataActivity</string>
 </resources>

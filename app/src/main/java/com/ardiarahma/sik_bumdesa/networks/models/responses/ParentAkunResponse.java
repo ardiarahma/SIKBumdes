@@ -18,7 +18,7 @@ public class ParentAkunResponse {
 
     @SerializedName("parent")
     @Expose
-    private ArrayList<ParentAkun> parentAkuns = null;;
+    private ArrayList<ParentAkun> parentAkuns = null;
 
     public ParentAkunResponse(String status, ArrayList<ParentAkun> parentAkuns) {
         this.status = status;

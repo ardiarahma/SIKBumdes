@@ -1,5 +1,7 @@
 package com.ardiarahma.sik_bumdesa.networks;
 
+import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.LoginResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
@@ -39,6 +41,20 @@ public interface ApiService {
     Call<ParentAkunResponse> parent_akun(
             @Header("Authorization") String token,
             @Header("Accept") String accept
+    );
+
+    @GET("klasifikasi-akun")
+    Call<KlasifikasiAkunResponse> klasifikasi_akun(
+            @Header("Authorization") String token,
+            @Header("Accept") String accept,
+            @Query("id_parent_akun") int id_parent_akun
+    );
+
+    @GET("data-akun")
+    Call<DataAkunResponse> data_akun(
+            @Header("Authorization") String token,
+            @Header("Accept") String accept,
+            @Query("id_klasifikasi_akun") int id_klasifikasi_akun
     );
 
     //===================== Neraca Awal =====================

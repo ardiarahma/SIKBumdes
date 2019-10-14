@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
-                android:text="Klasifikasi Akun"
+                android:text="Data Akun"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
                 android:textColor="#FFFFFF" />
 
@@ -38,7 +38,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_klasifikasi" />
+    <include layout="@layout/content_account_data" />
 
     <!--<com.getbase.floatingactionbutton.FloatingActionsMenu-->
         <!--android:id="@+id/fab_accounts"-->

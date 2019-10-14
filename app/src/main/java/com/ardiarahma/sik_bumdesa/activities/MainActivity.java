@@ -9,13 +9,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.dashboard.BukuBesarActivity;
+import com.ardiarahma.sik_bumdesa.activities.dashboard.EkuitasActivity;
+import com.ardiarahma.sik_bumdesa.activities.dashboard.JurnalActivity;
+import com.ardiarahma.sik_bumdesa.activities.dashboard.LabaRugiActivity;
+import com.ardiarahma.sik_bumdesa.activities.dashboard.NeracaActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountActivity;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountDataActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AnggaranActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.NeracaAwalActivity;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.UserActivity;
+import com.ardiarahma.sik_bumdesa.networks.SharedPref;
+import com.ardiarahma.sik_bumdesa.networks.models.User;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -26,6 +39,11 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     Toolbar toolbar = null;
     Context context = this;
+
+    RelativeLayout v1, v2, v3, v4, v5;
+    TextView welcome, nav_company_name, nav_company_email;
+
+    User user = SharedPref.getInstance(this).getBaseUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +64,61 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 //        displaySelectedScreen(R.id.nav_home);
-        
+
+        welcome = findViewById(R.id.company_name);
+        welcome.setText(user.getNama());
+
+        View headerView = navigationView.getHeaderView(0);
+        nav_company_name = headerView.findViewById(R.id.nav_company_name);
+        nav_company_email = headerView.findViewById(R.id.nav_company_email);
+        nav_company_name.setText(user.getNama());
+        nav_company_email.setText(user.getEmail());
+
+        v1 = findViewById(R.id.menu1);
+        v2 = findViewById(R.id.menu2);
+        v3 = findViewById(R.id.menu3);
+        v4 = findViewById(R.id.menu4);
+        v5 = findViewById(R.id.menu5);
+
+        v1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, JurnalActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        v2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BukuBesarActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        v3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LabaRugiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        v4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, EkuitasActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        v5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NeracaActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -131,6 +203,23 @@ public class MainActivity extends AppCompatActivity
 
     public void logoutConfirmation(){
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
+        sweetAlertDialog.setTitleText("Konfirmasi");
+        sweetAlertDialog.setConfirmText("Keluar");
+        sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                SharedPref.getInstance(context).clear();
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+                Toast.makeText(context, "Anda berhasil keluar", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+        sweetAlertDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        }).show();
     }
 }

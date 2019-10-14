@@ -1,22 +1,21 @@
 package com.ardiarahma.sik_bumdesa.activities.navigation_drawer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ardiarahma.sik_bumdesa.R;
@@ -24,14 +23,12 @@ import com.ardiarahma.sik_bumdesa.activities.LoginActivity;
 import com.ardiarahma.sik_bumdesa.activities.MainActivity;
 import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
-import com.ardiarahma.sik_bumdesa.networks.adapters.Neraca_AsetLancarAdapter;
-import com.ardiarahma.sik_bumdesa.networks.adapters.ParentAkunAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.Akun_ParentAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.ParentAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 
 import java.util.ArrayList;
-import java.util.prefs.PreferenceChangeEvent;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
@@ -44,10 +41,13 @@ public class AccountActivity extends AppCompatActivity
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar = null;
+    Context context = this;
+
+    TextView nav_company_name, nav_company_email;
 
     RecyclerView rv_account;
     private ArrayList<ParentAkun> parentAkuns;
-    ParentAkunAdapter adapter;
+    Akun_ParentAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
     User user = SharedPref.getInstance(this).getBaseUser();
@@ -72,6 +72,12 @@ public class AccountActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        nav_company_name = headerView.findViewById(R.id.nav_company_name);
+        nav_company_email = headerView.findViewById(R.id.nav_company_email);
+        nav_company_name.setText(user.getNama());
+        nav_company_email.setText(user.getEmail());
+
         pDialog = new SweetAlertDialog(AccountActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#e7a248"));
         pDialog.setTitleText("Tunggu sesaat..");
@@ -79,7 +85,7 @@ public class AccountActivity extends AppCompatActivity
         pDialog.show();
 
         rv_account = findViewById(R.id.rv_account);
-        adapter = new ParentAkunAdapter(this, parentAkuns);
+        adapter = new Akun_ParentAdapter(this, parentAkuns);
 
         Call<ParentAkunResponse> call = RetrofitClient
                 .getInstance()
@@ -97,7 +103,7 @@ public class AccountActivity extends AppCompatActivity
                         Log.i("debug", "onResponse : Get Parent Akun is Successful");
                         pDialog.dismissWithAnimation();
                         parentAkuns = parentAkunResponse.getParentAkuns();
-                        adapter = new ParentAkunAdapter(AccountActivity.this, parentAkuns);
+                        adapter = new Akun_ParentAdapter(AccountActivity.this, parentAkuns);
                         layoutManager = new LinearLayoutManager(
                                 AccountActivity.this, LinearLayoutManager.VERTICAL,false);
                         rv_account.setAdapter(adapter);
@@ -196,6 +202,25 @@ public class AccountActivity extends AppCompatActivity
     }
 
     public void logoutConfirmation(){
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
+        sweetAlertDialog.setTitleText("Konfirmasi");
+        sweetAlertDialog.setConfirmText("Keluar");
+        sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                SharedPref.getInstance(context).clear();
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivity(intent);
+                Toast.makeText(context, "Anda berhasil keluar", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        sweetAlertDialog.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                sweetAlertDialog.dismissWithAnimation();
+            }
+        }).show();
 
     }
 }

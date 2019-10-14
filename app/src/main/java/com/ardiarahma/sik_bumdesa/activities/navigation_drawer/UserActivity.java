@@ -1,6 +1,10 @@
 package com.ardiarahma.sik_bumdesa.activities.navigation_drawer;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,10 +17,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.activities.MainActivity;
+import com.ardiarahma.sik_bumdesa.networks.SharedPref;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class UserActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +35,19 @@ public class UserActivity extends AppCompatActivity
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar = null;
+    Context context = this;
+
+    User user = SharedPref.getInstance(this).getBaseUser();
+    String token = "Bearer " + user.getToken();
+    String accept = "application/json";
+
+    TextView tvName, tvAddress, tvPhone, tvEmail;
+    Button change_pass, change_profile;
+
+    EditText etName, etAddress, etPhone, etEmail, etOldPass, etNewPass, etConfPass;
+
+    Dialog dialog;
+    SweetAlertDialog vDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +64,152 @@ public class UserActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        tvName = findViewById(R.id.company_name);
+        tvAddress = findViewById(R.id.company_addr);
+        tvPhone = findViewById(R.id.company_phone);
+        tvEmail = findViewById(R.id.company_email);
+
+        tvName.setText(user.getNama());
+        tvAddress.setText(user.getAlamat());
+        tvPhone.setText(user.getNo_telepon());
+        tvEmail.setText(user.getEmail());
+
+        etName = findViewById(R.id.etName);
+        etAddress = findViewById(R.id.etAddress);
+        etPhone = findViewById(R.id.etPhone);
+        etEmail = findViewById(R.id.etEmail);
+
+        etOldPass = findViewById(R.id.old_password);
+        etNewPass = findViewById(R.id.new_pass);
+        etConfPass = findViewById(R.id.confirm_pass);
+
+        change_pass = findViewById(R.id.change_pass);
+        change_profile = findViewById(R.id.change_profile);
+
+        change_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog = new Dialog(UserActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.user_change_pass);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                Button dCancel = dialog.findViewById(R.id.cancel_button);
+                dCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                Button dSave = dialog.findViewById(R.id.save_button);
+                dSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.hide();
+                        validationPassword();
+                    }
+                });
+                dialog.show();
+            }
+        });
+
+        change_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(UserActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.user_change_profile);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                Button dCancel = dialog.findViewById(R.id.cancel_button);
+                dCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                Button dSave = dialog.findViewById(R.id.save_button);
+                dSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.hide();
+                        validationProfile();
+                    }
+                });
+                dialog.show();
+            }
+        });
+    }
+
+    public void validationProfile() {
+        final SweetAlertDialog vDialog = new SweetAlertDialog(UserActivity.this, SweetAlertDialog.WARNING_TYPE);
+        vDialog.setTitleText("Apakah data sudah benar?");
+        vDialog.setConfirmText("Ya, benar");
+        vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                SweetAlertDialog sweet_dialog = new SweetAlertDialog(UserActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                sweet_dialog.setTitleText("Detail usaha berhasil diubah");
+                sweet_dialog.show();
+                dialog.dismiss();
+                vDialog.dismissWithAnimation();
+//                if (!validateName() || !validationAdrress() || !validatePhone() || !validateEmail()){
+//                    //ini nanti ada manggil helper buat nyimpen datanya
+//                    SweetAlertDialog sweet_dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
+//                    sweet_dialog.setTitleText("Detail Perusahaan berhasil diubah");
+//                    dialog.dismiss();
+//                    sweet_dialog.show();
+//
+//                }else {
+//                    dialog.show();
+//                }
+            }
+        });
+
+        vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                vDialog.dismissWithAnimation();
+                dialog.show();
+            }
+        }).show();
+    }
+
+    public void validationPassword() {
+        final SweetAlertDialog vDialog = new SweetAlertDialog(UserActivity.this, SweetAlertDialog.WARNING_TYPE);
+        vDialog.setTitleText("Yakin ingin mengubah password?");
+        vDialog.setConfirmText("Ya");
+        vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                SweetAlertDialog sweet_dialog = new SweetAlertDialog(UserActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                sweet_dialog.setTitleText("Password berhasil diubah");
+                sweet_dialog.show();
+                dialog.dismiss();
+                vDialog.dismissWithAnimation();
+//                if (!validateOldPassword() || !validateNewPassword()){
+//                    //ini nanti ada manggil helper buat nyimpen datanya
+//                    SweetAlertDialog sweet_dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.SUCCESS_TYPE);
+//                    sweet_dialog.setTitleText("Password berhasil diubah");
+//                    sweet_dialog.show();
+//                    dialog.dismiss();
+//                }else {
+//                    dialog.show();
+//                }
+            }
+        });
+        vDialog.setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                vDialog.dismissWithAnimation();
+                dialog.show();
+            }
+        }).show();
     }
 
     @Override

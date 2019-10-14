@@ -83,6 +83,8 @@ public class NeracaAwalActivity extends AppCompatActivity
     TextView tv_months, tv_years;
     SimpleDateFormat dateFormat, monthFormat, yearFormat;
 
+    TextView nav_company_name, nav_company_email;
+
     public static final String[] akun = new String[]{
             "Kas", "Kas di Bank", "Piutang Dagang", " Sewa Dibayar Dimuka", "Aset Lainnya", "Utang Dagang",
             "Utang Gaji", "Utang Bank", "Obligasi", "Modal Disetor", "Saldo Laba Ditahan", "Saldo Laba Tahun Berjalan",
@@ -104,6 +106,12 @@ public class NeracaAwalActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        View headerView = navigationView.getHeaderView(0);
+        nav_company_name = headerView.findViewById(R.id.nav_company_name);
+        nav_company_email = headerView.findViewById(R.id.nav_company_email);
+        nav_company_name.setText(user.getNama());
+        nav_company_email.setText(user.getEmail());
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -209,10 +217,10 @@ public class NeracaAwalActivity extends AppCompatActivity
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
 //        showNeracaAwal();
-        Call<NeracaAwalResponse> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .neraca_awal(token, accept, bulan, tahun);
+//        Call<NeracaAwalResponse> call = RetrofitClient
+//                .getInstance()
+//                .getApi()
+//                .neraca_awal(token, accept, bulan, tahun);
     }
 
     public void showDatePicker(){

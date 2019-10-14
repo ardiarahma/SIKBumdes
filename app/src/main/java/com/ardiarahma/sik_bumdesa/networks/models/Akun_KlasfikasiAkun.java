@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Windows 10 on 10/8/2019.
  */
 
-public class KlasifikasiAkun extends ExpandableGroup {
+public class Akun_KlasfikasiAkun{
 
     @SerializedName("id")
     @Expose
@@ -26,19 +26,7 @@ public class KlasifikasiAkun extends ExpandableGroup {
     @Expose
     private int id_parent_akun;
 
-    public KlasifikasiAkun(String title, List items) {
-        super(title, items);
-    }
-
-    public KlasifikasiAkun(String title, List items, int id, String name, int id_parent_akun) {
-        super(title, items);
-        this.id = id;
-        this.name = name;
-        this.id_parent_akun = id_parent_akun;
-    }
-
-    public KlasifikasiAkun(Parcel in, int id, String name, int id_parent_akun) {
-        super(in);
+    public Akun_KlasfikasiAkun(int id, String name, int id_parent_akun) {
         this.id = id;
         this.name = name;
         this.id_parent_akun = id_parent_akun;

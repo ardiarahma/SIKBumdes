@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountClassificationActivity;
-import com.ardiarahma.sik_bumdesa.networks.models.Ekuitas_Modal;
-import com.ardiarahma.sik_bumdesa.networks.models.ParentAkun;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountDataActivity;
+import com.ardiarahma.sik_bumdesa.networks.models.Akun_DataAkun;
+import com.ardiarahma.sik_bumdesa.networks.models.Akun_KlasfikasiAkun;
 
 import java.util.ArrayList;
 
@@ -20,19 +21,18 @@ import java.util.ArrayList;
  * Created by Windows 10 on 8/19/2019.
  */
 
-public class ParentAkunAdapter extends RecyclerView.Adapter<ParentAkunAdapter.ViewHolder> {
+public class Akun_DataAkunAdapter extends RecyclerView.Adapter<Akun_DataAkunAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<ParentAkun> parentAkuns;
-            //= new ArrayList<>();
+    private ArrayList<Akun_DataAkun> akun_dataAkuns = new ArrayList<>();
 
-    public ParentAkunAdapter(Context context, ArrayList<ParentAkun> parentAkuns) {
+    public Akun_DataAkunAdapter(Context context, ArrayList<Akun_DataAkun> akun_dataAkuns) {
         this.context = context;
-        this.parentAkuns = parentAkuns;
+        this.akun_dataAkuns = akun_dataAkuns;
     }
 
     @Override
-    public ParentAkunAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Akun_DataAkunAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_parent_akun, parent, false);
         ViewHolder holder = new ViewHolder(view);
@@ -40,21 +40,24 @@ public class ParentAkunAdapter extends RecyclerView.Adapter<ParentAkunAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ParentAkunAdapter.ViewHolder holder, int position) {
-        holder.akun.setText(parentAkuns.get(position).getParent_akun());
+    public void onBindViewHolder(final Akun_DataAkunAdapter.ViewHolder holder, int position) {
+        holder.akun.setText(akun_dataAkuns.get(position).getName());
+//        holder.parent_id = parentAkuns.get(position).getId();
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AccountClassificationActivity.class);
+                Intent intent = new Intent(context, AccountDataActivity.class);
+//                intent.putExtra("parent_id", holder.parent_id);
                 context.startActivity(intent);
             }
         });
+
 //        holder.id.setText(String.valueOf(parentAkuns.get(position).getId()));
     }
 
     @Override
     public int getItemCount() {
-        return parentAkuns.size();
+        return akun_dataAkuns.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
