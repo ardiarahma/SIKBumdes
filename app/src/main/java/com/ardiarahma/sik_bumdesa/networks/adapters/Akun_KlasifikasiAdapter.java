@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountClassificationActivity;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountDataActivity;
 import com.ardiarahma.sik_bumdesa.networks.models.Akun_KlasfikasiAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.ParentAkun;
 
@@ -45,7 +46,7 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AccountClassificationActivity.class);
+                Intent intent = new Intent(context, AccountDataActivity.class);
                 intent.putExtra("classification_id", holder.klasifikasi_id);
                 context.startActivity(intent);
             }

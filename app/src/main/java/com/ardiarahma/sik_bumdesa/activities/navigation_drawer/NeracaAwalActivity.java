@@ -177,6 +177,8 @@ public class NeracaAwalActivity extends AppCompatActivity
 
         rv_aset_lancar = findViewById(R.id.rv_aset_lancar);
         adapter_asetLancar = new Neraca_AsetLancarAdapter(this, neracaAsetLancars);
+
+
 //        neracaAsetLancars = new ArrayList<>();
 //        neracaAsetLancars.add(new Neraca_AsetLancar("Kas", 1000000));
 //        neracaAsetLancars.add(new Neraca_AsetLancar("Kas di Bank", 2000000));
