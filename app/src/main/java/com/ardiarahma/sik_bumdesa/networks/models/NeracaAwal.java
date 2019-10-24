@@ -9,13 +9,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class NeracaAwal {
 
-    @SerializedName("id")
+    @SerializedName("kode_klasifikasi")
     @Expose
-    private int id;
+    private int kode_klasifikasi;
 
-    @SerializedName("id_data_akun")
+    @SerializedName("kode_akun")
     @Expose
-    private int id_data_akun;
+    private int kode_akun;
+
+    @SerializedName("nama")
+    @Expose
+    private String nama;
 
     @SerializedName("tanggal")
     @Expose
@@ -25,42 +29,41 @@ public class NeracaAwal {
     @Expose
     private String jumlah;
 
-    @SerializedName("id_klasifikasi_akun")
+    @SerializedName("id_neraca_awal")
     @Expose
-    private int id_klasifikasi_akun;
+    private int id_neraca_awal;
 
-    @SerializedName("nama")
-    @Expose
-    private String nama;
-
-    @SerializedName("posisi_normal")
-    @Expose
-    private String posisi_normal;
-
-    public NeracaAwal(int id, int id_data_akun, String tanggal, String jumlah, int id_klasifikasi_akun, String nama, String posisi_normal) {
-        this.id = id;
-        this.id_data_akun = id_data_akun;
+    public NeracaAwal(int kode_klasifikasi, int kode_akun, String nama, String tanggal, String jumlah, int id_neraca_awal) {
+        this.kode_klasifikasi = kode_klasifikasi;
+        this.kode_akun = kode_akun;
+        this.nama = nama;
         this.tanggal = tanggal;
         this.jumlah = jumlah;
-        this.id_klasifikasi_akun = id_klasifikasi_akun;
+        this.id_neraca_awal = id_neraca_awal;
+    }
+
+    public int getKode_klasifikasi() {
+        return kode_klasifikasi;
+    }
+
+    public void setKode_klasifikasi(int kode_klasifikasi) {
+        this.kode_klasifikasi = kode_klasifikasi;
+    }
+
+    public int getKode_akun() {
+        return kode_akun;
+    }
+
+    public void setKode_akun(int kode_akun) {
+        this.kode_akun = kode_akun;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
         this.nama = nama;
-        this.posisi_normal = posisi_normal;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId_data_akun() {
-        return id_data_akun;
-    }
-
-    public void setId_data_akun(int id_data_akun) {
-        this.id_data_akun = id_data_akun;
     }
 
     public String getTanggal() {
@@ -79,27 +82,11 @@ public class NeracaAwal {
         this.jumlah = jumlah;
     }
 
-    public int getId_klasifikasi_akun() {
-        return id_klasifikasi_akun;
+    public int getId_neraca_awal() {
+        return id_neraca_awal;
     }
 
-    public void setId_klasifikasi_akun(int id_klasifikasi_akun) {
-        this.id_klasifikasi_akun = id_klasifikasi_akun;
-    }
-
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
-    public String getPosisi_normal() {
-        return posisi_normal;
-    }
-
-    public void setPosisi_normal(String posisi_normal) {
-        this.posisi_normal = posisi_normal;
+    public void setId_neraca_awal(int id_neraca_awal) {
+        this.id_neraca_awal = id_neraca_awal;
     }
 }

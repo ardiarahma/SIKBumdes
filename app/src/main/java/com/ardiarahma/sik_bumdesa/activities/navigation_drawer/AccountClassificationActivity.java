@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,16 +24,12 @@ import android.widget.Toast;
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
-import com.ardiarahma.sik_bumdesa.networks.adapters.AkunAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.Akun_KlasifikasiAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.Akun_ParentAdapter;
-import com.ardiarahma.sik_bumdesa.networks.adapters.KlasifikasiAkunAdapter;
-import com.ardiarahma.sik_bumdesa.networks.models.AkunExp;
 import com.ardiarahma.sik_bumdesa.networks.models.Akun_KlasfikasiAkun;
-import com.ardiarahma.sik_bumdesa.networks.models.KlasifikasiAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.ParentAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
-import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -72,6 +68,7 @@ public class AccountClassificationActivity extends AppCompatActivity {
     String token = "Bearer " + user.getToken();
     String accept = "application/json";
 
+    EditText nama_klasifikasi, kode_klasifikasi;
     Spinner parent_akun;
     TextView id_parent;
 
@@ -92,6 +89,7 @@ public class AccountClassificationActivity extends AppCompatActivity {
 
         list = findViewById(R.id.list);
         adapter = new Akun_KlasifikasiAdapter(this, klasifikasiAkuns);
+        context = this;
 
         Intent intent = getIntent();
         int id_parent_akun = intent.getIntExtra("parent_id", 0);
@@ -119,6 +117,7 @@ public class AccountClassificationActivity extends AppCompatActivity {
                         list.setHasFixedSize(true);
                         list.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+                        registerForContextMenu(list);
                     }else {
                         Log.i("debug", "onResponse : Get Parent Akun was Failed");
                         pDialog.dismissWithAnimation();
@@ -167,41 +166,47 @@ public class AccountClassificationActivity extends AppCompatActivity {
                 call1.enqueue(new Callback<ParentAkunResponse>() {
                     @Override
                     public void onResponse(Call<ParentAkunResponse> call, Response<ParentAkunResponse> response) {
-                        if (response.isSuccessful()){
-                            ParentAkunResponse parentAkunResponse = response.body();
-                            if (parentAkunResponse.getStatus().equals("success")){
+                        pDialog.dismissWithAnimation();
+                        ParentAkunResponse parentAkunResponse = response.body();
+                        Log.d("TAG", "Response " + response.body());
+                        if (response.isSuccessful()) {
+                            if (parentAkunResponse.getStatus().equals("success")) {
+                                pDialog.dismissWithAnimation();
                                 parentAkuns = parentAkunResponse.getParentAkuns();
-                                Log.d("TAG", "Response" + parentAkunResponse.getParentAkuns());
-                                arrayAdapter = new ArrayAdapter<ParentAkun>(context, android.R.layout.simple_spinner_item);
+                                arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, parentAkuns);
                                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 parent_akun.setAdapter(arrayAdapter);
-                                parent_akun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                    @Override
-                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                        ParentAkun parentAkun = (ParentAkun) parent.getSelectedItem();
-                                        int parentakun = parentAkun.getId();
-                                        id_parent.setText(String.valueOf(parentakun));
-                                    }
-
-                                    @Override
-                                    public void onNothingSelected(AdapterView<?> parent) {
-
-                                    }
-                                });
                             }
+                        } else {
+                            pDialog.dismissWithAnimation();
+                            Toast.makeText(context, "Gagal mengambil data parent akun", Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ParentAkunResponse> call, Throwable t) {
-                        Toast.makeText(context, "Gagal mengambil data provinsi", Toast.LENGTH_LONG).show();
-                        Log.d("TAG", "Response" + t.toString());
+                        pDialog.dismissWithAnimation();
+                        Toast.makeText(context, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                parent_akun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        ParentAkun parentAkun = (ParentAkun) parent.getSelectedItem();
+                        int id_parent_akun = parentAkun.getId();
+                        id_parent.setText(String.valueOf(id_parent_akun));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
                     }
                 });
 
 
-                EditText nama_klasifikasi = dialog.findViewById(R.id.nama_klasifikasi);
-                EditText kode_klasifikasi = dialog.findViewById(R.id.kode_klasifikasi);
+                nama_klasifikasi = dialog.findViewById(R.id.nama_klasifikasi);
+                kode_klasifikasi = dialog.findViewById(R.id.kode_klasifikasi);
 
                 Button dCancel = dialog.findViewById(R.id.cancel_button);
                 dCancel.setOnClickListener(new View.OnClickListener() {
@@ -233,7 +238,7 @@ public class AccountClassificationActivity extends AppCompatActivity {
         vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
-
+                createKlasifikasi();
                 SweetAlertDialog sweet_dialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.SUCCESS_TYPE);
                 sweet_dialog.setTitleText("Klasifikasi akun berhasil ditambahkan");
                 sweet_dialog.show();
@@ -250,15 +255,43 @@ public class AccountClassificationActivity extends AppCompatActivity {
         }).show();
     }
 
-    public void getKlasifikasi() {
-//        klasifikasiAkuns = new ArrayList<>(6);
-//        for (int i = 0; i < 6; i++){
-//            List<AkunExp> akunExps = new ArrayList<>(3);
-//            akunExps.add(new AkunExp(1110, 11,"Kas", "Debit"));
-//            akunExps.add(new AkunExp(1111, 11, "Kas di Bank", "Debit"));
-//            akunExps.add(new AkunExp(1120, 11, "Piutang Dagang", "Debit"));
-//            klasifikasiAkuns.add(new KlasifikasiAkun("Aset Lancar", akunExps));
-//        }
+    public void createKlasifikasi() {
+
+        int id_parent_akun = Integer.parseInt(id_parent.getText().toString());
+        String name = nama_klasifikasi.getText().toString();
+        String code = kode_klasifikasi.getText().toString();
+
+        Call<KlasifikasiAkunCreateResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .create_klasifikasi_akun(token, code, name, id_parent_akun);
+
+        call.enqueue(new Callback<KlasifikasiAkunCreateResponse>() {
+            @Override
+            public void onResponse(Call<KlasifikasiAkunCreateResponse> call, Response<KlasifikasiAkunCreateResponse> response) {
+                pDialog.dismissWithAnimation();
+                KlasifikasiAkunCreateResponse klasifikasiCreateResponse = response.body();
+                Log.d("TAG", "Response " + response.body());
+                if(response.isSuccessful()){
+                    if (klasifikasiCreateResponse.getStatus().equals("success")){
+                        Log.i("debug", "onResponse : Post Klasifikasi Akun is Successful");
+                        pDialog.dismissWithAnimation();
+                        validationAccount();
+                    }
+                }else {
+                    pDialog.dismissWithAnimation();
+                    Toast.makeText(context, "Gagal mengirim data akun", Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KlasifikasiAkunCreateResponse> call, Throwable t) {
+                pDialog.dismissWithAnimation();
+                Toast.makeText(context, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 }

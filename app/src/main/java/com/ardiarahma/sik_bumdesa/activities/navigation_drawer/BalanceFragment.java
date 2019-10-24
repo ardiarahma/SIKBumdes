@@ -169,7 +169,7 @@ public class BalanceFragment extends Fragment{
 //        sp_months.setAdapter(adapter_month);
 
         rv_aset_lancar = v.findViewById(R.id.rv_aset_lancar);
-        adapter_asetLancar = new Neraca_AsetLancarAdapter(getContext(), neracaAsetLancars);
+//        adapter_asetLancar = new Neraca_AsetLancarAdapter(getContext(),  neracaAwa);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         rv_aset_lancar.setAdapter(adapter_asetLancar);
@@ -178,7 +178,7 @@ public class BalanceFragment extends Fragment{
         adapter_asetLancar.notifyDataSetChanged();
 
         rv_aset_tetap = v.findViewById(R.id.rv_aset_tetap);
-        adapter_asetTetap= new Neraca_AsetTetapAdapter(getContext(), neracaAsetTetaps);
+//        adapter_asetTetap= new Neraca_AsetTetapAdapter(getContext(), neracaAsetTetaps);
         LinearLayoutManager linearLayoutManager_1 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,
                 false);
         rv_aset_tetap.setAdapter(adapter_asetTetap);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal;
 import com.ardiarahma.sik_bumdesa.networks.models.Neraca_AsetTetap;
 
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ import java.util.ArrayList;
 public class Neraca_AsetTetapAdapter extends RecyclerView.Adapter<Neraca_AsetTetapAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<Neraca_AsetTetap> neracaAsetTetaps= new ArrayList<>();
+    private ArrayList<NeracaAwal> neracaAwals = new ArrayList<>();
+    private ArrayList<NeracaAwal> neracaAwalsFiter;
 
-    public Neraca_AsetTetapAdapter(Context context, ArrayList<Neraca_AsetTetap> neracaAsetTetaps) {
+    public Neraca_AsetTetapAdapter(Context context, ArrayList<NeracaAwal> neracaAwals) {
         this.context = context;
-        this.neracaAsetTetaps = neracaAsetTetaps;
+        this.neracaAwals = neracaAwals;
+        neracaAwalsFiter = neracaAwals;
     }
 
     @Override
@@ -34,13 +37,13 @@ public class Neraca_AsetTetapAdapter extends RecyclerView.Adapter<Neraca_AsetTet
 
     @Override
     public void onBindViewHolder(Neraca_AsetTetapAdapter.ViewHolder holder, int position) {
-        holder.akun.setText(neracaAsetTetaps.get(position).getAkun());
-        holder.jumlah.setText(String.valueOf(neracaAsetTetaps.get(position).getJumlah()));
+        holder.akun.setText(neracaAwals.get(position).getNama());
+        holder.jumlah.setText(String.valueOf(neracaAwals.get(position).getJumlah()));
     }
 
     @Override
     public int getItemCount() {
-        return neracaAsetTetaps.size();
+        return neracaAwals.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -53,5 +56,21 @@ public class Neraca_AsetTetapAdapter extends RecyclerView.Adapter<Neraca_AsetTet
             akun = itemView.findViewById(R.id.akun);
             jumlah = itemView.findViewById(R.id.jumlah);
         }
+    }
+
+    public void addItem(ArrayList<NeracaAwal> neracaAwal){
+        neracaAwals.addAll(neracaAwal);
+        notifyDataSetChanged();
+    }
+
+    public void filterID(int id){
+        ArrayList<NeracaAwal> filterNeracaAset = new ArrayList<>();
+        for (NeracaAwal nA : neracaAwals){
+            if (nA.getKode_klasifikasi() == id){
+                filterNeracaAset.add(nA);
+            }
+        }
+        neracaAwalsFiter = filterNeracaAset;
+        notifyDataSetChanged();
     }
 }

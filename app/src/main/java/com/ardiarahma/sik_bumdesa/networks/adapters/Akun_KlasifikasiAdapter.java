@@ -51,6 +51,7 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
                 context.startActivity(intent);
             }
         });
+        holder.cardView.setLongClickable(true);
 
 //        holder.id.setText(String.valueOf(parentAkuns.get(position).getId()));
     }

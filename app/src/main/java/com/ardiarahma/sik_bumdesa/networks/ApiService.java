@@ -1,6 +1,7 @@
 package com.ardiarahma.sik_bumdesa.networks;
 
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.LoginResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
@@ -50,6 +51,15 @@ public interface ApiService {
             @Query("id_parent_akun") int id_parent_akun
     );
 
+    @FormUrlEncoded
+    @POST("klasifikasi-akun/store")
+    Call<KlasifikasiAkunCreateResponse> create_klasifikasi_akun(
+            @Header("Authorization") String token,
+            @Field("id") String code,
+            @Field("nama") String name,
+            @Field("id_parent_akun") int id_parent_akun
+    );
+
     @GET("data-akun")
     Call<DataAkunResponse> data_akun(
             @Header("Authorization") String token,
@@ -62,8 +72,7 @@ public interface ApiService {
     Call<NeracaAwalResponse> neraca_awal(
             @Header("Authorization") String token,
             @Header("Accept") String accept,
-            @Query("month") int bulan,
-            @Query("year") int tahun
+            @Query("year") int tahun_param
     );
 
     //===================== Pengaturan User =====================

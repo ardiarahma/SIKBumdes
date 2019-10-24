@@ -1,6 +1,7 @@
 package com.ardiarahma.sik_bumdesa.networks.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.NeracaAwalActivity;
+import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal;
 import com.ardiarahma.sik_bumdesa.networks.models.Neraca_AsetLancar;
 
 import java.util.ArrayList;
@@ -19,11 +22,11 @@ import java.util.ArrayList;
 public class Neraca_AsetLancarAdapter extends RecyclerView.Adapter<Neraca_AsetLancarAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<Neraca_AsetLancar> neracaAsetLancars = new ArrayList<>();
+    private ArrayList<NeracaAwal> neracaAwals = new ArrayList<>();
 
-    public Neraca_AsetLancarAdapter(Context context, ArrayList<Neraca_AsetLancar> neracaAsetLancars) {
+    public Neraca_AsetLancarAdapter(Context context, ArrayList<NeracaAwal> neracaAwals) {
         this.context = context;
-        this.neracaAsetLancars = neracaAsetLancars;
+        this.neracaAwals = neracaAwals;
     }
 
     @Override
@@ -34,13 +37,13 @@ public class Neraca_AsetLancarAdapter extends RecyclerView.Adapter<Neraca_AsetLa
 
     @Override
     public void onBindViewHolder(Neraca_AsetLancarAdapter.ViewHolder holder, int position) {
-        holder.akun.setText(neracaAsetLancars.get(position).getAkun());
-        holder.jumlah.setText(String.valueOf(neracaAsetLancars.get(position).getJumlah()));
+        holder.akun.setText(neracaAwals.get(position).getNama());
+        holder.jumlah.setText(String.valueOf(neracaAwals.get(position).getJumlah()));
     }
 
     @Override
     public int getItemCount() {
-        return neracaAsetLancars.size();
+        return neracaAwals.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -53,5 +56,10 @@ public class Neraca_AsetLancarAdapter extends RecyclerView.Adapter<Neraca_AsetLa
             akun = itemView.findViewById(R.id.akun);
             jumlah = itemView.findViewById(R.id.jumlah);
         }
+    }
+
+    public void addItem(ArrayList<NeracaAwal> neracaAwal){
+        neracaAwals.addAll(neracaAwal);
+        notifyDataSetChanged();
     }
 }

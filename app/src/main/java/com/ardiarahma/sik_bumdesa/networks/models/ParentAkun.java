@@ -3,8 +3,6 @@ package com.ardiarahma.sik_bumdesa.networks.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 /**
  * Created by Windows 10 on 10/7/2019.
  */
@@ -38,5 +36,10 @@ public class ParentAkun {
 
     public void setParent_akun(String parent_akun) {
         this.parent_akun = parent_akun;
+    }
+
+    @Override
+    public String toString() {
+        return parent_akun;
     }
 }

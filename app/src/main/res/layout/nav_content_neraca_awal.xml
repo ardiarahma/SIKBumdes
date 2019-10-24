@@ -33,21 +33,11 @@
                 android:src="@drawable/ic_date" />
 
             <TextView
-                android:id="@+id/month"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:text="Bulan"
-                android:textSize="16dp"
-                android:textAlignment="center"
-                android:gravity="center"/>
-
-            <TextView
                 android:id="@+id/year"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.4"
-                android:text="Tahun"
+                android:layout_weight="0.8"
+                android:text="tahun periode"
                 android:textSize="16dp"
                 android:textAlignment="center"
                 android:gravity="center"/>
