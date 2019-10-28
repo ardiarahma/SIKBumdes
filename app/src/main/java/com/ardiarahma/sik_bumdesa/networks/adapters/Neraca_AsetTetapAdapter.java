@@ -57,20 +57,4 @@ public class Neraca_AsetTetapAdapter extends RecyclerView.Adapter<Neraca_AsetTet
             jumlah = itemView.findViewById(R.id.jumlah);
         }
     }
-
-    public void addItem(ArrayList<NeracaAwal> neracaAwal){
-        neracaAwals.addAll(neracaAwal);
-        notifyDataSetChanged();
-    }
-
-    public void filterID(int id){
-        ArrayList<NeracaAwal> filterNeracaAset = new ArrayList<>();
-        for (NeracaAwal nA : neracaAwals){
-            if (nA.getKode_klasifikasi() == id){
-                filterNeracaAset.add(nA);
-            }
-        }
-        neracaAwalsFiter = filterNeracaAset;
-        notifyDataSetChanged();
-    }
 }

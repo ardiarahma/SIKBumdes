@@ -4,6 +4,9 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.LoginResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalKlasifikasiResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalParentResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.RegisterResponse;
@@ -73,6 +76,25 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Header("Accept") String accept,
             @Query("year") int tahun_param
+    );
+
+    @GET("neraca-awal/parent")
+    Call<NeracaAwalParentResponse> neracaParent(
+            @Header("Authorization") String token,
+            @Query("year") int year
+    );
+
+    @GET("neraca-awal/show_klasifikasi")
+    Call<NeracaAwalKlasifikasiResponse> neracaKlasifikasi(
+            @Header("Authorization") String token,
+            @Query("id_parent") int parentId
+    );
+
+    @GET("neraca-awal/show_akun")
+    Call<NeracaAwalAkunResponse> neracaAkun(
+            @Header("Authorization") String token,
+            @Query("id_klasifikasi") int klasifikasiId,
+            @Query("year") int year
     );
 
     //===================== Pengaturan User =====================

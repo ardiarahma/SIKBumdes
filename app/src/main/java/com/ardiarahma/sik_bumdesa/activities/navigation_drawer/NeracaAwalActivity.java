@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,13 +36,16 @@ import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.activities.MainActivity;
 import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
+import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaAwal_ParentAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.Neraca_AsetLancarAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.Neraca_AsetTetapAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal;
+import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal_Parent;
 import com.ardiarahma.sik_bumdesa.networks.models.Neraca_AsetLancar;
 import com.ardiarahma.sik_bumdesa.networks.models.Neraca_AsetTetap;
 import com.ardiarahma.sik_bumdesa.networks.models.Neraca_UtangLancar;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalParentResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
 
 import java.text.SimpleDateFormat;
@@ -73,6 +77,7 @@ public class NeracaAwalActivity extends AppCompatActivity
 
     com.getbase.floatingactionbutton.FloatingActionButton fab1;
 
+    /*
     RecyclerView rv_aset_tetap, rv_aset_lancar, rv_utang_lancar, rv_utang_jp, rv_ekuitas,
             rv_pendapatan, rv_pendapatan_2, rv_biaya, rv_biaya_2;
     Neraca_AsetTetapAdapter adapter_asetTetap;
@@ -83,13 +88,19 @@ public class NeracaAwalActivity extends AppCompatActivity
 
     private final int asetLancar = 11;
     private final int asetTetap = 12;
+    */
+    private ArrayList<NeracaAwal_Parent> neracaAwalParentArrayList;
+    private RecyclerView rv_parent;
+    private NeracaAwal_ParentAdapter parentAdapter;
+    private TextView textDebit, textKredit;
 
     Dialog dialog, year_dialog;
     SweetAlertDialog vDialog, pDialog;
 
     DatePickerDialog datePickerDialog;
     ImageButton balance_date;
-    TextView tv_months, tv_years;
+    TextView tv_months;
+    public static TextView tv_years;
     SimpleDateFormat dateFormat, monthFormat, yearFormat;
 
     TextView nav_company_name, nav_company_email;
@@ -152,8 +163,8 @@ public class NeracaAwalActivity extends AppCompatActivity
                 tv_years.setText(String.valueOf(tahun));
                 final NumberPicker nopicker = year_dialog.findViewById(R.id.year_picker);
 
-                nopicker.setMaxValue(tahun+50);
-                nopicker.setMinValue(tahun-50);
+                nopicker.setMaxValue(tahun + 50);
+                nopicker.setMinValue(tahun - 50);
                 nopicker.setWrapSelectorWheel(false);
                 nopicker.setValue(tahun);
                 nopicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
@@ -229,6 +240,7 @@ public class NeracaAwalActivity extends AppCompatActivity
             }
         });
 
+        /*
         neracaAwalAsetLancer = new ArrayList<>();
         neracaAwalAsetTetap = new ArrayList<>();
         rv_aset_lancar = findViewById(R.id.rv_aset_lancar);
@@ -260,7 +272,11 @@ public class NeracaAwalActivity extends AppCompatActivity
         adapter_asetTetap= new Neraca_AsetTetapAdapter(this, neracaAwalAsetTetap);
         rv_aset_lancar.setAdapter(adapter_asetLancar);
         rv_aset_tetap.setAdapter(adapter_asetTetap);
+        */
 
+        rv_parent = findViewById(R.id.rv_parent);
+        textDebit = findViewById(R.id.textDebit);
+        textKredit =  findViewById(R.id.textKredit);
     }
 
     @Override
@@ -269,13 +285,47 @@ public class NeracaAwalActivity extends AppCompatActivity
         Calendar newDate = Calendar.getInstance(TimeZone.getDefault());
         int tahun = newDate.get(Calendar.YEAR);
         tv_years.setText(String.valueOf(tahun));
-        getNeracaAwal();
+        //getNeracaAwal();
+        loadParent();
     }
 
-    public void setAdapter(){
+    public void loadParent() {
+        int tahun_param = Integer.parseInt(tv_years.getText().toString());
 
+        Call<NeracaAwalParentResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .neracaParent(token, tahun_param);
+
+        call.enqueue(new Callback<NeracaAwalParentResponse>() {
+            @Override
+            public void onResponse(Call<NeracaAwalParentResponse> call, Response<NeracaAwalParentResponse> response) {
+                pDialog.dismissWithAnimation();
+                NeracaAwalParentResponse neracaAwalParentResponse = response.body();
+                if (response.isSuccessful()) {
+                    if (neracaAwalParentResponse.getStatus().equals("success")) {
+                        textDebit.setText(String.valueOf(neracaAwalParentResponse.getTotalDebit()));
+                        textKredit.setText(String.valueOf(neracaAwalParentResponse.getTotalKredit()));
+                        neracaAwalParentArrayList = neracaAwalParentResponse.getNeracaAwalParents();
+                        parentAdapter = new NeracaAwal_ParentAdapter(neracaAwalParentArrayList, NeracaAwalActivity.this);
+                        RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
+                        rv_parent.setLayoutManager(eLayoutManager);
+                        rv_parent.setItemAnimator(new DefaultItemAnimator());
+                        rv_parent.setAdapter(parentAdapter);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NeracaAwalParentResponse> call, Throwable t) {
+                pDialog.dismissWithAnimation();
+                Toast.makeText(NeracaAwalActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    /*
     public void getNeracaAwal(){
         int tahun_param = Integer.parseInt(tv_years.getText().toString());
 
@@ -292,25 +342,24 @@ public class NeracaAwalActivity extends AppCompatActivity
                     if (neracaAwalResponse.getStatus().equals("success")){
                         neracaAwals = neracaAwalResponse.getNeracaAwals();
 
-                        adapter_asetTetap = new Neraca_AsetTetapAdapter(NeracaAwalActivity.this, neracaAwals);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                        rv_aset_tetap.setLayoutManager(layoutManager);
-                        adapter_asetTetap.filterID(asetTetap);
-                        rv_aset_tetap.setAdapter(adapter_asetTetap);
-
-                        /*
-
                         for (int i = 0; i < neracaAwals.size(); i++){
                             NeracaAwal neracaAwal = neracaAwals.get(i);
                             if (neracaAwal.getKode_klasifikasi() == asetLancar){
-                                rv_aset_lancar.setAdapter(adapter_asetLancar);
-                                adapter_asetLancar.addItem(neracaAwalAsetLancer);
-
+                                neracaAwalAsetLancer.add(neracaAwal);
                             }else if (neracaAwal.getKode_klasifikasi() == asetTetap){
-                                rv_aset_tetap.setAdapter(adapter_asetTetap);
+                                neracaAwalAsetTetap.add(neracaAwal);
                             }
                         }
-                        */
+
+                        adapter_asetTetap = new Neraca_AsetTetapAdapter(NeracaAwalActivity.this, neracaAwalAsetTetap);
+                        RecyclerView.LayoutManager layoutManagerAsetTetap = new LinearLayoutManager(getApplicationContext());
+                        rv_aset_tetap.setLayoutManager(layoutManagerAsetTetap);
+                        rv_aset_tetap.setAdapter(adapter_asetTetap);
+
+                        adapter_asetLancar = new Neraca_AsetLancarAdapter(NeracaAwalActivity.this, neracaAwalAsetLancer);
+                        RecyclerView.LayoutManager layoutManagerAsetLancar = new LinearLayoutManager(getApplicationContext());
+                        rv_aset_lancar.setLayoutManager(layoutManagerAsetLancar);
+                        rv_aset_lancar.setAdapter(adapter_asetLancar);
 //                        setAdapter();
                     }
                 }else {
@@ -327,12 +376,13 @@ public class NeracaAwalActivity extends AppCompatActivity
             }
         });
     }
+    */
 
-    public void postNeracaAwal(){
+    public void postNeracaAwal() {
 
     }
 
-    public void showDatePicker(){
+    public void showDatePicker() {
         Calendar calendar = Calendar.getInstance();
 
         datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -347,7 +397,7 @@ public class NeracaAwalActivity extends AppCompatActivity
         datePickerDialog.show();
     }
 
-    public void validationAccount(){
+    public void validationAccount() {
         final SweetAlertDialog vDialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
         vDialog.setTitleText("Apakah data sudah benar?");
         vDialog.setConfirmText("Ya, benar");
@@ -400,7 +450,7 @@ public class NeracaAwalActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.nav_home:
                 Intent intent = new Intent(NeracaAwalActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -430,7 +480,7 @@ public class NeracaAwalActivity extends AppCompatActivity
         return true;
     }
 
-    public void logoutConfirmation(){
+    public void logoutConfirmation() {
 
     }
 }
