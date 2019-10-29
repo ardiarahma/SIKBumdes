@@ -1,6 +1,7 @@
 package com.ardiarahma.sik_bumdesa.networks;
 
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
@@ -14,6 +15,7 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.RegisterResponse;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -81,6 +83,12 @@ public interface ApiService {
             @Field("id") String code,
             @Field("nama") String name,
             @Field("id_parent_akun") int id_parent_akun
+    );
+
+    @DELETE("klasifikasi-akun/delete/{id}")
+    Call<DeleteResponse> delete_klasifikasi(
+            @Header("Authorization") String token,
+            @Path("id") int id_klas
     );
 
     @GET("data-akun")

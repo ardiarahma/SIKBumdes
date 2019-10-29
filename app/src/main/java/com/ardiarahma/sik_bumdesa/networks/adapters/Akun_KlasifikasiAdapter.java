@@ -31,6 +31,7 @@ import com.ardiarahma.sik_bumdesa.networks.SharedPref;
 import com.ardiarahma.sik_bumdesa.networks.models.Akun_KlasfikasiAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.ParentAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 
@@ -92,6 +93,11 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
     @Override
     public int getItemCount() {
         return akun_klasfikasiAkuns.size();
+    }
+
+    public void delete(int position){
+        akun_klasfikasiAkuns.remove(position);
+        notifyItemRemoved(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -239,11 +245,11 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
             vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    change();
+                    deleted();
                     SweetAlertDialog sweet_dialog = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);
                     sweet_dialog.setTitleText("Klasifikasi akun berhasil dihapus");
                     sweet_dialog.show();
-                    dialog.dismiss();
+//                    dialog.dismiss();
                     vDialog.dismiss();
                 }
             });
@@ -251,7 +257,7 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                     vDialog.dismiss();
-                    dialog.show();
+//                    dialog.show();
                 }
             }).show();
         }
@@ -284,6 +290,35 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
                 @Override
                 public void onFailure(Call<KlasifikasiAkunCreateResponse> call, Throwable t) {
                     Toast.makeText(context, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        public void deleted(){
+
+            int id_klas = klasifikasi_id;
+
+            Call<DeleteResponse> call = RetrofitClient
+                    .getInstance()
+                    .getApi()
+                    .delete_klasifikasi(token, id_klas);
+
+            call.enqueue(new Callback<DeleteResponse>() {
+                @Override
+                public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
+                    DeleteResponse deleteResponse = response.body();
+                    Log.d("TAG", "Response " + response.body());
+                    if (response.isSuccessful()){
+                        if (deleteResponse.getStatus().equals("success")){
+                            Log.i("debug", "Response success");
+                            delete(getAdapterPosition());
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DeleteResponse> call, Throwable t) {
+
                 }
             });
         }
