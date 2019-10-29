@@ -42,6 +42,7 @@ public class Akun_ParentAdapter extends RecyclerView.Adapter<Akun_ParentAdapter.
     public void onBindViewHolder(final Akun_ParentAdapter.ViewHolder holder, int position) {
         holder.akun.setText(parentAkuns.get(position).getParent_akun());
         holder.parent_id = parentAkuns.get(position).getId();
+        holder.id.setText(String.valueOf(parentAkuns.get(position).getId()));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +52,7 @@ public class Akun_ParentAdapter extends RecyclerView.Adapter<Akun_ParentAdapter.
             }
         });
 
-//        holder.id.setText(String.valueOf(parentAkuns.get(position).getId()));
+
     }
 
     @Override
@@ -61,7 +62,7 @@ public class Akun_ParentAdapter extends RecyclerView.Adapter<Akun_ParentAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cardView;
+        CardView cardView, edit, delete;
         TextView akun, id;
         int parent_id;
 
@@ -70,7 +71,8 @@ public class Akun_ParentAdapter extends RecyclerView.Adapter<Akun_ParentAdapter.
 
             akun = itemView.findViewById(R.id.akun);
             cardView = itemView.findViewById(R.id.card);
-//            id = itemView.findViewById(R.id.id);
+            id = itemView.findViewById(R.id.tvId);
+
         }
     }
 }

@@ -2,7 +2,9 @@ package com.ardiarahma.sik_bumdesa.networks;
 
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunUpdateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.LoginResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalKlasifikasiResponse;
@@ -18,6 +20,8 @@ import retrofit2.http.GET;
 import retrofit2.http.HEAD;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -54,10 +58,26 @@ public interface ApiService {
             @Query("id_parent_akun") int id_parent_akun
     );
 
+    @GET("klasifikasi-akun/detail/{id}")
+    Call<KlasifikasiAkunOneResponse> klasifikasi_akun_detail(
+            @Header("Authorization") String token,
+            @Header("Accept") String accept,
+            @Query("id_klasifikasi") int id_klasifikasi
+    );
+
     @FormUrlEncoded
     @POST("klasifikasi-akun/store")
     Call<KlasifikasiAkunCreateResponse> create_klasifikasi_akun(
             @Header("Authorization") String token,
+            @Field("id") String code,
+            @Field("nama") String name,
+            @Field("id_parent_akun") int id_parent_akun
+    );
+
+    @FormUrlEncoded
+    @PUT("klasifikasi-akun/update/{id}")
+    Call<KlasifikasiAkunCreateResponse> update_klasifikasi_akun(
+            @Path("id") int code_path,
             @Field("id") String code,
             @Field("nama") String name,
             @Field("id_parent_akun") int id_parent_akun

@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -30,6 +33,7 @@ import com.ardiarahma.sik_bumdesa.networks.models.Akun_KlasfikasiAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.ParentAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -90,6 +94,7 @@ public class AccountClassificationActivity extends AppCompatActivity {
         list = findViewById(R.id.list);
         adapter = new Akun_KlasifikasiAdapter(this, klasifikasiAkuns);
         context = this;
+        registerForContextMenu(list);
 
         Intent intent = getIntent();
         int id_parent_akun = intent.getIntExtra("parent_id", 0);
@@ -117,7 +122,6 @@ public class AccountClassificationActivity extends AppCompatActivity {
                         list.setHasFixedSize(true);
                         list.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-                        registerForContextMenu(list);
                     }else {
                         Log.i("debug", "onResponse : Get Parent Akun was Failed");
                         pDialog.dismissWithAnimation();
@@ -137,6 +141,8 @@ public class AccountClassificationActivity extends AppCompatActivity {
                 Toast.makeText(AccountClassificationActivity.this,t.toString(), Toast.LENGTH_LONG).show();
             }
         });
+
+
 
         pDialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#e7a248"));
@@ -231,6 +237,7 @@ public class AccountClassificationActivity extends AppCompatActivity {
 
     }
 
+
     public void validationAccount(){
         final SweetAlertDialog vDialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.WARNING_TYPE);
         vDialog.setTitleText("Apakah data sudah benar?");
@@ -281,7 +288,6 @@ public class AccountClassificationActivity extends AppCompatActivity {
                 }else {
                     pDialog.dismissWithAnimation();
                     Toast.makeText(context, "Gagal mengirim data akun", Toast.LENGTH_LONG).show();
-
                 }
             }
 
@@ -292,6 +298,6 @@ public class AccountClassificationActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
 }

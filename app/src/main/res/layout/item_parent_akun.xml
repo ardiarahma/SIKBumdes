@@ -34,14 +34,15 @@
                 android:textSize="16dp"
                 android:ellipsize="end"/>
 
-            <!--<TextView-->
-                <!--android:id="@+id/tvId"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.2"-->
-                <!--android:text="000000"-->
-                <!--android:textAlignment="center"-->
-                <!--android:textSize="16dp" />-->
+            <TextView
+                android:id="@+id/tvId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:text="0000"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"
+                android:textSize="16dp" />
 
         </LinearLayout>
 
