@@ -68,6 +68,7 @@ public class NeracaAwal_KlasifikasiAdapter extends RecyclerView.Adapter<NeracaAw
         private ArrayList<NeracaAwal_Akun> neracaAwalAkunArrayList;
         private RecyclerView rv_akun;
         private NeracaAwal_AkunAdapter akunAdapter;
+        private View viewKlasifikasi;
         User user = SharedPref.getInstance(mContext).getBaseUser();
         String token = "Bearer " + user.getToken();
 
@@ -78,6 +79,11 @@ public class NeracaAwal_KlasifikasiAdapter extends RecyclerView.Adapter<NeracaAw
             textEmpty = itemView.findViewById(R.id.textEmpty);
             btnDropDown = itemView.findViewById(R.id.btnDropDown);
             rv_akun = itemView.findViewById(R.id.rv_akun);
+            btnDropDown.setOnClickListener(this);
+            viewKlasifikasi = itemView.findViewById(R.id.viewKlasifikasi);
+            btnDropDown.setOnClickListener(this);
+            viewKlasifikasi.setOnClickListener(this);
+            textKlasifikasi.setOnClickListener(this);
         }
 
         @Override

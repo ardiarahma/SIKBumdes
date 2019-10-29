@@ -77,6 +77,8 @@ public class NeracaAwal_ParentAdapter extends RecyclerView.Adapter<NeracaAwal_Pa
             textEmpty = itemView.findViewById(R.id.textEmpty);
             btnDropDown = itemView.findViewById(R.id.btnDropDown);
             rv_klasifikasi = itemView.findViewById(R.id.rv_klasifikasi);
+            btnDropDown.setOnClickListener(this);
+            textParent.setOnClickListener(this);
         }
 
         @Override

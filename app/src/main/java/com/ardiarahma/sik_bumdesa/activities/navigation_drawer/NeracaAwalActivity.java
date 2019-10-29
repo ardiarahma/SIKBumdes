@@ -12,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -40,17 +42,21 @@ import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaAwal_ParentAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.Neraca_AsetLancarAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.Neraca_AsetTetapAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal;
+import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal_AllAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal_Parent;
 import com.ardiarahma.sik_bumdesa.networks.models.Neraca_AsetLancar;
 import com.ardiarahma.sik_bumdesa.networks.models.Neraca_AsetTetap;
 import com.ardiarahma.sik_bumdesa.networks.models.Neraca_UtangLancar;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAddResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAllAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalParentResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -68,12 +74,8 @@ public class NeracaAwalActivity extends AppCompatActivity
 
     User user = SharedPref.getInstance(this).getBaseUser();
     String token = "Bearer " + user.getToken();
-    String accept = "application/json";
 
-    TextView date;
     ImageButton datepicker;
-    EditText jumlah_balance;
-    Spinner sp_account;
 
     com.getbase.floatingactionbutton.FloatingActionButton fab1;
 
@@ -93,6 +95,14 @@ public class NeracaAwalActivity extends AppCompatActivity
     private RecyclerView rv_parent;
     private NeracaAwal_ParentAdapter parentAdapter;
     private TextView textDebit, textKredit;
+    private int pYear, pMonth, pDay;
+
+    ArrayList<NeracaAwal_AllAkun> neracaAwalAllAkuns;
+    ArrayAdapter<NeracaAwal_AllAkun> allAkunArrayAdapter;
+
+    EditText jumlah_balance;
+    Spinner spNamaAkun;
+    TextView selectedId, textDate, datePost;
 
     Dialog dialog, year_dialog;
     SweetAlertDialog vDialog, pDialog;
@@ -103,20 +113,8 @@ public class NeracaAwalActivity extends AppCompatActivity
     public static TextView tv_years;
     SimpleDateFormat dateFormat, monthFormat, yearFormat;
 
-    TextView nav_company_name, nav_company_email;
-
     Calendar newDate = Calendar.getInstance(TimeZone.getDefault());
     int tahun = newDate.get(Calendar.YEAR);
-//    int bulan = newDate.get(Calendar.MONTH);
-
-    public static final String[] akun = new String[]{
-            "Kas", "Kas di Bank", "Piutang Dagang", " Sewa Dibayar Dimuka", "Aset Lainnya", "Utang Dagang",
-            "Utang Gaji", "Utang Bank", "Obligasi", "Modal Disetor", "Saldo Laba Ditahan", "Saldo Laba Tahun Berjalan",
-            "Pendapatan Wisata", "Pendapatan Homestay", "Pendapatan Resto", "Pendapatan Event", "Biaya Gaji", "Biaya Listrik, Air, dan Telepon",
-            "Biaya Administrasi dan Umum", "Biaya Pemasaran", "Biaya Perlengkapan Kantor", "Biaya Sewa", "Biaya Asuransi", "Biaya Penyusutan Gedung",
-            "Biaya Penyusutan Kendaraan", "Biaya Penyusutan Peralatan Kantor", "Pendapatan Lain-lain",
-            "Biaya Lain-lain"
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,16 +128,6 @@ public class NeracaAwalActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-//        Calendar newDate = Calendar.getInstance(TimeZone.getDefault());
-//        final int tahun = newDate.get(Calendar.YEAR);
-//        tv_years.setText(String.valueOf(tahun));
-
-//        View headerView = navigationView.getHeaderView(1);
-//        nav_company_name = headerView.findViewById(R.id.nav_company_name);
-//        nav_company_email = headerView.findViewById(R.id.nav_company_email);
-//        nav_company_name.setText(user.getNama());
-//        nav_company_email.setText(user.getEmail());
 
         pDialog = new SweetAlertDialog(NeracaAwalActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#e7a248"));
@@ -202,14 +190,37 @@ public class NeracaAwalActivity extends AppCompatActivity
                 dialog.setContentView(R.layout.add_balance);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                sp_account = dialog.findViewById(R.id.nama_akun);
-                date = dialog.findViewById(R.id.date);
+                spNamaAkun = dialog.findViewById(R.id.spNamaAkun);
+                selectedId = dialog.findViewById(R.id.selectedId);
+                textDate = dialog.findViewById(R.id.date);
+                datePost = dialog.findViewById(R.id.datePost);
                 datepicker = dialog.findViewById(R.id.date_btn);
                 jumlah_balance = dialog.findViewById(R.id.jumlah_balance);
 
-                ArrayAdapter<String> account_adapter = new ArrayAdapter<String>(NeracaAwalActivity.this, R.layout.support_simple_spinner_dropdown_item, akun);
-                account_adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                sp_account.setAdapter(account_adapter);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+                String currentDate = sdf.format(new Date().getTime());
+                String currentDate2 = sdf2.format(new Date().getTime());
+                textDate.setText(currentDate);
+                datePost.setText(currentDate2);
+
+                loadAllAkun();
+
+                spNamaAkun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#8c8c8c"));
+                        ((TextView) parent.getChildAt(0)).setTextSize(16);
+                        ((TextView) parent.getChildAt(0)).setGravity(Gravity.END);
+                        NeracaAwal_AllAkun neracaAwalAllAkun = (NeracaAwal_AllAkun) parent.getSelectedItem();
+                        selectedId.setText(String.valueOf(neracaAwalAllAkun.getAkunId()));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
 
                 dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
 
@@ -240,43 +251,9 @@ public class NeracaAwalActivity extends AppCompatActivity
             }
         });
 
-        /*
-        neracaAwalAsetLancer = new ArrayList<>();
-        neracaAwalAsetTetap = new ArrayList<>();
-        rv_aset_lancar = findViewById(R.id.rv_aset_lancar);
-//        adapter_asetLancar = new Neraca_AsetLancarAdapter(this, neracaAwals);
-        rv_aset_tetap = findViewById(R.id.rv_aset_tetap);
-//        adapter_asetTetap= new Neraca_AsetTetapAdapter(this, neracaAwals);
-
-//        neracaAsetLancars = new ArrayList<>();
-//        neracaAsetLancars.add(new Neraca_AsetLancar("Kas", 1000000));
-//        neracaAsetLancars.add(new Neraca_AsetLancar("Kas di Bank", 2000000));
-//        neracaAsetLancars.add(new Neraca_AsetLancar("Piutang Dagang", 1000000));
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-//                false);
-//        rv_aset_lancar.setAdapter(adapter_asetLancar);
-//        rv_aset_lancar.setHasFixedSize(true);
-//        rv_aset_lancar.setLayoutManager(linearLayoutManager);
-//        adapter_asetLancar.notifyDataSetChanged();
-//
-//        neracaAsetTetaps = new ArrayList<>();
-//        neracaAsetTetaps.add(new Neraca_AsetTetap("Gedung", 3000000));
-//        LinearLayoutManager linearLayoutManager_1 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-//                false);
-//        rv_aset_tetap.setAdapter(adapter_asetTetap);
-//        rv_aset_tetap.setHasFixedSize(true);
-//        rv_aset_tetap.setLayoutManager(linearLayoutManager_1);
-//        adapter_asetTetap.notifyDataSetChanged();
-
-        adapter_asetLancar = new Neraca_AsetLancarAdapter(this, neracaAwalAsetLancer);
-        adapter_asetTetap= new Neraca_AsetTetapAdapter(this, neracaAwalAsetTetap);
-        rv_aset_lancar.setAdapter(adapter_asetLancar);
-        rv_aset_tetap.setAdapter(adapter_asetTetap);
-        */
-
         rv_parent = findViewById(R.id.rv_parent);
         textDebit = findViewById(R.id.textDebit);
-        textKredit =  findViewById(R.id.textKredit);
+        textKredit = findViewById(R.id.textKredit);
     }
 
     @Override
@@ -325,90 +302,74 @@ public class NeracaAwalActivity extends AppCompatActivity
         });
     }
 
-    /*
-    public void getNeracaAwal(){
-        int tahun_param = Integer.parseInt(tv_years.getText().toString());
-
-        Call<NeracaAwalResponse> call = RetrofitClient
+    public void loadAllAkun() {
+        Call<NeracaAwalAllAkunResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .neraca_awal(token, accept, tahun_param);
-        call.enqueue(new Callback<NeracaAwalResponse>() {
+                .neracaAllAkun(token);
+
+        call.enqueue(new Callback<NeracaAwalAllAkunResponse>() {
             @Override
-            public void onResponse(Call<NeracaAwalResponse> call, Response<NeracaAwalResponse> response) {
+            public void onResponse(Call<NeracaAwalAllAkunResponse> call, Response<NeracaAwalAllAkunResponse> response) {
                 pDialog.dismissWithAnimation();
-                NeracaAwalResponse neracaAwalResponse = response.body();
-                if (response.isSuccessful()){
-                    if (neracaAwalResponse.getStatus().equals("success")){
-                        neracaAwals = neracaAwalResponse.getNeracaAwals();
-
-                        for (int i = 0; i < neracaAwals.size(); i++){
-                            NeracaAwal neracaAwal = neracaAwals.get(i);
-                            if (neracaAwal.getKode_klasifikasi() == asetLancar){
-                                neracaAwalAsetLancer.add(neracaAwal);
-                            }else if (neracaAwal.getKode_klasifikasi() == asetTetap){
-                                neracaAwalAsetTetap.add(neracaAwal);
-                            }
-                        }
-
-                        adapter_asetTetap = new Neraca_AsetTetapAdapter(NeracaAwalActivity.this, neracaAwalAsetTetap);
-                        RecyclerView.LayoutManager layoutManagerAsetTetap = new LinearLayoutManager(getApplicationContext());
-                        rv_aset_tetap.setLayoutManager(layoutManagerAsetTetap);
-                        rv_aset_tetap.setAdapter(adapter_asetTetap);
-
-                        adapter_asetLancar = new Neraca_AsetLancarAdapter(NeracaAwalActivity.this, neracaAwalAsetLancer);
-                        RecyclerView.LayoutManager layoutManagerAsetLancar = new LinearLayoutManager(getApplicationContext());
-                        rv_aset_lancar.setLayoutManager(layoutManagerAsetLancar);
-                        rv_aset_lancar.setAdapter(adapter_asetLancar);
-//                        setAdapter();
+                NeracaAwalAllAkunResponse neracaAwalAllAkunResponse = response.body();
+                if (response.isSuccessful()) {
+                    if (neracaAwalAllAkunResponse.getStatus().equals("success")) {
+                        neracaAwalAllAkuns = neracaAwalAllAkunResponse.getNeracaAwalAllAkuns();
+                        allAkunArrayAdapter = new ArrayAdapter<>(NeracaAwalActivity.this, android.R.layout.simple_spinner_item, neracaAwalAllAkuns);
+                        allAkunArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spNamaAkun.setAdapter(allAkunArrayAdapter);
                     }
-                }else {
-                    pDialog.dismissWithAnimation();
-                    Toast.makeText(NeracaAwalActivity.this, "Gagal mengambil data parent akun", Toast.LENGTH_LONG).show();
-
                 }
             }
 
             @Override
-            public void onFailure(Call<NeracaAwalResponse> call, Throwable t) {
+            public void onFailure(Call<NeracaAwalAllAkunResponse> call, Throwable t) {
                 pDialog.dismissWithAnimation();
                 Toast.makeText(NeracaAwalActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    */
-
-    public void postNeracaAwal() {
-
-    }
 
     public void showDatePicker() {
-        Calendar calendar = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
+        pYear = c.get(Calendar.YEAR);
+        pMonth = c.get(Calendar.MONTH);
+        pDay = c.get(Calendar.DAY_OF_MONTH);
 
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
+        DatePickerDialog.OnDateSetListener pDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
-                date.setText(dateFormat.format(newDate.getTime()));
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                pYear = year;
+                pMonth = monthOfYear+1;
+                pDay = dayOfMonth;
+
+                String fm = "" + pMonth;
+                String fd = "" + pDay;
+                if(pMonth < 10){
+                    fm = "0" + pMonth;
+                }
+                if (pDay < 10){
+                    fd = "0" + pDay;
+                }
+                textDate.setText(fd+"/"+fm+"/"+pYear);
+
+                datePost.setText(pYear+"-"+fm+"-"+fd);
             }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+        };
+        DatePickerDialog dialog = new DatePickerDialog(NeracaAwalActivity.this, pDateSetListener, pYear, pMonth, pDay);
+        dialog.getDatePicker().setMaxDate(new Date().getTime());
+        dialog.show();
     }
 
     public void validationAccount() {
-        final SweetAlertDialog vDialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
+        vDialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
         vDialog.setTitleText("Apakah data sudah benar?");
         vDialog.setConfirmText("Ya, benar");
         vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                SweetAlertDialog sweet_dialog = new SweetAlertDialog(NeracaAwalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-                sweet_dialog.setTitleText("Neraca Awal berhasil ditambahkan");
-                sweet_dialog.show();
-                dialog.dismiss();
-                vDialog.dismissWithAnimation();
+                addNeracaAwal();
             }
         });
         vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
@@ -418,6 +379,48 @@ public class NeracaAwalActivity extends AppCompatActivity
                 dialog.show();
             }
         }).show();
+    }
+
+    public void addNeracaAwal() {
+        String totalStr = jumlah_balance.getText().toString().trim();
+
+        if (totalStr.isEmpty()) {
+            jumlah_balance.setError("Jumlah harus diisi");
+            jumlah_balance.requestFocus();
+            return;
+        }
+
+        int akunId = Integer.parseInt(selectedId.getText().toString());
+        String date = datePost.getText().toString();
+        int total = Integer.parseInt(jumlah_balance.getText().toString());
+
+        Call<NeracaAwalAddResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .neracaAdd(token, akunId, date, total);
+
+        call.enqueue(new Callback<NeracaAwalAddResponse>() {
+            @Override
+            public void onResponse(Call<NeracaAwalAddResponse> call, Response<NeracaAwalAddResponse> response) {
+                pDialog.dismissWithAnimation();
+                NeracaAwalAddResponse neracaAwalAddResponse = response.body();
+                if (response.isSuccessful()) {
+                    if (neracaAwalAddResponse.getStatus().equals("success")) {
+                        SweetAlertDialog sweet_dialog = new SweetAlertDialog(NeracaAwalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                        sweet_dialog.setTitleText("Neraca Awal berhasil ditambahkan");
+                        sweet_dialog.show();
+                        dialog.dismiss();
+                        vDialog.dismissWithAnimation();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NeracaAwalAddResponse> call, Throwable t) {
+                pDialog.dismissWithAnimation();
+                Toast.makeText(NeracaAwalActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

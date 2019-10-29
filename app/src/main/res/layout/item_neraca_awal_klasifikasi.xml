@@ -18,17 +18,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:clickable="true"
+            android:focusable="true"
             android:text="Klasifikasi"
             android:textColor="#696969"
             android:textSize="14sp" />
 
         <View
+            android:id="@+id/viewKlasifikasi"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:background="#D3D3D3" />
+            android:background="#D3D3D3"
+            android:clickable="true"
+            android:focusable="true" />
 
         <ImageView
             android:id="@+id/btnDropDown"

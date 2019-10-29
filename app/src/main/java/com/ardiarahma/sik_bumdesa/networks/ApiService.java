@@ -7,7 +7,9 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneRe
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunUpdateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.LoginResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAddResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAllAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalKlasifikasiResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalParentResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
@@ -123,6 +125,20 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Query("id_klasifikasi") int klasifikasiId,
             @Query("year") int year
+    );
+
+    @GET("neraca-awal/data-akun")
+    Call<NeracaAwalAllAkunResponse> neracaAllAkun(
+            @Header("Authorization") String token
+    );
+
+    @FormUrlEncoded
+    @POST("neraca-awal/store")
+    Call<NeracaAwalAddResponse> neracaAdd(
+            @Header("Authorization") String token,
+            @Field("id_data_akun") int akunId,
+            @Field("tanggal") String date,
+            @Field("jumlah") int total
     );
 
     //===================== Pengaturan User =====================
