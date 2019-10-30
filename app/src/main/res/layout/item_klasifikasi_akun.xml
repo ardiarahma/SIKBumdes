@@ -31,16 +31,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:padding="5dp"
                 android:layout_margin="5dp">
 
                 <TextView
                     android:id="@+id/akun"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:singleLine="false"
                     android:text="ini akun"
                     android:textSize="16sp" />
 
@@ -48,7 +50,9 @@
                     android:id="@+id/tvId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
                     android:text="0000"
                     android:textAlignment="center"
                     android:textSize="16sp" />

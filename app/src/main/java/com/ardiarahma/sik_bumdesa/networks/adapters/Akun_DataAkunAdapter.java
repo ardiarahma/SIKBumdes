@@ -1,12 +1,18 @@
 package com.ardiarahma.sik_bumdesa.networks.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
@@ -16,6 +22,8 @@ import com.ardiarahma.sik_bumdesa.networks.models.Akun_DataAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.Akun_KlasfikasiAkun;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Windows 10 on 8/19/2019.
@@ -34,7 +42,7 @@ public class Akun_DataAkunAdapter extends RecyclerView.Adapter<Akun_DataAkunAdap
     @Override
     public Akun_DataAkunAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_parent_akun, parent, false);
+        View view = inflater.inflate(R.layout.item_klasifikasi_akun, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -43,14 +51,6 @@ public class Akun_DataAkunAdapter extends RecyclerView.Adapter<Akun_DataAkunAdap
     public void onBindViewHolder(final Akun_DataAkunAdapter.ViewHolder holder, int position) {
         holder.akun.setText(akun_dataAkuns.get(position).getName());
 //        holder.parent_id = parentAkuns.get(position).getId();
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, AccountDataActivity.class);
-//                intent.putExtra("parent_id", holder.parent_id);
-                context.startActivity(intent);
-            }
-        });
 
         holder.id.setText(String.valueOf(akun_dataAkuns.get(position).getId()));
     }
@@ -62,15 +62,43 @@ public class Akun_DataAkunAdapter extends RecyclerView.Adapter<Akun_DataAkunAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cardView;
+        CardView cardView, edit, delete;
         TextView akun, id;
+        int klasifikasi_id;
+        String klasifikasi_nama;
+        Dialog dialog;
+        SweetAlertDialog vDialog;
+        Spinner parent_akun, klasifikasi_akun, posisi_normal;
+        TextView id_parent, id_klasifikasi, tv_posisi;
+        EditText kode_akun, nama_akun;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             akun = itemView.findViewById(R.id.akun);
             cardView = itemView.findViewById(R.id.card);
             id = itemView.findViewById(R.id.tvId);
+            edit = itemView.findViewById(R.id.b_change);
+            delete = itemView.findViewById(R.id.b_delete);
+
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog = new Dialog(context);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCancelable(false);
+                    dialog.setContentView(R.layout.add_child_account);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    kode_akun = dialog.findViewById(R.id.kode_akun);
+                    nama_akun = dialog.findViewById(R.id.nama_akun);
+                    klasifikasi_akun = dialog.findViewById(R.id.childAcc_spinner);
+                    parent_akun = dialog.findViewById(R.id.parentAcc_spinner);
+                    posisi_normal = dialog.findViewById(R.id.posisi_spinner);
+                    id_parent = dialog.findViewById(R.id.id_parent);
+                    id_klasifikasi = dialog.findViewById(R.id.id_klasifikasi);
+                    tv_posisi = dialog.findViewById(R.id.tv_posisi);
+                }
+            });
         }
     }
 }

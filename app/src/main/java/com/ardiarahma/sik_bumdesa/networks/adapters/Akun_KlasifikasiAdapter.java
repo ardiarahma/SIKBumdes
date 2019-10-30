@@ -83,7 +83,7 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
         holder.id.setText(String.valueOf(akun_klasfikasiAkun.getId()));
         holder.klasifikasi_nama = akun_klasfikasiAkuns.get(position).getName();
         holder.klasifikasi_id = akun_klasfikasiAkuns.get(position).getId();
-        /*
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +93,7 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
                 context.startActivity(intent);
             }
         });
-        */
+
     }
 
     @Override
@@ -113,9 +113,8 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
         String klasifikasi_nama;
         Dialog dialog;
         SweetAlertDialog vDialog;
-        SweetAlertDialog pDialog;
         Spinner parent_akun;
-        TextView id_parent, id_klasifikasi;
+        TextView id_parent;
         EditText nama_klasifikasi, kode_klasifikasi;
         Akun_KlasifikasiAdapter adapter;
         private ArrayList<ParentAkun> parentAkuns;
@@ -130,7 +129,6 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
 
             akun = itemView.findViewById(R.id.akun);
             cardView = itemView.findViewById(R.id.card);
-//            itemView.setOnCreateContextMenuListener(this);
             id = itemView.findViewById(R.id.tvId);
             edit = itemView.findViewById(R.id.b_change);
             delete = itemView.findViewById(R.id.b_delete);
