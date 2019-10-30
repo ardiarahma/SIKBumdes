@@ -144,8 +144,7 @@ public class AccountClassificationActivity extends AppCompatActivity {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         ParentAkun parentAkun = (ParentAkun) parent.getSelectedItem();
-                        int id_parent_akun = parentAkun.getId();
-                        id_parent.setText(String.valueOf(id_parent_akun));
+                        id_parent.setText(String.valueOf(parentAkun.getId()));
                     }
 
                     @Override
@@ -244,22 +243,13 @@ public class AccountClassificationActivity extends AppCompatActivity {
     }
 
     public void validationAccount() {
-        final SweetAlertDialog vDialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.WARNING_TYPE);
+        vDialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.WARNING_TYPE);
         vDialog.setTitleText("Apakah data sudah benar?");
         vDialog.setConfirmText("Ya, benar");
         vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 createKlasifikasi();
-                SweetAlertDialog sweet_dialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-                sweet_dialog.setTitleText("Klasifikasi akun berhasil ditambahkan");
-                sweet_dialog.show();
-                dialog.dismiss();
-                vDialog.dismiss();
-                if (adapter != null) {
-                    adapter.refreshEvents(klasifikasiAkuns);
-                }
-                loadAllKlasifikasi();
             }
         });
         vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
@@ -293,7 +283,16 @@ public class AccountClassificationActivity extends AppCompatActivity {
                     if (klasifikasiCreateResponse.getStatus().equals("success")) {
                         Log.i("debug", "onResponse : Post Klasifikasi Akun is Successful");
                         pDialog.dismissWithAnimation();
-                        validationAccount();
+                        //validationAccount();
+                        SweetAlertDialog sweet_dialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                        sweet_dialog.setTitleText("Klasifikasi akun berhasil ditambahkan");
+                        sweet_dialog.show();
+                        dialog.dismiss();
+                        vDialog.dismiss();
+                        if (adapter != null) {
+                            adapter.refreshEvents(klasifikasiAkuns);
+                        }
+                        loadAllKlasifikasi();
                     }
                 } else {
                     pDialog.dismissWithAnimation();

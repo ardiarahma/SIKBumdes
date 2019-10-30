@@ -5,6 +5,8 @@ import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class KlasifikasiAkunCreateResponse {
     @SerializedName("status")
     @Expose
@@ -12,9 +14,9 @@ public class KlasifikasiAkunCreateResponse {
 
     @SerializedName("result")
     @Expose
-    private Akun_KlasfikasiAkun akun_klasfikasiAkun;
+    private ArrayList<Akun_KlasfikasiAkun> akun_klasfikasiAkun;
 
-    public KlasifikasiAkunCreateResponse(String status, Akun_KlasfikasiAkun akun_klasfikasiAkun) {
+    public KlasifikasiAkunCreateResponse(String status, ArrayList<Akun_KlasfikasiAkun> akun_klasfikasiAkun) {
         this.status = status;
         this.akun_klasfikasiAkun = akun_klasfikasiAkun;
     }
@@ -27,11 +29,11 @@ public class KlasifikasiAkunCreateResponse {
         this.status = status;
     }
 
-    public Akun_KlasfikasiAkun getAkun_klasfikasiAkun() {
+    public ArrayList<Akun_KlasfikasiAkun> getAkun_klasfikasiAkun() {
         return akun_klasfikasiAkun;
     }
 
-    public void setAkun_klasfikasiAkun(Akun_KlasfikasiAkun akun_klasfikasiAkun) {
+    public void setAkun_klasfikasiAkun(ArrayList<Akun_KlasfikasiAkun> akun_klasfikasiAkun) {
         this.akun_klasfikasiAkun = akun_klasfikasiAkun;
     }
 }
