@@ -52,7 +52,7 @@ public class Akun_DataAkunAdapter extends RecyclerView.Adapter<Akun_DataAkunAdap
             }
         });
 
-//        holder.id.setText(String.valueOf(parentAkuns.get(position).getId()));
+        holder.id.setText(String.valueOf(akun_dataAkuns.get(position).getId()));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Akun_DataAkunAdapter extends RecyclerView.Adapter<Akun_DataAkunAdap
 
             akun = itemView.findViewById(R.id.akun);
             cardView = itemView.findViewById(R.id.card);
-//            id = itemView.findViewById(R.id.id);
+            id = itemView.findViewById(R.id.tvId);
         }
     }
 }

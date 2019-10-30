@@ -103,6 +103,27 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/id_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="id_parent"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/id_klasifikasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="id_klasifikasi"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_posisi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="posisi_normal"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

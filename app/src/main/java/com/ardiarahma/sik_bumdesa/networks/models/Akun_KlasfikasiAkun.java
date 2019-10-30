@@ -55,4 +55,9 @@ public class Akun_KlasfikasiAkun{
     public void setId_parent_akun(int id_parent_akun) {
         this.id_parent_akun = id_parent_akun;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

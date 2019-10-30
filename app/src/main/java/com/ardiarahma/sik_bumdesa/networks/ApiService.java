@@ -1,5 +1,6 @@
 package com.ardiarahma.sik_bumdesa.networks;
 
+import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteKlasifikasiResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteResponse;
@@ -99,6 +100,16 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Header("Accept") String accept,
             @Query("id_klasifikasi_akun") int id_klasifikasi_akun
+    );
+
+    @FormUrlEncoded
+    @POST("data-akun/store")
+    Call<DataAkunCreateResponse> create_akun(
+            @Header("Authorization") String token,
+            @Field("id") String code,
+            @Field("id_klasifikasi_akun") int id_klasifikasi_akun,
+            @Field("nama") String name,
+            @Field("posisi_normal") String posisi
     );
 
     //===================== Neraca Awal =====================

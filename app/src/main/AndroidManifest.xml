@@ -55,9 +55,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activities.navigation_drawer.AccountClassificationActivity" />
         <activity
-            android:name=".activities.navigation_drawer.AccountDataActivity"
-            android:label="Akun"
-            android:theme="@style/AppTheme"></activity>
+            android:name=".activities.navigation_drawer.AccountDataActivity"/>
     </application>
 
 </manifest>
