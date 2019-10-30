@@ -1,6 +1,7 @@
 package com.ardiarahma.sik_bumdesa.networks;
 
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteKlasifikasiResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneResponse;
@@ -80,15 +81,15 @@ public interface ApiService {
 
     @FormUrlEncoded
     @PUT("klasifikasi-akun/update/{id}")
-    Call<KlasifikasiAkunCreateResponse> update_klasifikasi_akun(
+    Call<KlasifikasiAkunUpdateResponse> update_klasifikasi_akun(
+            @Header("Authorization") String token,
             @Path("id") int code_path,
-            @Field("id") String code,
             @Field("nama") String name,
             @Field("id_parent_akun") int id_parent_akun
     );
 
-    @DELETE("klasifikasi-akun/delete/{id}")
-    Call<DeleteResponse> delete_klasifikasi(
+    @GET("klasifikasi-akun/delete/{id}")
+    Call<DeleteKlasifikasiResponse> delete_klasifikasi(
             @Header("Authorization") String token,
             @Path("id") int id_klas
     );

@@ -122,17 +122,18 @@ public class NeracaAwal_KlasifikasiAdapter extends RecyclerView.Adapter<NeracaAw
                     NeracaAwalAkunResponse neracaAwalAkunResponse = response.body();
                     if (response.isSuccessful()) {
                         if (neracaAwalAkunResponse.getStatus().equals("success")) {
-                            ArrayList<ArrayList<NeracaAwal_Akun>> arrayCheckSize = neracaAwalAkunResponse.getNeracaAwalAkuns();
-                            if (arrayCheckSize.size() > 0) {
-                                neracaAwalAkunArrayList = neracaAwalAkunResponse.getNeracaAwalAkuns().get(0);
-                                akunAdapter = new NeracaAwal_AkunAdapter(neracaAwalAkunArrayList);
-                                RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(itemView.getContext());
-                                rv_akun.setLayoutManager(eLayoutManager);
-                                rv_akun.setItemAnimator(new DefaultItemAnimator());
-                                rv_akun.setAdapter(akunAdapter);
-                            } else {
+                            neracaAwalAkunArrayList = neracaAwalAkunResponse.getNeracaAwalAkuns();
+                            akunAdapter = new NeracaAwal_AkunAdapter(neracaAwalAkunArrayList);
+                            RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(itemView.getContext());
+                            rv_akun.setLayoutManager(eLayoutManager);
+                            rv_akun.setItemAnimator(new DefaultItemAnimator());
+                            rv_akun.setAdapter(akunAdapter);
+                            if (eLayoutManager.getItemCount() == 0) {
                                 rv_akun.setVisibility(View.GONE);
                                 textEmpty.setVisibility(View.VISIBLE);
+                            } else {
+                                textEmpty.setVisibility(View.GONE);
+                                rv_akun.setVisibility(View.VISIBLE);
                             }
                         }
                     }

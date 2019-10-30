@@ -31,11 +31,14 @@ import com.ardiarahma.sik_bumdesa.networks.SharedPref;
 import com.ardiarahma.sik_bumdesa.networks.models.Akun_KlasfikasiAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.ParentAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteKlasifikasiResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunUpdateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
@@ -75,10 +78,12 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
 
     @Override
     public void onBindViewHolder(final Akun_KlasifikasiAdapter.ViewHolder holder, int position) {
-        holder.akun.setText(akun_klasfikasiAkuns.get(position).getName());
-        holder.id.setText(String.valueOf(akun_klasfikasiAkuns.get(position).getId()));
+        Akun_KlasfikasiAkun akun_klasfikasiAkun = akun_klasfikasiAkuns.get(position);
+        holder.akun.setText(akun_klasfikasiAkun.getName());
+        holder.id.setText(String.valueOf(akun_klasfikasiAkun.getId()));
         holder.klasifikasi_nama = akun_klasfikasiAkuns.get(position).getName();
         holder.klasifikasi_id = akun_klasfikasiAkuns.get(position).getId();
+        /*
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +93,7 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
                 context.startActivity(intent);
             }
         });
+        */
     }
 
     @Override
@@ -95,12 +101,12 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
         return akun_klasfikasiAkuns.size();
     }
 
-    public void delete(int position){
+    public void delete(int position) {
         akun_klasfikasiAkuns.remove(position);
         notifyItemRemoved(position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView, edit, delete;
         TextView akun, id;
         int klasifikasi_id;
@@ -109,7 +115,7 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
         SweetAlertDialog vDialog;
         SweetAlertDialog pDialog;
         Spinner parent_akun;
-        TextView id_parent;
+        TextView id_parent, id_klasifikasi;
         EditText nama_klasifikasi, kode_klasifikasi;
         Akun_KlasifikasiAdapter adapter;
         private ArrayList<ParentAkun> parentAkuns;
@@ -136,6 +142,8 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
                     dialog.setCancelable(false);
                     dialog.setContentView(R.layout.add_parent_account);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    kode_klasifikasi = dialog.findViewById(R.id.kode_klasifikasi);
+                    kode_klasifikasi.setVisibility(View.GONE);
                     parent_akun = dialog.findViewById(R.id.parentAcc_spinner);
                     id_parent = dialog.findViewById(R.id.id_parent);
 
@@ -171,10 +179,9 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             ParentAkun parentAkun = (ParentAkun) parent.getSelectedItem();
-                            int id_parent_akun = parentAkun.getId();
-                            id_parent.setText(String.valueOf(id_parent_akun));
-
+                            id_parent.setText(String.valueOf(parentAkun.getId()));
                         }
+
                         @Override
                         public void onNothingSelected(AdapterView<?> parent) {
 
@@ -182,9 +189,7 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
                     });
 
                     nama_klasifikasi = dialog.findViewById(R.id.nama_klasifikasi);
-                    kode_klasifikasi = dialog.findViewById(R.id.kode_klasifikasi);
                     nama_klasifikasi.setText(klasifikasi_nama);
-                    kode_klasifikasi.setText(String.valueOf(klasifikasi_id));
 
                     Button dCancel = dialog.findViewById(R.id.cancel_button);
                     dCancel.setOnClickListener(new View.OnClickListener() {
@@ -214,19 +219,14 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
         }
 
 
-        public void validationUpdateAccount(){
-            final SweetAlertDialog vDialog = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE);
+        public void validationUpdateAccount() {
+            vDialog = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE);
             vDialog.setTitleText("Apakah data sudah benar?");
             vDialog.setConfirmText("Ya, benar");
             vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    change();
-                    SweetAlertDialog sweet_dialog = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);
-                    sweet_dialog.setTitleText("Klasifikasi akun berhasil diubah");
-                    sweet_dialog.show();
-                    dialog.dismiss();
-                    vDialog.dismiss();
+                    editKlasifikasi();
                 }
             });
             vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
@@ -238,19 +238,14 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
             }).show();
         }
 
-        public void validationDelete(){
-            final SweetAlertDialog vDialog = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE);
+        public void validationDelete() {
+            vDialog = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE);
             vDialog.setTitleText("Yakin akan menghapus klasifikasi akun?");
             vDialog.setConfirmText("Ya");
             vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    deleted();
-                    SweetAlertDialog sweet_dialog = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);
-                    sweet_dialog.setTitleText("Klasifikasi akun berhasil dihapus");
-                    sweet_dialog.show();
-//                    dialog.dismiss();
-                    vDialog.dismiss();
+                    deleteKlasifikasi();
                 }
             });
             vDialog.setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
@@ -262,65 +257,83 @@ public class Akun_KlasifikasiAdapter extends RecyclerView.Adapter<Akun_Klasifika
             }).show();
         }
 
-        public void change(){
+        public void editKlasifikasi() {
             int id_parent_akun = Integer.parseInt(id_parent.getText().toString());
             String name = nama_klasifikasi.getText().toString();
-            String code = kode_klasifikasi.getText().toString();
-            int code_path = klasifikasi_id;
 
-            Call<KlasifikasiAkunCreateResponse> call = RetrofitClient
+            Call<KlasifikasiAkunUpdateResponse> call = RetrofitClient
                     .getInstance()
                     .getApi()
-                    .update_klasifikasi_akun(code_path, code, name, id_parent_akun);
+                    .update_klasifikasi_akun(token, klasifikasi_id, name, id_parent_akun);
 
-            call.enqueue(new Callback<KlasifikasiAkunCreateResponse>() {
+            call.enqueue(new Callback<KlasifikasiAkunUpdateResponse>() {
                 @Override
-                public void onResponse(Call<KlasifikasiAkunCreateResponse> call, Response<KlasifikasiAkunCreateResponse> response) {
-                    KlasifikasiAkunCreateResponse klasifikasiUpdateResponse = response.body();
+                public void onResponse(Call<KlasifikasiAkunUpdateResponse> call, Response<KlasifikasiAkunUpdateResponse> response) {
+                    KlasifikasiAkunUpdateResponse klasifikasiUpdateResponse = response.body();
                     Log.d("TAG", "Response " + response.body());
-                    if (response.isSuccessful()){
-                        if (klasifikasiUpdateResponse.getStatus().equals("successsssss")){
-                            Log.i("debug", "onResponse : Post Klasifikasi Akun is Successful");
-
-                            validationUpdateAccount();
+                    if (response.isSuccessful()) {
+                        if (klasifikasiUpdateResponse.getStatus().equals("success")) {
+                            SweetAlertDialog sweet_dialog = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);
+                            sweet_dialog.setTitleText("Klasifikasi akun berhasil diubah");
+                            sweet_dialog.show();
+                            dialog.dismiss();
+                            vDialog.dismiss();
+                        }
+                        refreshEvents(akun_klasfikasiAkuns);
+                        if (context instanceof AccountClassificationActivity) {
+                            ((AccountClassificationActivity)context).loadAllKlasifikasi();
                         }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<KlasifikasiAkunCreateResponse> call, Throwable t) {
+                public void onFailure(Call<KlasifikasiAkunUpdateResponse> call, Throwable t) {
+                    dialog.dismiss();
+                    vDialog.dismiss();
                     Toast.makeText(context, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
-        public void deleted(){
-
-            int id_klas = klasifikasi_id;
-
-            Call<DeleteResponse> call = RetrofitClient
+        public void deleteKlasifikasi() {
+            Call<DeleteKlasifikasiResponse> call = RetrofitClient
                     .getInstance()
                     .getApi()
-                    .delete_klasifikasi(token, id_klas);
+                    .delete_klasifikasi(token, klasifikasi_id);
 
-            call.enqueue(new Callback<DeleteResponse>() {
+            call.enqueue(new Callback<DeleteKlasifikasiResponse>() {
                 @Override
-                public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
-                    DeleteResponse deleteResponse = response.body();
+                public void onResponse(Call<DeleteKlasifikasiResponse> call, Response<DeleteKlasifikasiResponse> response) {
+                    DeleteKlasifikasiResponse deleteKlasifikasiResponse = response.body();
                     Log.d("TAG", "Response " + response.body());
-                    if (response.isSuccessful()){
-                        if (deleteResponse.getStatus().equals("success")){
+                    if (response.isSuccessful()) {
+                        if (deleteKlasifikasiResponse.getSuccess().equals("Data Deleted successfully.")) {
                             Log.i("debug", "Response success");
-                            delete(getAdapterPosition());
+                            //delete(getAdapterPosition());
+                            SweetAlertDialog sweet_dialog = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);
+                            sweet_dialog.setTitleText("Klasifikasi akun berhasil dihapus");
+                            sweet_dialog.show();
+                            vDialog.dismiss();
+                        }
+                        refreshEvents(akun_klasfikasiAkuns);
+                        if (context instanceof AccountClassificationActivity) {
+                            ((AccountClassificationActivity)context).loadAllKlasifikasi();
                         }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<DeleteResponse> call, Throwable t) {
-
+                public void onFailure(Call<DeleteKlasifikasiResponse> call, Throwable t) {
+                    vDialog.dismiss();
+                    Toast.makeText(context, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
                 }
             });
         }
+    }
+
+    public void refreshEvents(List<Akun_KlasfikasiAkun> akun_klasfikasiAkuns) {
+        this.akun_klasfikasiAkuns.clear();
+        this.akun_klasfikasiAkuns.addAll(akun_klasfikasiAkuns);
+        notifyDataSetChanged();
     }
 }

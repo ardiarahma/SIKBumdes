@@ -14,9 +14,9 @@ public class NeracaAwalAkunResponse {
 
     @SerializedName("neraca_awal")
     @Expose
-    private ArrayList<ArrayList<NeracaAwal_Akun>> neracaAwalAkuns = null;
+    private ArrayList<NeracaAwal_Akun> neracaAwalAkuns = null;
 
-    public NeracaAwalAkunResponse(String status, ArrayList<ArrayList<NeracaAwal_Akun>> neracaAwalAkuns) {
+    public NeracaAwalAkunResponse(String status, ArrayList<NeracaAwal_Akun> neracaAwalAkuns) {
         this.status = status;
         this.neracaAwalAkuns = neracaAwalAkuns;
     }
@@ -29,11 +29,11 @@ public class NeracaAwalAkunResponse {
         this.status = status;
     }
 
-    public ArrayList<ArrayList<NeracaAwal_Akun>> getNeracaAwalAkuns() {
+    public ArrayList<NeracaAwal_Akun> getNeracaAwalAkuns() {
         return neracaAwalAkuns;
     }
 
-    public void setNeracaAwalAkuns(ArrayList<ArrayList<NeracaAwal_Akun>> neracaAwalAkuns) {
+    public void setNeracaAwalAkuns(ArrayList<NeracaAwal_Akun> neracaAwalAkuns) {
         this.neracaAwalAkuns = neracaAwalAkuns;
     }
 }

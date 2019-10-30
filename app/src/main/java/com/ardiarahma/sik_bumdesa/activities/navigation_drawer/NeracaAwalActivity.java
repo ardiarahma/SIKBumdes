@@ -72,25 +72,10 @@ public class NeracaAwalActivity extends AppCompatActivity
     NavigationView navigationView;
     Toolbar toolbar = null;
 
-    User user = SharedPref.getInstance(this).getBaseUser();
-    String token = "Bearer " + user.getToken();
-
     ImageButton datepicker;
 
     com.getbase.floatingactionbutton.FloatingActionButton fab1;
 
-    /*
-    RecyclerView rv_aset_tetap, rv_aset_lancar, rv_utang_lancar, rv_utang_jp, rv_ekuitas,
-            rv_pendapatan, rv_pendapatan_2, rv_biaya, rv_biaya_2;
-    Neraca_AsetTetapAdapter adapter_asetTetap;
-    Neraca_AsetLancarAdapter adapter_asetLancar;
-    ArrayList<NeracaAwal> neracaAwals;
-    ArrayList<NeracaAwal> neracaAwalAsetLancer;
-    ArrayList<NeracaAwal> neracaAwalAsetTetap;
-
-    private final int asetLancar = 11;
-    private final int asetTetap = 12;
-    */
     private ArrayList<NeracaAwal_Parent> neracaAwalParentArrayList;
     private RecyclerView rv_parent;
     private NeracaAwal_ParentAdapter parentAdapter;
@@ -267,6 +252,8 @@ public class NeracaAwalActivity extends AppCompatActivity
     }
 
     public void loadParent() {
+        User user = SharedPref.getInstance(this).getBaseUser();
+        String token = "Bearer " + user.getToken();
         int tahun_param = Integer.parseInt(tv_years.getText().toString());
 
         Call<NeracaAwalParentResponse> call = RetrofitClient
@@ -303,6 +290,8 @@ public class NeracaAwalActivity extends AppCompatActivity
     }
 
     public void loadAllAkun() {
+        User user = SharedPref.getInstance(this).getBaseUser();
+        String token = "Bearer " + user.getToken();
         Call<NeracaAwalAllAkunResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
@@ -341,20 +330,20 @@ public class NeracaAwalActivity extends AppCompatActivity
 
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 pYear = year;
-                pMonth = monthOfYear+1;
+                pMonth = monthOfYear + 1;
                 pDay = dayOfMonth;
 
                 String fm = "" + pMonth;
                 String fd = "" + pDay;
-                if(pMonth < 10){
+                if (pMonth < 10) {
                     fm = "0" + pMonth;
                 }
-                if (pDay < 10){
+                if (pDay < 10) {
                     fd = "0" + pDay;
                 }
-                textDate.setText(fd+"/"+fm+"/"+pYear);
+                textDate.setText(fd + "/" + fm + "/" + pYear);
 
-                datePost.setText(pYear+"-"+fm+"-"+fd);
+                datePost.setText(pYear + "-" + fm + "-" + fd);
             }
         };
         DatePickerDialog dialog = new DatePickerDialog(NeracaAwalActivity.this, pDateSetListener, pYear, pMonth, pDay);
@@ -382,6 +371,8 @@ public class NeracaAwalActivity extends AppCompatActivity
     }
 
     public void addNeracaAwal() {
+        User user = SharedPref.getInstance(this).getBaseUser();
+        String token = "Bearer " + user.getToken();
         String totalStr = jumlah_balance.getText().toString().trim();
 
         if (totalStr.isEmpty()) {
@@ -412,7 +403,12 @@ public class NeracaAwalActivity extends AppCompatActivity
                         dialog.dismiss();
                         vDialog.dismissWithAnimation();
                     }
+                    if (parentAdapter != null) {
+                        parentAdapter.refreshEvents(neracaAwalParentArrayList);
+                    }
+                    loadParent();
                 }
+                parentAdapter.notifyDataSetChanged();
             }
 
             @Override

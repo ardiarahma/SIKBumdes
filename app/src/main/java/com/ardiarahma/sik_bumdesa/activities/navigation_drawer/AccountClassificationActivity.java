@@ -49,10 +49,10 @@ import retrofit2.Response;
 public class AccountClassificationActivity extends AppCompatActivity {
 
     RecyclerView list;
-//    KlasifikasiAkunAdapter adapter;
+    //    KlasifikasiAkunAdapter adapter;
     Akun_KlasifikasiAdapter adapter;
     Akun_ParentAdapter adapter1;
-//    private List<KlasifikasiAkun> klasifikasiAkuns;
+    //    private List<KlasifikasiAkun> klasifikasiAkuns;
 //    private List<AkunExp> akunExps;
     private ArrayList<Akun_KlasfikasiAkun> klasifikasiAkuns;
     private ArrayList<ParentAkun> parentAkuns;
@@ -68,15 +68,9 @@ public class AccountClassificationActivity extends AppCompatActivity {
 
     Context context;
 
-    User user = SharedPref.getInstance(this).getBaseUser();
-    String token = "Bearer " + user.getToken();
-    String accept = "application/json";
-
     EditText nama_klasifikasi, kode_klasifikasi;
     Spinner parent_akun;
     TextView id_parent;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,59 +90,9 @@ public class AccountClassificationActivity extends AppCompatActivity {
         context = this;
         registerForContextMenu(list);
 
-        Intent intent = getIntent();
-        int id_parent_akun = intent.getIntExtra("parent_id", 0);
-
-        Call<KlasifikasiAkunResponse> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .klasifikasi_akun(token, accept, id_parent_akun);
-
-        call.enqueue(new Callback<KlasifikasiAkunResponse>() {
-            @Override
-            public void onResponse(Call<KlasifikasiAkunResponse> call, Response<KlasifikasiAkunResponse> response) {
-                pDialog.dismissWithAnimation();
-                KlasifikasiAkunResponse klasifikasiAkunResponse = response.body();
-                Log.d("TAG", "Response " + response.body());
-                if (response.isSuccessful()){
-                    if (klasifikasiAkunResponse.getStatus().equals("success")){
-                        Log.i("debug", "onResponse : Get Klasifikasi Akun is Successful");
-                        pDialog.dismissWithAnimation();
-                        klasifikasiAkuns = klasifikasiAkunResponse.getAkun_klasfikasiAkuns();
-                        adapter = new Akun_KlasifikasiAdapter(AccountClassificationActivity.this, klasifikasiAkuns);
-                        layoutManager = new LinearLayoutManager(
-                                AccountClassificationActivity.this, LinearLayoutManager.VERTICAL,false);
-                        list.setLayoutManager(layoutManager);
-                        list.setHasFixedSize(true);
-                        list.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-                    }else {
-                        Log.i("debug", "onResponse : Get Parent Akun was Failed");
-                        pDialog.dismissWithAnimation();
-                    /*    Toast.makeText(getApplicationContext(), "Gagal dalam mengambil data parent akun",
-                                Toast.LENGTH_LONG).show();
-                    */  Toast.makeText(getApplicationContext(), response.toString()+" ",
-                                Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<KlasifikasiAkunResponse> call, Throwable t) {
-                Log.e("debug", "onFailure: ERROR > " + t.getMessage());
-                pDialog.dismissWithAnimation();
-                //     Toast.makeText(AccountActivity.this, "Kesalahan terjadi. Silakan coba beberapa saat lagi.", Toast.LENGTH_LONG).show();
-                Toast.makeText(AccountClassificationActivity.this,t.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-
-        pDialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#e7a248"));
-        pDialog.setTitleText("Tunggu sesaat..");
-        pDialog.setCancelable(false);
-        pDialog.show();
+        User user = SharedPref.getInstance(this).getBaseUser();
+        final String token = "Bearer " + user.getToken();
+        final String accept = "application/json";
 
         fab1 = findViewById(R.id.fab_1);
 
@@ -213,6 +157,7 @@ public class AccountClassificationActivity extends AppCompatActivity {
 
                 nama_klasifikasi = dialog.findViewById(R.id.nama_klasifikasi);
                 kode_klasifikasi = dialog.findViewById(R.id.kode_klasifikasi);
+                kode_klasifikasi.setVisibility(View.VISIBLE);
 
                 Button dCancel = dialog.findViewById(R.id.cancel_button);
                 dCancel.setOnClickListener(new View.OnClickListener() {
@@ -233,12 +178,72 @@ public class AccountClassificationActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        pDialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#e7a248"));
+        pDialog.setTitleText("Tunggu sesaat..");
+        pDialog.setCancelable(false);
+        pDialog.show();
+        loadAllKlasifikasi();
+    }
 
-    public void validationAccount(){
+    public void loadAllKlasifikasi() {
+        User user = SharedPref.getInstance(this).getBaseUser();
+        String token = "Bearer " + user.getToken();
+        String accept = "application/json";
+        Intent intent = getIntent();
+        int id_parent_akun = intent.getIntExtra("parent_id", 0);
+
+        Call<KlasifikasiAkunResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .klasifikasi_akun(token, accept, id_parent_akun);
+
+        call.enqueue(new Callback<KlasifikasiAkunResponse>() {
+            @Override
+            public void onResponse(Call<KlasifikasiAkunResponse> call, Response<KlasifikasiAkunResponse> response) {
+                pDialog.dismissWithAnimation();
+                KlasifikasiAkunResponse klasifikasiAkunResponse = response.body();
+                Log.d("TAG", "Response " + response.body());
+                if (response.isSuccessful()) {
+                    if (klasifikasiAkunResponse.getStatus().equals("success")) {
+                        Log.i("debug", "onResponse : Get Klasifikasi Akun is Successful");
+                        pDialog.dismissWithAnimation();
+                        klasifikasiAkuns = klasifikasiAkunResponse.getAkun_klasfikasiAkuns();
+                        adapter = new Akun_KlasifikasiAdapter(AccountClassificationActivity.this, klasifikasiAkuns);
+                        layoutManager = new LinearLayoutManager(
+                                AccountClassificationActivity.this, LinearLayoutManager.VERTICAL, false);
+                        list.setLayoutManager(layoutManager);
+                        list.setHasFixedSize(true);
+                        list.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.i("debug", "onResponse : Get Parent Akun was Failed");
+                        pDialog.dismissWithAnimation();
+                    /*    Toast.makeText(getApplicationContext(), "Gagal dalam mengambil data parent akun",
+                                Toast.LENGTH_LONG).show();
+                    */
+                        Toast.makeText(getApplicationContext(), response.toString() + " ",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KlasifikasiAkunResponse> call, Throwable t) {
+                Log.e("debug", "onFailure: ERROR > " + t.getMessage());
+                pDialog.dismissWithAnimation();
+                //     Toast.makeText(AccountActivity.this, "Kesalahan terjadi. Silakan coba beberapa saat lagi.", Toast.LENGTH_LONG).show();
+                Toast.makeText(AccountClassificationActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void validationAccount() {
         final SweetAlertDialog vDialog = new SweetAlertDialog(AccountClassificationActivity.this, SweetAlertDialog.WARNING_TYPE);
         vDialog.setTitleText("Apakah data sudah benar?");
         vDialog.setConfirmText("Ya, benar");
@@ -251,6 +256,10 @@ public class AccountClassificationActivity extends AppCompatActivity {
                 sweet_dialog.show();
                 dialog.dismiss();
                 vDialog.dismiss();
+                if (adapter != null) {
+                    adapter.refreshEvents(klasifikasiAkuns);
+                }
+                loadAllKlasifikasi();
             }
         });
         vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
@@ -263,7 +272,8 @@ public class AccountClassificationActivity extends AppCompatActivity {
     }
 
     public void createKlasifikasi() {
-
+        User user = SharedPref.getInstance(this).getBaseUser();
+        String token = "Bearer " + user.getToken();
         int id_parent_akun = Integer.parseInt(id_parent.getText().toString());
         String name = nama_klasifikasi.getText().toString();
         String code = kode_klasifikasi.getText().toString();
@@ -279,13 +289,13 @@ public class AccountClassificationActivity extends AppCompatActivity {
                 pDialog.dismissWithAnimation();
                 KlasifikasiAkunCreateResponse klasifikasiCreateResponse = response.body();
                 Log.d("TAG", "Response " + response.body());
-                if(response.isSuccessful()){
-                    if (klasifikasiCreateResponse.getStatus().equals("success")){
+                if (response.isSuccessful()) {
+                    if (klasifikasiCreateResponse.getStatus().equals("success")) {
                         Log.i("debug", "onResponse : Post Klasifikasi Akun is Successful");
                         pDialog.dismissWithAnimation();
                         validationAccount();
                     }
-                }else {
+                } else {
                     pDialog.dismissWithAnimation();
                     Toast.makeText(context, "Gagal mengirim data akun", Toast.LENGTH_LONG).show();
                 }
