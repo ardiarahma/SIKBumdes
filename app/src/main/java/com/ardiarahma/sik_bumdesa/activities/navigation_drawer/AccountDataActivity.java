@@ -65,9 +65,7 @@ public class AccountDataActivity extends AppCompatActivity {
     SweetAlertDialog pDialog;
 
     Context context;
-    User user = SharedPref.getInstance(this).getBaseUser();
-    String token = "Bearer " + user.getToken();
-    String accept = "application/json";
+
 
     Spinner parent_akun, klasifikasi_akun, posisi_normal;
     TextView id_parent, id_klasifikasi, tv_posisi;
@@ -101,49 +99,6 @@ public class AccountDataActivity extends AppCompatActivity {
         list = findViewById(R.id.list);
         adapter = new Akun_DataAkunAdapter(this, akun_dataAkuns);
 
-        Intent intent = getIntent();
-        int id_klasifikasi_akun = intent.getIntExtra("classification_id", 0);
-
-        final Call<DataAkunResponse> call = RetrofitClient
-                .getInstance()
-                .getApi()
-                .data_akun(token, accept, id_klasifikasi_akun);
-
-        call.enqueue(new Callback<DataAkunResponse>() {
-            @Override
-            public void onResponse(Call<DataAkunResponse> call, Response<DataAkunResponse> response) {
-                pDialog.dismissWithAnimation();
-                DataAkunResponse dataAkunResponse = response.body();
-                Log.d("TAG", "message " + response.body());
-                if (response.isSuccessful()){
-                    if (dataAkunResponse.getStatus().equals("success")){
-                        Log.i("debug", "onResponse : Get Data Akun is Successful");
-                        pDialog.dismissWithAnimation();
-                        akun_dataAkuns = dataAkunResponse.getAkun_dataAkuns();
-                        adapter = new Akun_DataAkunAdapter(AccountDataActivity.this, akun_dataAkuns);
-                        layoutManager = new LinearLayoutManager(AccountDataActivity.this, LinearLayoutManager.VERTICAL, false);
-                        list.setAdapter(adapter);
-                        list.setHasFixedSize(true);
-                        list.setLayoutManager(layoutManager);
-                        adapter.notifyDataSetChanged();
-                    }else {
-                        Log.i("debug", "onResponse : Get Data Akun is Failed");
-                        pDialog.dismissWithAnimation();
-                        Toast.makeText(getApplicationContext(), response.toString()+" ",
-                                Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataAkunResponse> call, Throwable t) {
-                Log.e("debug", "onFailure : ERROR > " + t.getMessage());
-                pDialog.dismissWithAnimation();
-                Toast.makeText(AccountDataActivity.this,t.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-
         fab1 = findViewById(R.id.fab_1);
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +117,10 @@ public class AccountDataActivity extends AppCompatActivity {
                 id_parent = dialog.findViewById(R.id.id_parent);
                 id_klasifikasi = dialog.findViewById(R.id.id_klasifikasi);
                 tv_posisi = dialog.findViewById(R.id.tv_posisi);
+
+                User user = SharedPref.getInstance(context).getBaseUser();
+                String token = "Bearer " + user.getToken();
+                String accept = "application/json";
 
                 Call<ParentAkunResponse> call1 = RetrofitClient
                         .getInstance()
@@ -198,6 +157,10 @@ public class AccountDataActivity extends AppCompatActivity {
                 parent_akun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        User user = SharedPref.getInstance(context).getBaseUser();
+                        String token = "Bearer " + user.getToken();
+                        String accept = "application/json";
+
                         ParentAkun parentAkun = (ParentAkun) parent.getSelectedItem();
                         int id_parent_akun = parentAkun.getId();
                         id_parent.setText(String.valueOf(id_parent_akun));
@@ -292,6 +255,65 @@ public class AccountDataActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        pDialog = new SweetAlertDialog(AccountDataActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+//        pDialog.getProgressHelper().setBarColor(Color.parseColor("#e7a248"));
+//        pDialog.setTitleText("Tunggu sesaat..");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+        loadAllAkun();
+    }
+
+    public void loadAllAkun(){
+        User user = SharedPref.getInstance(this).getBaseUser();
+        String token = "Bearer " + user.getToken();
+        String accept = "application/json";
+
+        Intent intent = getIntent();
+        int id_klasifikasi_akun = intent.getIntExtra("classification_id", 0);
+
+        final Call<DataAkunResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .data_akun(token, accept, id_klasifikasi_akun);
+
+        call.enqueue(new Callback<DataAkunResponse>() {
+            @Override
+            public void onResponse(Call<DataAkunResponse> call, Response<DataAkunResponse> response) {
+                pDialog.dismissWithAnimation();
+                DataAkunResponse dataAkunResponse = response.body();
+                Log.d("TAG", "message " + response.body());
+                if (response.isSuccessful()){
+                    if (dataAkunResponse.getStatus().equals("success")){
+                        Log.i("debug", "onResponse : Get Data Akun is Successful");
+                        pDialog.dismissWithAnimation();
+                        akun_dataAkuns = dataAkunResponse.getAkun_dataAkuns();
+                        adapter = new Akun_DataAkunAdapter(AccountDataActivity.this, akun_dataAkuns);
+                        layoutManager = new LinearLayoutManager(AccountDataActivity.this, LinearLayoutManager.VERTICAL, false);
+                        list.setAdapter(adapter);
+                        list.setHasFixedSize(true);
+                        list.setLayoutManager(layoutManager);
+                        adapter.notifyDataSetChanged();
+                    }else {
+                        Log.i("debug", "onResponse : Get Data Akun is Failed");
+                        pDialog.dismissWithAnimation();
+                        Toast.makeText(getApplicationContext(), response.toString()+" ",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataAkunResponse> call, Throwable t) {
+                Log.e("debug", "onFailure : ERROR > " + t.getMessage());
+                pDialog.dismissWithAnimation();
+                Toast.makeText(AccountDataActivity.this,t.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     public void validationAccount(){
         final SweetAlertDialog vDialog = new SweetAlertDialog(AccountDataActivity.this, SweetAlertDialog.WARNING_TYPE);
         vDialog.setTitleText("Apakah data sudah benar?");
@@ -300,11 +322,6 @@ public class AccountDataActivity extends AppCompatActivity {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 createAkun();
-                SweetAlertDialog sweet_dialog = new SweetAlertDialog(AccountDataActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-                sweet_dialog.setTitleText("Akun berhasil ditambahkan");
-                sweet_dialog.show();
-                dialog.dismiss();
-                vDialog.dismiss();
             }
         });
         vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
@@ -317,6 +334,10 @@ public class AccountDataActivity extends AppCompatActivity {
     }
 
     public void createAkun(){
+        User user = SharedPref.getInstance(this).getBaseUser();
+        String token = "Bearer " + user.getToken();
+        String accept = "application/json";
+
         int id_klasifikasi_akun = Integer.parseInt(id_klasifikasi.getText().toString());
         String code = kode_akun.getText().toString();
         String name = nama_akun.getText().toString();
@@ -335,6 +356,15 @@ public class AccountDataActivity extends AppCompatActivity {
                     if (dataAkunCreateResponse.getStatus().equals("success")){
                         Log.i("debug", "onResponse : Post Akun is Successful");
                         pDialog.dismissWithAnimation();
+                        SweetAlertDialog sweet_dialog = new SweetAlertDialog(AccountDataActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                        sweet_dialog.setTitleText("Akun akun berhasil ditambahkan");
+                        sweet_dialog.show();
+                        dialog.dismiss();
+                        vDialog.dismiss();
+                        if (adapter != null) {
+                            adapter.refreshEvents(akun_dataAkuns);
+                        }
+                        loadAllAkun();
                     }
                 }
             }
