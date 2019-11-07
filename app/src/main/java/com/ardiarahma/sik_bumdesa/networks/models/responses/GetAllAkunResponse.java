@@ -1,22 +1,21 @@
 package com.ardiarahma.sik_bumdesa.networks.models.responses;
 
-import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal_Akun;
-import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal_AllAkun;
+import com.ardiarahma.sik_bumdesa.networks.models.GetAllAkun;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class NeracaAwalAllAkunResponse {
+public class GetAllAkunResponse {
     @SerializedName("status")
     @Expose
     private String status;
 
     @SerializedName("akun")
     @Expose
-    private ArrayList<NeracaAwal_AllAkun> neracaAwalAllAkuns = null;
+    private ArrayList<GetAllAkun> neracaAwalAllAkuns = null;
 
-    public NeracaAwalAllAkunResponse(String status, ArrayList<NeracaAwal_AllAkun> neracaAwalAllAkuns) {
+    public GetAllAkunResponse(String status, ArrayList<GetAllAkun> neracaAwalAllAkuns) {
         this.status = status;
         this.neracaAwalAllAkuns = neracaAwalAllAkuns;
     }
@@ -29,11 +28,11 @@ public class NeracaAwalAllAkunResponse {
         this.status = status;
     }
 
-    public ArrayList<NeracaAwal_AllAkun> getNeracaAwalAllAkuns() {
+    public ArrayList<GetAllAkun> getNeracaAwalAllAkuns() {
         return neracaAwalAllAkuns;
     }
 
-    public void setNeracaAwalAllAkuns(ArrayList<NeracaAwal_AllAkun> neracaAwalAllAkuns) {
+    public void setNeracaAwalAllAkuns(ArrayList<GetAllAkun> neracaAwalAllAkuns) {
         this.neracaAwalAllAkuns = neracaAwalAllAkuns;
     }
 }
