@@ -4,8 +4,8 @@
     android:id="@+id/classAcc_spinner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_margin="15dp"
+    android:orientation="vertical"
     app:cardCornerRadius="15dp">
 
     <LinearLayout
@@ -29,18 +29,19 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:text="Tanggal"
                 android:paddingTop="5dp"
+                android:text="Tanggal"
                 android:textColor="@color/three"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/date_btn"
                 android:layout_width="0dp"
-                android:background="#ffffff"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_date"/>
+                android:background="#ffffff"
+                android:src="@drawable/ic_date" />
+
             <TextView
                 android:id="@+id/date"
                 android:layout_width="0dp"
@@ -48,9 +49,23 @@
                 android:layout_weight="0.4"
                 android:paddingTop="5dp"
                 android:text="26/08/2019"
-                android:textSize="16dp"/>
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/datePost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/tv_kwitansi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:hint="Nomor Kwitansi"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/tv_keterangan"
@@ -58,49 +73,49 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="Keterangan"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:id="@+id/linear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Nama Akun Debit"
+                android:layout_weight="0.3"
+                android:text="Nama Akun"
                 android:textColor="@color/three"
-                android:textSize="16dp" />
+                android:textSize="16sp"/>
 
             <Spinner
                 android:id="@+id/debit_spinner"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear5"
+            android:id="@+id/linear3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Nama Akun Kredit"
+                android:layout_weight="0.3"
+                android:text="Status"
                 android:textColor="@color/three"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/kredit_spinner"
-                android:layout_width="match_parent"
+                android:id="@+id/status_spinner"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5" />
 
@@ -112,37 +127,52 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="Jumlah"
-            android:textSize="16dp"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/tv_kwitansi"
+        <Button
+            android:id="@+id/add_jkredit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:hint="Nomor Kwitansi"
-            android:textSize="16dp" />
+            android:background="@drawable/default_button"
+            android:text="Tambah Jurnal"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/id_debit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/id_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
         <!--<LinearLayout-->
-            <!--android:id="@+id/linear3"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="10dp"-->
-            <!--android:orientation="horizontal">-->
+        <!--android:id="@+id/linear3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:orientation="horizontal">-->
 
-            <!--<TextView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.5"-->
-                <!--android:text="Posisi Normal"-->
-                <!--android:textColor="@color/three"-->
-                <!--android:textSize="16dp" />-->
+        <!--<TextView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="0.5"-->
+        <!--android:text="Posisi Normal"-->
+        <!--android:textColor="@color/three"-->
+        <!--android:textSize="16sp" />-->
 
-            <!--<Spinner-->
-                <!--android:id="@+id/posisi_spinner"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.5" />-->
+        <!--<Spinner-->
+        <!--android:id="@+id/posisi_spinner"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="0.5" />-->
 
         <!--</LinearLayout>-->
 

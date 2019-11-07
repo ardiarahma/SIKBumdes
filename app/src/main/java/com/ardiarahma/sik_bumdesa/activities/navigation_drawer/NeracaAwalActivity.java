@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -20,7 +17,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -39,19 +35,12 @@ import com.ardiarahma.sik_bumdesa.activities.MainActivity;
 import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
 import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaAwal_ParentAdapter;
-import com.ardiarahma.sik_bumdesa.networks.adapters.Neraca_AsetLancarAdapter;
-import com.ardiarahma.sik_bumdesa.networks.adapters.Neraca_AsetTetapAdapter;
-import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal;
-import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal_AllAkun;
+import com.ardiarahma.sik_bumdesa.networks.models.GetAllAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaAwal_Parent;
-import com.ardiarahma.sik_bumdesa.networks.models.Neraca_AsetLancar;
-import com.ardiarahma.sik_bumdesa.networks.models.Neraca_AsetTetap;
-import com.ardiarahma.sik_bumdesa.networks.models.Neraca_UtangLancar;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAddResponse;
-import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAllAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.GetAllAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalParentResponse;
-import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,8 +71,8 @@ public class NeracaAwalActivity extends AppCompatActivity
     private TextView textDebit, textKredit;
     private int pYear, pMonth, pDay;
 
-    ArrayList<NeracaAwal_AllAkun> neracaAwalAllAkuns;
-    ArrayAdapter<NeracaAwal_AllAkun> allAkunArrayAdapter;
+    ArrayList<GetAllAkun> neracaAwalAllAkuns;
+    ArrayAdapter<GetAllAkun> allAkunArrayAdapter;
 
     EditText jumlah_balance;
     Spinner spNamaAkun;
@@ -197,7 +186,7 @@ public class NeracaAwalActivity extends AppCompatActivity
                         ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#8c8c8c"));
                         ((TextView) parent.getChildAt(0)).setTextSize(16);
                         ((TextView) parent.getChildAt(0)).setGravity(Gravity.END);
-                        NeracaAwal_AllAkun neracaAwalAllAkun = (NeracaAwal_AllAkun) parent.getSelectedItem();
+                        GetAllAkun neracaAwalAllAkun = (GetAllAkun) parent.getSelectedItem();
                         selectedId.setText(String.valueOf(neracaAwalAllAkun.getAkunId()));
                     }
 
@@ -292,19 +281,19 @@ public class NeracaAwalActivity extends AppCompatActivity
     public void loadAllAkun() {
         User user = SharedPref.getInstance(this).getBaseUser();
         String token = "Bearer " + user.getToken();
-        Call<NeracaAwalAllAkunResponse> call = RetrofitClient
+        Call<GetAllAkunResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .neracaAllAkun(token);
+                .getAllAkun(token);
 
-        call.enqueue(new Callback<NeracaAwalAllAkunResponse>() {
+        call.enqueue(new Callback<GetAllAkunResponse>() {
             @Override
-            public void onResponse(Call<NeracaAwalAllAkunResponse> call, Response<NeracaAwalAllAkunResponse> response) {
+            public void onResponse(Call<GetAllAkunResponse> call, Response<GetAllAkunResponse> response) {
                 pDialog.dismissWithAnimation();
-                NeracaAwalAllAkunResponse neracaAwalAllAkunResponse = response.body();
+                GetAllAkunResponse getAllAkunResponse = response.body();
                 if (response.isSuccessful()) {
-                    if (neracaAwalAllAkunResponse.getStatus().equals("success")) {
-                        neracaAwalAllAkuns = neracaAwalAllAkunResponse.getNeracaAwalAllAkuns();
+                    if (getAllAkunResponse.getStatus().equals("success")) {
+                        neracaAwalAllAkuns = getAllAkunResponse.getNeracaAwalAllAkuns();
                         allAkunArrayAdapter = new ArrayAdapter<>(NeracaAwalActivity.this, android.R.layout.simple_spinner_item, neracaAwalAllAkuns);
                         allAkunArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spNamaAkun.setAdapter(allAkunArrayAdapter);
@@ -313,7 +302,7 @@ public class NeracaAwalActivity extends AppCompatActivity
             }
 
             @Override
-            public void onFailure(Call<NeracaAwalAllAkunResponse> call, Throwable t) {
+            public void onFailure(Call<GetAllAkunResponse> call, Throwable t) {
                 pDialog.dismissWithAnimation();
                 Toast.makeText(NeracaAwalActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
             }
