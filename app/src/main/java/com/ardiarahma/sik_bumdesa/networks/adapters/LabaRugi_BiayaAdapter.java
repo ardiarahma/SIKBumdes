@@ -12,47 +12,44 @@ import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_Biaya;
 
 import java.util.ArrayList;
 
-/**
- * Created by Windows 10 on 8/19/2019.
- */
-
 public class LabaRugi_BiayaAdapter extends RecyclerView.Adapter<LabaRugi_BiayaAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<LabaRugi_Biaya> labaRugi_biayas = new ArrayList<>();
+    private ArrayList<LabaRugi_Biaya> labaRugiBiayas;
 
-    public LabaRugi_BiayaAdapter(Context context, ArrayList<LabaRugi_Biaya> labaRugi_biayas) {
+    public LabaRugi_BiayaAdapter(Context context, ArrayList<LabaRugi_Biaya> labaRugiBiayas) {
         this.context = context;
-        this.labaRugi_biayas = labaRugi_biayas;
+        this.labaRugiBiayas = labaRugiBiayas;
     }
 
     @Override
     public LabaRugi_BiayaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.item_neraca_awal, parent, false);
+        View v = inflater.inflate(R.layout.item_laba_rugi, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(LabaRugi_BiayaAdapter.ViewHolder holder, int position) {
-        holder.akun.setText(labaRugi_biayas.get(position).getAkun());
-        holder.jumlah.setText(String.valueOf(labaRugi_biayas.get(position).getJumlah()));
+        LabaRugi_Biaya labaRugiBiaya = labaRugiBiayas.get(position);
+        holder.textNamaAkun.setText(labaRugiBiaya.getNama());
+        holder.textNilaiAkun.setText(String.valueOf(labaRugiBiaya.getNilai_akun()));
     }
 
     @Override
     public int getItemCount() {
-        return labaRugi_biayas.size();
+        return labaRugiBiayas.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView akun, jumlah;
+        TextView textNamaAkun, textNilaiAkun;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            akun = itemView.findViewById(R.id.akun);
-            jumlah = itemView.findViewById(R.id.jumlah);
+            textNamaAkun = itemView.findViewById(R.id.textNamaAkun);
+            textNilaiAkun = itemView.findViewById(R.id.textNilaiAkun);
         }
     }
 }

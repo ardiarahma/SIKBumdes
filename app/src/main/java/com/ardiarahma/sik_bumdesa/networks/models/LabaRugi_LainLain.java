@@ -3,7 +3,7 @@ package com.ardiarahma.sik_bumdesa.networks.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LabaRugi_Pendapatan {
+public class LabaRugi_LainLain {
     @SerializedName("nama")
     @Expose
     private String nama;
@@ -16,7 +16,7 @@ public class LabaRugi_Pendapatan {
     @Expose
     private int nilai_akun;
 
-    public LabaRugi_Pendapatan(String nama, int no_akun, int nilai_akun) {
+    public LabaRugi_LainLain(String nama, int no_akun, int nilai_akun) {
         this.nama = nama;
         this.no_akun = no_akun;
         this.nilai_akun = nilai_akun;

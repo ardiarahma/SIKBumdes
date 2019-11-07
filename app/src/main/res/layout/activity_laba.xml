@@ -35,8 +35,8 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_below="@id/toolbar"
+        android:layout_margin="10dp"
         app:cardCornerRadius="20dp">
 
         <LinearLayout
@@ -50,9 +50,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:gravity="center"
                 android:background="#0000"
-
+                android:gravity="center"
                 android:src="@drawable/ic_date" />
 
             <TextView
@@ -60,20 +59,20 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
+                android:gravity="center"
                 android:text="Bulan"
-                android:textSize="16dp"
                 android:textAlignment="center"
-                android:gravity="center"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/year"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
+                android:gravity="center"
                 android:text="Tahun"
-                android:textSize="16dp"
                 android:textAlignment="center"
-                android:gravity="center"/>
+                android:textSize="16sp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -85,10 +84,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:orientation="vertical">
 
             <TextView
@@ -96,21 +95,15 @@
                 android:layout_height="wrap_content"
                 android:text="Pendapatan"
                 android:textColor="@color/three"
-                android:textSize="20dp"/>
-
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="ini recyclerview"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_marginTop="5dp"/>-->
+                android:textSize="16sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_pendapatan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,47 +114,44 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:text="Total Pendapatan"
                     android:textColor="@color/three"
-                    android:textSize="20dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/total_pendapatan"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="18.0000.000"
                     android:textAlignment="textEnd"
                     android:textColor="@color/three"
-                    android:textSize="20dp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#D3D3D3" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:text="Biaya"
                 android:textColor="@color/three"
-                android:textSize="20dp"/>
-
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="ini recyclerview"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_marginTop="5dp"/>-->
+                android:textSize="16sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_biaya"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -171,59 +161,116 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.3"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
                     android:text="Total Biaya"
                     android:textColor="@color/three"
-                    android:textSize="20dp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/total_biaya"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.7"
-                    android:text="5.000.000"
+                    android:layout_marginTop="5dp"
                     android:textAlignment="textEnd"
                     android:textColor="@color/three"
-                    android:textSize="20dp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#D3D3D3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.3"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
                     android:text="Laba Usaha"
                     android:textColor="@color/three"
-                    android:textSize="20dp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/total_labausaha"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.7"
-                    android:text="12.920.000"
+                    android:layout_marginTop="5dp"
                     android:textAlignment="textEnd"
                     android:textColor="@color/three"
-                    android:textSize="20dp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#D3D3D3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pendapatan dan Biaya Lainnya"
+                android:textColor="@color/three"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_lain_lainnya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:nestedScrollingEnabled="false" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:text="Total Pendapatan dan Biaya Lainnya"
+                    android:textColor="@color/three"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/total_lain_lainnya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/three"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="#D3D3D3" />
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
                 app:cardCornerRadius="15dp">
 
                 <LinearLayout
@@ -234,12 +281,12 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Total Laba/Rugi Periode Berjalan"
                         android:textAlignment="center"
                         android:textColor="@color/three"
-                        android:textSize="20dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -247,9 +294,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="12.920.000"
                         android:textAlignment="center"
-                        android:textSize="20dp"/>
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 

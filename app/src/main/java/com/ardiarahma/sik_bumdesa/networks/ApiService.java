@@ -9,6 +9,7 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreat
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunUpdateResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.LabaRugiResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.LoginResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAddResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalAkunResponse;
@@ -175,4 +176,12 @@ public interface ApiService {
     //===================== Jurnal =====================
 
     //===================== Buku Besar =====================
+
+    //===================== Laba Rugi =====================
+    @GET("laba-rugi")
+    Call<LabaRugiResponse> labaRugi(
+            @Header("Authorization") String token,
+            @Query("month") int klasifikasiId,
+            @Query("year") int year
+    );
 }
