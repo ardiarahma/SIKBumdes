@@ -174,5 +174,11 @@ public interface ApiService {
 
     //===================== Jurnal =====================
 
+    @GET("data-akun")
+    Call<DataAkunResponse> data_akun_all(
+            @Header("Authorization") String token,
+            @Header("Accept") String accept
+    );
+
     //===================== Buku Besar =====================
 }
