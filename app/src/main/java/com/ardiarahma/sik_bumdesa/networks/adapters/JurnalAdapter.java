@@ -35,9 +35,9 @@ public class JurnalAdapter extends RecyclerView.Adapter<JurnalAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(JurnalAdapter.ViewHolder holder, int position) {
-        holder.keterang.setText(jurnals.get(position).getKeterangan());
-        holder.akun.setText(jurnals.get(position).getNo_akun());
-        holder.kwitansi.setText(jurnals.get(position).getNo_kwitansi());
+//        holder.keterang.setText(jurnals.get(position).get);
+//        holder.akun.setText(jurnals.get(position).getNo_akun());
+//        holder.kwitansi.setText(jurnals.get(position).getNo_kwitansi());
         holder.posisi.setText(jurnals.get(position).getPosisi_normal());
     }
 

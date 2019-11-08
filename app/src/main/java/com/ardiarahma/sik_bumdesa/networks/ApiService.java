@@ -1,9 +1,11 @@
 package com.ardiarahma.sik_bumdesa.networks;
 
+import com.ardiarahma.sik_bumdesa.networks.models.Jurnal;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunUpdateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteKlasifikasiResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
@@ -172,10 +174,16 @@ public interface ApiService {
 
     //===================== Jurnal =====================
 
-    @GET("data-akun")
-    Call<DataAkunResponse> data_akun_all(
+    @FormUrlEncoded
+    @POST("jurnal/store")
+    Call<JurnalCreateResponse> add_jurnal(
             @Header("Authorization") String token,
-            @Header("Accept") String accept
+            @Field("tanggal") String date,
+            @Field("id_data_akun") int akun_id_1,
+            @Field("jumlah") int jumlahstr,
+            @Field("posisi_normal") String status,
+            @Field("no_kwitansi") String kwitansi,
+            @Field("keterangan") String ket
     );
 
     //===================== Buku Besar =====================

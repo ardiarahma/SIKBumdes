@@ -15,19 +15,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.activities.MonthYearPickerDialog;
+import com.ardiarahma.sik_bumdesa.activities.navigation_drawer.NeracaAwalActivity;
 import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
 import com.ardiarahma.sik_bumdesa.networks.adapters.JurnalViewPagerAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.Akun_DataAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.GetAllAkun;
+import com.ardiarahma.sik_bumdesa.networks.models.Jurnal;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.GetAllAkunResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalCreateResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +67,8 @@ public class JurnalActivity extends AppCompatActivity {
     TextView date;
     SimpleDateFormat dateFormat, monthFormat, yearFormat;
 
-    TextView tv_keterangan, tv_jumlah, tv_kwitansi, getKwitansi;
+    EditText tv_keterangan, tv_jumlah, tv_kwitansi;
+    TextView getKwitansi;
     Spinner debit_spinner, kredit_spinner, status_spinner_1, status_spinner_2;
     TextView akun_id_1, status_id_1, akun_id_2, status_id_2;
 
@@ -107,13 +113,10 @@ public class JurnalActivity extends AppCompatActivity {
             }
         });
 
-//        sp_months = findViewById(R.id.sp_month);
-//        sp_years = findViewById(R.id.sp_year);
-        tv_months = findViewById(R.id.month);
-        tv_years = findViewById(R.id.year);
-
         monthFormat = new SimpleDateFormat("MM", Locale.US);
         yearFormat = new SimpleDateFormat("yyyy", Locale.US);
+        tv_months = findViewById(R.id.month);
+        tv_years = findViewById(R.id.year);
 
         jurnal_date = findViewById(R.id.jurnal_date);
         jurnal_date.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +194,6 @@ public class JurnalActivity extends AppCompatActivity {
                 });
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, posisi);
-//                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.posisi_normal, R.layout.support_simple_spinner_dropdown_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 status_spinner_1.setAdapter(adapter);
                 status_spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -235,6 +237,13 @@ public class JurnalActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showJurnalDate();
+    }
+
     public void showDatePicker() {
         final Calendar c = Calendar.getInstance();
         pYear = c.get(Calendar.YEAR);
@@ -267,18 +276,17 @@ public class JurnalActivity extends AppCompatActivity {
     }
 
     public void showJurnalDate(){
-        Calendar calendar = Calendar.getInstance();
-
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        MonthYearPickerDialog pd = new MonthYearPickerDialog();
+        pd.setListener(new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                tv_months.setText(monthFormat.format(newDate.getTime()));
-                tv_years.setText(yearFormat.format(newDate.getTime()));
+            public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+
+                tv_months.setText(String.valueOf(selectedMonth));
+                tv_years.setText(String.valueOf(selectedYear));
+                loadJurnal();
             }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+        });
+        pd.show(getFragmentManager(), "MonthYearPickerDialog");
     }
 
     public void validationJurnal(){
@@ -313,11 +321,6 @@ public class JurnalActivity extends AppCompatActivity {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 createAnotherJurnal();
-//                SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-//                sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
-//                sweet_dialog.show();
-//                dialog.dismiss();
-//                vDialog.dismissWithAnimation();
             }
         });
         vDialog.setCancelButton("Belum", new SweetAlertDialog.OnSweetClickListener() {
@@ -327,16 +330,6 @@ public class JurnalActivity extends AppCompatActivity {
                 dialog1.show();
             }
         }).show();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        Calendar newDate = Calendar.getInstance(TimeZone.getDefault());
-//        int tahun = newDate.get(Calendar.YEAR);
-//        tv_years.setText(String.valueOf(tahun));
-        //getNeracaAwal();
-//        loadParent();
     }
 
     public void loadAllAkunDebit() {
@@ -442,7 +435,6 @@ public class JurnalActivity extends AppCompatActivity {
         });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, posisi);
-//                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.posisi_normal, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         status_spinner_2.setAdapter(adapter);
         status_spinner_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -490,11 +482,77 @@ public class JurnalActivity extends AppCompatActivity {
         User user = SharedPref.getInstance(this).getBaseUser();
         String token = "Bearer " + user.getToken();
 
+        String date = datePost.getText().toString();
+        String kwitansi = tv_kwitansi.getText().toString();
+        String ket = tv_keterangan.getText().toString();
+        int id_akun = Integer.parseInt(akun_id_1.getText().toString());
+        String status = status_id_1.getText().toString();
+        String jumlah = tv_jumlah.getText().toString().trim();
+
+        if (jumlah.isEmpty()) {
+            tv_jumlah.setError("Jumlah harus diisi");
+            tv_jumlah.requestFocus();
+            return;
+        }
+
+        int jumlahstr = Integer.parseInt(tv_jumlah.getText().toString());
+
+        if (kwitansi.isEmpty()) {
+            tv_kwitansi.setError("Kwitansi harus diisi");
+            tv_kwitansi.requestFocus();
+            return;
+        }
+
+        if (ket.isEmpty()) {
+            tv_keterangan.setError("Keterangan harus diisi");
+            tv_keterangan.requestFocus();
+            return;
+        }
+
+        Call<JurnalCreateResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .add_jurnal(token, date, id_akun, jumlahstr, status, kwitansi, ket);
+
+        call.enqueue(new Callback<JurnalCreateResponse>() {
+            @Override
+            public void onResponse(Call<JurnalCreateResponse> call, Response<JurnalCreateResponse> response) {
+//                pDialog.dismissWithAnimation();
+                JurnalCreateResponse jurnalCreateResponse = response.body();
+                if (response.isSuccessful()){
+                    if (jurnalCreateResponse.equals("success")){
+                        SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                        sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
+                        sweet_dialog.show();
+                        dialog.dismiss();
+                        vDialog.dismissWithAnimation();
+                    }
+
+//                    if (parentAdapter != null) {
+//                        parentAdapter.refreshEvents(neracaAwalParentArrayList);
+//                    }
+//                    loadParent();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JurnalCreateResponse> call, Throwable t) {
+                pDialog.dismissWithAnimation();
+                Toast.makeText(JurnalActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
     public void createAnotherJurnal(){
         User user = SharedPref.getInstance(this).getBaseUser();
         String token = "Bearer " + user.getToken();
+
+    }
+
+    public void loadJurnal(){
 
     }
 }
