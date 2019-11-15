@@ -30,6 +30,7 @@ import com.ardiarahma.sik_bumdesa.networks.adapters.JurnalViewPagerAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.Akun_DataAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.GetAllAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.Jurnal;
+import com.ardiarahma.sik_bumdesa.networks.models.Results;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.GetAllAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalCreateResponse;
@@ -68,7 +69,7 @@ public class JurnalActivity extends AppCompatActivity {
     SimpleDateFormat dateFormat, monthFormat, yearFormat;
 
     EditText tv_keterangan, tv_jumlah, tv_kwitansi;
-    TextView getKwitansi;
+    TextView getKwitansi, kwitansi_id;
     Spinner debit_spinner, kredit_spinner, status_spinner_1, status_spinner_2;
     TextView akun_id_1, status_id_1, akun_id_2, status_id_2;
 
@@ -151,14 +152,14 @@ public class JurnalActivity extends AppCompatActivity {
                 akun_id_1 = dialog.findViewById(R.id.id_debit);
                 status_id_1 = dialog.findViewById(R.id.id_status);
 
-                Button add_jurnal = dialog.findViewById(R.id.add_jkredit);
-                add_jurnal.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addAnotherJurnal();
-                        dialog.hide();
-                    }
-                });
+//                Button add_jurnal = dialog.findViewById(R.id.add_jkredit);
+//                add_jurnal.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        addAnotherJurnal();
+//                        dialog.hide();
+//                    }
+//                });
 
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -228,8 +229,9 @@ public class JurnalActivity extends AppCompatActivity {
                 dSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.hide();
-                        validationJurnal();
+//                        validationJurnal();
+                        createJurnal();
+//                        dialog.hide();
                     }
                 });
                 dialog.show();
@@ -296,7 +298,7 @@ public class JurnalActivity extends AppCompatActivity {
         vDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                createJurnal();
+//                createJurnal();
 //                SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
 //                sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
 //                sweet_dialog.show();
@@ -412,6 +414,7 @@ public class JurnalActivity extends AppCompatActivity {
         datePost = dialog1.findViewById(R.id.datePost);
         akun_id_2 = dialog1.findViewById(R.id.id_kredit);
         status_id_2 = dialog1.findViewById(R.id.id_status);
+        kwitansi_id = dialog1.findViewById(R.id.id_kwitansi);
 
         String isiKwitansi = tv_kwitansi.getText().toString().trim();
         getKwitansi.setText(isiKwitansi);
@@ -518,14 +521,18 @@ public class JurnalActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JurnalCreateResponse> call, Response<JurnalCreateResponse> response) {
 //                pDialog.dismissWithAnimation();
+                dialog.hide();
                 JurnalCreateResponse jurnalCreateResponse = response.body();
                 if (response.isSuccessful()){
                     if (jurnalCreateResponse.equals("success")){
-                        SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-                        sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
-                        sweet_dialog.show();
-                        dialog.dismiss();
-                        vDialog.dismissWithAnimation();
+                        int id_kwitansi = jurnalCreateResponse.getResult().getId();
+                        kwitansi_id.setText(String.valueOf(id_kwitansi));
+                        addAnotherJurnal();
+//                        SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+//                        sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
+//                        sweet_dialog.show();
+//                        dialog.dismiss();
+//                        vDialog.dismiss();
                     }
 
 //                    if (parentAdapter != null) {
@@ -550,6 +557,63 @@ public class JurnalActivity extends AppCompatActivity {
         User user = SharedPref.getInstance(this).getBaseUser();
         String token = "Bearer " + user.getToken();
 
+        String date = datePost.getText().toString();
+        String kwitansi = kwitansi_id.getText().toString();
+        String ket = tv_keterangan.getText().toString();
+        int id_akun = Integer.parseInt(akun_id_2.getText().toString());
+        String status = status_id_2.getText().toString();
+        String jumlah = tv_jumlah.getText().toString().trim();
+
+        if (jumlah.isEmpty()) {
+            tv_jumlah.setError("Jumlah harus diisi");
+            tv_jumlah.requestFocus();
+            return;
+        }
+
+        int jumlahstr = Integer.parseInt(tv_jumlah.getText().toString());
+
+        if (kwitansi.isEmpty()) {
+            tv_kwitansi.setError("Kwitansi harus diisi");
+            tv_kwitansi.requestFocus();
+            return;
+        }
+
+        if (ket.isEmpty()) {
+            tv_keterangan.setError("Keterangan harus diisi");
+            tv_keterangan.requestFocus();
+            return;
+        }
+
+        Call<JurnalCreateResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .add_another_jurnal(token, date, id_akun, jumlahstr, status, kwitansi);
+
+        call.enqueue(new Callback<JurnalCreateResponse>() {
+            @Override
+            public void onResponse(Call<JurnalCreateResponse> call, Response<JurnalCreateResponse> response) {
+                JurnalCreateResponse jurnalCreateResponse = response.body();
+                if (response.isSuccessful()){
+                    if (jurnalCreateResponse.equals("success")){
+                        SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
+                        sweet_dialog.setTitleText("Jurnal berhasil ditambahkan");
+                        sweet_dialog.show();
+                        dialog.dismiss();
+                        vDialog.dismiss();
+                    }
+
+//                    if (parentAdapter != null) {
+//                        parentAdapter.refreshEvents(neracaAwalParentArrayList);
+//                    }
+//                    loadParent();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JurnalCreateResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     public void loadJurnal(){

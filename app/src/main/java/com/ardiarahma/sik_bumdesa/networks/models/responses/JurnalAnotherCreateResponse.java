@@ -6,10 +6,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Windows 10 on 11/8/2019.
+ * Created by Windows 10 on 11/12/2019.
  */
 
-public class JurnalCreateResponse {
+public class JurnalAnotherCreateResponse {
 
     @SerializedName("status")
     @Expose
@@ -19,7 +19,7 @@ public class JurnalCreateResponse {
     @Expose
     private Results result;
 
-    public JurnalCreateResponse(String status, Results result) {
+    public JurnalAnotherCreateResponse(String status, Results result) {
         this.status = status;
         this.result = result;
     }

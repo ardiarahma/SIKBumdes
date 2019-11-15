@@ -106,19 +106,7 @@ public class LabaRugiActivity extends AppCompatActivity {
                 loadLabaRugi();
             }
         });
-        pd.show(getFragmentManager(), "MonthYearPickerDialog");
-//        Calendar calendar = Calendar.getInstance();
-//
-//        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                Calendar newDate = Calendar.getInstance();
-//                newDate.set(year, month, dayOfMonth);
-//                tv_months.setText(monthFormat.format(newDate.getTime()));
-//                tv_years.setText(yearFormat.format(newDate.getTime()));
-//            }
-//        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-//        datePickerDialog.show();
+        pd.show(getFragmentManager(), "MonthYearPickerDialog")
     }
 
     public void loadLabaRugi() {

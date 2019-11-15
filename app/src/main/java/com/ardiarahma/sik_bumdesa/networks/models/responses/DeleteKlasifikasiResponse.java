@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class DeleteKlasifikasiResponse {
 
-    @SerializedName("success")
+    @SerializedName("status")
     @Expose
-    private String success;
+    private String status;
 
-    public DeleteKlasifikasiResponse(String success) {
-        this.success = success;
+    public DeleteKlasifikasiResponse(String status) {
+        this.status = status;
     }
 
-    public String getSuccess() {
-        return success;
+    public String getStatus() {
+        return status;
     }
 
-    public void setSuccess(String success) {
-        this.success = success;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -4,10 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Windows 10 on 8/19/2019.
+ * Created by Windows 10 on 11/15/2019.
  */
 
-public class Ekuitas_Modal {
+class Ekuitas_SaldoDitahan {
 
     @SerializedName("nama")
     @Expose
@@ -20,12 +20,6 @@ public class Ekuitas_Modal {
     @SerializedName("nilai_akun")
     @Expose
     private int nilai_akun;
-
-    public Ekuitas_Modal(String nama, int no_akun, int nilai_akun) {
-        this.nama = nama;
-        this.no_akun = no_akun;
-        this.nilai_akun = nilai_akun;
-    }
 
     public String getNama() {
         return nama;

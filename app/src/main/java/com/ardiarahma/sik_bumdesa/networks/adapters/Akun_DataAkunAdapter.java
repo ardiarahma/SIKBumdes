@@ -353,7 +353,7 @@ public class Akun_DataAkunAdapter extends RecyclerView.Adapter<Akun_DataAkunAdap
                     DeleteKlasifikasiResponse deleteKlasifikasiResponse = response.body();
                     Log.d("TAG", "Response " + response.body());
                     if (response.isSuccessful()) {
-                        if (deleteKlasifikasiResponse.getSuccess().equals("Data Deleted successfully.")) {
+                        if (deleteKlasifikasiResponse.getStatus().equals("Data Deleted successfully.")) {
                             Log.i("debug", "Response success");
                             //delete(getAdapterPosition());
                             SweetAlertDialog sweet_dialog = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);

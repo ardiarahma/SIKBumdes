@@ -138,6 +138,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="Jumlah"
+            android:inputType="number"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -182,6 +183,12 @@
 
         <TextView
             android:id="@+id/id_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/id_kwitansi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone" />

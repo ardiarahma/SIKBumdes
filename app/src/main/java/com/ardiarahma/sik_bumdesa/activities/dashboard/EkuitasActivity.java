@@ -3,33 +3,29 @@ package com.ardiarahma.sik_bumdesa.activities.dashboard;
 import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
-import com.ardiarahma.sik_bumdesa.networks.adapters.Ekuitas_ModalAdapter;
-import com.ardiarahma.sik_bumdesa.networks.adapters.Ekuitas_SaldoAdapter;
-import com.ardiarahma.sik_bumdesa.networks.models.Ekuitas_Modal;
-import com.ardiarahma.sik_bumdesa.networks.models.Ekuitas_Saldo;
+import com.ardiarahma.sik_bumdesa.activities.MonthYearPickerDialog;
+import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
+import com.ardiarahma.sik_bumdesa.networks.SharedPref;
+import com.ardiarahma.sik_bumdesa.networks.models.User;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.EkuitasResponse;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EkuitasActivity extends AppCompatActivity {
 
-    RecyclerView rv_modal, rv_saldo;
-    Ekuitas_ModalAdapter ekuitas_modalAdapter;
-    Ekuitas_SaldoAdapter ekuitas_saldoAdapter;
-    ArrayList<Ekuitas_Modal> ekuitas_modals;
-    ArrayList<Ekuitas_Saldo> ekuitas_saldos;
-
-    TextView tv_totalAll;
+    TextView nilai_modal, nilai_saldoDitahan, nilai_saldoBerjalan, total_sum;
 
     ImageButton toolbar_back;
 
@@ -51,30 +47,10 @@ public class EkuitasActivity extends AppCompatActivity {
             }
         });
 
-        tv_totalAll = findViewById(R.id.total_sum);
-
-        ekuitas_modals = new ArrayList<>();
-        rv_modal = findViewById(R.id.rv_modal);
-        ekuitas_modalAdapter = new Ekuitas_ModalAdapter(this, ekuitas_modals);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-                false);
-        rv_modal.setAdapter(ekuitas_modalAdapter);
-        rv_modal.setHasFixedSize(true);
-        rv_modal.setLayoutManager(linearLayoutManager);
-        ekuitas_modalAdapter.notifyDataSetChanged();
-        ekuitas_modals.add(new Ekuitas_Modal("Modal Disetor", 0));
-
-        ekuitas_saldos = new ArrayList<>();
-        rv_saldo = findViewById(R.id.rv_saldo);
-        ekuitas_saldoAdapter= new Ekuitas_SaldoAdapter(this, ekuitas_saldos);
-        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-                false);
-        rv_saldo.setAdapter(ekuitas_saldoAdapter);
-        rv_saldo.setHasFixedSize(true);
-        rv_saldo.setLayoutManager(linearLayoutManager1);
-        ekuitas_saldoAdapter.notifyDataSetChanged();
-        ekuitas_saldos.add(new Ekuitas_Saldo("Saldo Laba Ditahan", 0));
-        ekuitas_saldos.add(new Ekuitas_Saldo("Saldo Laba Periode Berjalan", 16000000));
+        nilai_modal = findViewById(R.id.jumlah_modalAwal);
+        nilai_saldoDitahan = findViewById(R.id.jumlah_saldoDitahan);
+        nilai_saldoBerjalan = findViewById(R.id.jumlah_saldoBerjalan);
+        total_sum = findViewById(R.id.total_sum);
 
         monthFormat = new SimpleDateFormat("MM", Locale.US);
         yearFormat = new SimpleDateFormat("yyyy", Locale.US);
@@ -98,17 +74,49 @@ public class EkuitasActivity extends AppCompatActivity {
     }
 
     public void showDate(){
-        Calendar calendar = Calendar.getInstance();
-
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        MonthYearPickerDialog pd = new MonthYearPickerDialog();
+        pd.setListener(new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, month, dayOfMonth);
-                tv_months.setText(monthFormat.format(newDate.getTime()));
-                tv_years.setText(yearFormat.format(newDate.getTime()));
+            public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+
+                tv_months.setText(String.valueOf(selectedMonth));
+                tv_years.setText(String.valueOf(selectedYear));
+                loadEkuitas();
             }
-        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+        });
+        pd.show(getFragmentManager(), "MonthYearPickerDialog");
+    }
+
+    public void loadEkuitas(){
+        User user = SharedPref.getInstance(this).getBaseUser();
+        String token = "Bearer " + user.getToken();
+        int month = Integer.parseInt(tv_months.getText().toString());
+        int year = Integer.parseInt(tv_years.getText().toString());
+
+        Call<EkuitasResponse> call = RetrofitClient
+                .getInstance()
+                .getApi()
+                .ekuitas(token, month, year);
+
+        call.enqueue(new Callback<EkuitasResponse>() {
+            @Override
+            public void onResponse(Call<EkuitasResponse> call, Response<EkuitasResponse> response) {
+                EkuitasResponse ekuitasResponse = response.body();
+                Log.d("TAG", "Response " + response.body());
+                if (response.isSuccessful()){
+                    if (ekuitasResponse.getStatus().equals("success")){
+                        nilai_modal.setText(String.valueOf(ekuitasResponse.getEkuitas_modals().getNilai_akun()));
+                        nilai_saldoDitahan.setText(String.valueOf(ekuitasResponse.getEkuitas_saldos().getSaldo_ditahan().getNilai_akun()));
+                        nilai_saldoBerjalan.setText(String.valueOf(ekuitasResponse.getEkuitas_saldos().getSaldo_berjalan()));
+                        total_sum.setText(String.valueOf(ekuitasResponse.getTotalEkuitas()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EkuitasResponse> call, Throwable t) {
+
+            }
+        });
     }
 }

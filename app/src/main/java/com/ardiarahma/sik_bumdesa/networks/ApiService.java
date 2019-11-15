@@ -5,6 +5,8 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunCreateRespon
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunUpdateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteKlasifikasiResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.EkuitasResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalAnotherCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneResponse;
@@ -186,11 +188,30 @@ public interface ApiService {
             @Field("keterangan") String ket
     );
 
+    @FormUrlEncoded
+    @POST("jurnal/store")
+    Call<JurnalCreateResponse> add_another_jurnal(
+            @Header("Authorization") String token,
+            @Field("tanggal") String date,
+            @Field("id_data_akun") int akun_id_1,
+            @Field("jumlah") int jumlahstr,
+            @Field("posisi_normal") String status,
+            @Field("id_kwitansi") String kwitansi_id
+    );
+
     //===================== Buku Besar =====================
 
     //===================== Laba Rugi =====================
     @GET("laba-rugi")
     Call<LabaRugiResponse> labaRugi(
+            @Header("Authorization") String token,
+            @Query("month") int klasifikasiId,
+            @Query("year") int year
+    );
+
+    //===================== Ekuitas ==========================
+    @GET("perubahan-modal")
+    Call<EkuitasResponse> ekuitas(
             @Header("Authorization") String token,
             @Query("month") int klasifikasiId,
             @Query("year") int year
