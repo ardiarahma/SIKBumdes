@@ -17,6 +17,7 @@ import com.ardiarahma.sik_bumdesa.activities.MonthYearPickerDialog;
 import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
 import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_BiayaAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_BiayaLainLainAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_PendapatanLainLainAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_PendapatanAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_Biaya;
@@ -44,10 +45,11 @@ public class LabaRugiActivity extends AppCompatActivity {
     TextView tv_months, tv_years;
 
     TextView tv_totalPendapatan, tv_totalBiaya, tv_Laba, tv_totalLainnya, tv_totalAll;
-    RecyclerView rv_pendapatan, rv_biaya, rv_lain_lainnya;
+    RecyclerView rv_pendapatan, rv_biaya, rv_pendapatan_lain, rv_biaya_lain;
     LabaRugi_BiayaAdapter biayaAdapter;
     LabaRugi_PendapatanAdapter pendapatanAdapter;
-    LabaRugi_PendapatanLainLainAdapter lainLainAdapter;
+    LabaRugi_PendapatanLainLainAdapter pendapatanLainLainAdapter;
+    LabaRugi_BiayaLainLainAdapter biayaLainLainAdapter;
     ArrayList<LabaRugi_Biaya> labaRugi_biayas;
     ArrayList<LabaRugi_Pendapatan> labaRugi_pendapatans;
     ArrayList<LabaRugi_PendapatanLainLain> pendapatanLainLains;
@@ -87,7 +89,8 @@ public class LabaRugiActivity extends AppCompatActivity {
 
         rv_pendapatan = findViewById(R.id.rv_pendapatan);
         rv_biaya = findViewById(R.id.rv_biaya);
-        rv_lain_lainnya = findViewById(R.id.rv_lain_lainnya);
+        rv_pendapatan_lain = findViewById(R.id.rv_pendapatan_lain);
+        rv_biaya_lain = findViewById(R.id.rv_biaya_lain);
     }
 
     @Override
@@ -148,11 +151,18 @@ public class LabaRugiActivity extends AppCompatActivity {
                         rv_pendapatan.setAdapter(pendapatanAdapter);
 
                         pendapatanLainLains = labaRugiResponse.getPendapatanLainLains();
-//                        lainLainAdapter = new LabaRugi_PendapatanLainLainAdapter(LabaRugiActivity.this, labaRugi_pendapatans);
+                        pendapatanLainLainAdapter = new LabaRugi_PendapatanLainLainAdapter(LabaRugiActivity.this, pendapatanLainLains);
                         RecyclerView.LayoutManager eLayoutManager3 = new LinearLayoutManager(getApplicationContext());
-                        rv_lain_lainnya.setLayoutManager(eLayoutManager3);
-                        rv_lain_lainnya.setItemAnimator(new DefaultItemAnimator());
-                        rv_lain_lainnya.setAdapter(lainLainAdapter);
+                        rv_pendapatan_lain.setLayoutManager(eLayoutManager3);
+                        rv_pendapatan_lain.setItemAnimator(new DefaultItemAnimator());
+                        rv_pendapatan_lain.setAdapter(pendapatanLainLainAdapter);
+
+                        biayaLainLains = labaRugiResponse.getBiayaLainLains();
+                        biayaLainLainAdapter = new LabaRugi_BiayaLainLainAdapter(LabaRugiActivity.this, biayaLainLains);
+                        RecyclerView.LayoutManager eLayoutManager4 = new LinearLayoutManager(getApplicationContext());
+                        rv_biaya_lain.setLayoutManager(eLayoutManager4);
+                        rv_biaya_lain.setItemAnimator(new DefaultItemAnimator());
+                        rv_biaya_lain.setAdapter(biayaLainLainAdapter);
                     }
 
                 }
