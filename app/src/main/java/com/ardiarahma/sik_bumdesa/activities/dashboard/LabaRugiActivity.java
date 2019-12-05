@@ -21,7 +21,6 @@ import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_PendapatanLainLainA
 import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_PendapatanAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_Biaya;
 import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_BiayaLainLain;
-import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_LainLain;
 import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_Pendapatan;
 import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_PendapatanLainLain;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
@@ -148,8 +147,8 @@ public class LabaRugiActivity extends AppCompatActivity {
                         rv_pendapatan.setItemAnimator(new DefaultItemAnimator());
                         rv_pendapatan.setAdapter(pendapatanAdapter);
 
-                        pendapatanLainLains = labaRugiResponse.getLabaRugiLainLains();
-                        lainLainAdapter = new LabaRugi_PendapatanLainLainAdapter(LabaRugiActivity.this, labaRugi_lainLains);
+                        pendapatanLainLains = labaRugiResponse.getPendapatanLainLains();
+//                        lainLainAdapter = new LabaRugi_PendapatanLainLainAdapter(LabaRugiActivity.this, labaRugi_pendapatans);
                         RecyclerView.LayoutManager eLayoutManager3 = new LinearLayoutManager(getApplicationContext());
                         rv_lain_lainnya.setLayoutManager(eLayoutManager3);
                         rv_lain_lainnya.setItemAnimator(new DefaultItemAnimator());
