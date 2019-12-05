@@ -20,6 +20,7 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.GetAllAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalKlasifikasiResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalParentResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.RegisterResponse;
 
@@ -213,7 +214,17 @@ public interface ApiService {
     @GET("perubahan-modal")
     Call<EkuitasResponse> ekuitas(
             @Header("Authorization") String token,
-            @Query("month") int klasifikasiId,
+            @Query("month") int month,
             @Query("year") int year
     );
+
+    //===================== Neraca ========================
+    @GET("neraca")
+    Call<NeracaResponse> neraca(
+            @Header("Authorization") String token,
+            @Query("month") int month,
+            @Query("year") int year
+    );
+
+
 }

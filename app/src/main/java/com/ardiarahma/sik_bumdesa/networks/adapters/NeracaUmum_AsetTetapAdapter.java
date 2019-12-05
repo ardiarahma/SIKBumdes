@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
+import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_AsetLancar;
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_AsetTetap;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class NeracaUmum_AsetTetapAdapter extends RecyclerView.Adapter<NeracaUmum_AsetTetapAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps= new ArrayList<>();
+    private ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps;
 
     public NeracaUmum_AsetTetapAdapter(Context context, ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps) {
         this.context = context;
@@ -29,15 +30,16 @@ public class NeracaUmum_AsetTetapAdapter extends RecyclerView.Adapter<NeracaUmum
     @Override
     public NeracaUmum_AsetTetapAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_neraca_awal, parent, false);
+        View view = inflater.inflate(R.layout.item_laba_rugi, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(NeracaUmum_AsetTetapAdapter.ViewHolder holder, int position) {
-        holder.akun.setText(neracaUmum_asetTetaps.get(position).getAkun());
-        holder.jumlah.setText(String.valueOf(neracaUmum_asetTetaps.get(position).getJumlah()));
+        NeracaUmum_AsetTetap neracaUmum_asetTetap = neracaUmum_asetTetaps.get(position);
+        holder.akun.setText(neracaUmum_asetTetap.getNama());
+        holder.jumlah.setText(String.valueOf(neracaUmum_asetTetap.getNilai_akun()));
     }
 
     @Override
@@ -52,8 +54,8 @@ public class NeracaUmum_AsetTetapAdapter extends RecyclerView.Adapter<NeracaUmum
         public ViewHolder(View itemView) {
             super(itemView);
 
-            akun = itemView.findViewById(R.id.akun);
-            jumlah = itemView.findViewById(R.id.jumlah);
+            akun = itemView.findViewById(R.id.textNamaAkun);
+            jumlah = itemView.findViewById(R.id.textNilaiAkun);
         }
     }
 }

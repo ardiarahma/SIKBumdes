@@ -4,10 +4,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Windows 10 on 8/19/2019.
+ * Created by Windows 10 on 11/22/2019.
  */
 
-public class NeracaUmum_AsetLancar {
+public class NeracaUmum_LiabilitasLancar {
 
     @SerializedName("nama")
     @Expose
@@ -21,7 +21,7 @@ public class NeracaUmum_AsetLancar {
     @Expose
     private int nilai_akun;
 
-    public NeracaUmum_AsetLancar(String nama, int no_akun, int nilai_akun) {
+    public NeracaUmum_LiabilitasLancar(String nama, int no_akun, int nilai_akun) {
         this.nama = nama;
         this.no_akun = no_akun;
         this.nilai_akun = nilai_akun;

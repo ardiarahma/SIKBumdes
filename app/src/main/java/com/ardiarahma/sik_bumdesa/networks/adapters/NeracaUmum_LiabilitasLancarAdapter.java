@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_AsetLancar;
+import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_LiabilitasLancar;
 
 import java.util.ArrayList;
 
@@ -16,18 +17,18 @@ import java.util.ArrayList;
  * Created by Windows 10 on 8/19/2019.
  */
 
-public class NeracaUmum_AsetLancarAdapter extends RecyclerView.Adapter<NeracaUmum_AsetLancarAdapter.ViewHolder> {
+public class NeracaUmum_LiabilitasLancarAdapter extends RecyclerView.Adapter<NeracaUmum_LiabilitasLancarAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<NeracaUmum_AsetLancar> neracaUmum_asetLancars;
+    private ArrayList<NeracaUmum_LiabilitasLancar> neracaUmum_liabilitasLancars;
 
-    public NeracaUmum_AsetLancarAdapter(Context context, ArrayList<NeracaUmum_AsetLancar> neracaUmum_asetLancars) {
+    public NeracaUmum_LiabilitasLancarAdapter(Context context, ArrayList<NeracaUmum_LiabilitasLancar> neracaUmum_liabilitasLancars) {
         this.context = context;
-        this.neracaUmum_asetLancars = neracaUmum_asetLancars;
+        this.neracaUmum_liabilitasLancars = neracaUmum_liabilitasLancars;
     }
 
     @Override
-    public NeracaUmum_AsetLancarAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NeracaUmum_LiabilitasLancarAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_laba_rugi, parent, false);
         ViewHolder holder = new ViewHolder(view);
@@ -35,15 +36,15 @@ public class NeracaUmum_AsetLancarAdapter extends RecyclerView.Adapter<NeracaUmu
     }
 
     @Override
-    public void onBindViewHolder(NeracaUmum_AsetLancarAdapter.ViewHolder holder, int position) {
-        NeracaUmum_AsetLancar neracaUmum_asetLancar = neracaUmum_asetLancars.get(position);
-        holder.akun.setText(neracaUmum_asetLancar.getNama());
-        holder.jumlah.setText(String.valueOf(neracaUmum_asetLancar.getNilai_akun()));
+    public void onBindViewHolder(NeracaUmum_LiabilitasLancarAdapter.ViewHolder holder, int position) {
+        NeracaUmum_LiabilitasLancar neracaUmum_liabilitasLancar = neracaUmum_liabilitasLancars.get(position);
+        holder.akun.setText(neracaUmum_liabilitasLancar.getNama());
+        holder.jumlah.setText(String.valueOf(neracaUmum_liabilitasLancar.getNilai_akun()));
     }
 
     @Override
     public int getItemCount() {
-        return neracaUmum_asetLancars.size();
+        return neracaUmum_liabilitasLancars.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -3,7 +3,11 @@ package com.ardiarahma.sik_bumdesa.networks.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LabaRugi_LainLain {
+/**
+ * Created by Windows 10 on 11/22/2019.
+ */
+
+public class NeracaUmum_LiabilitasJangkaPanjang {
     @SerializedName("nama")
     @Expose
     private String nama;
@@ -16,7 +20,8 @@ public class LabaRugi_LainLain {
     @Expose
     private int nilai_akun;
 
-    public LabaRugi_LainLain(String nama, int no_akun, int nilai_akun) {
+
+    public NeracaUmum_LiabilitasJangkaPanjang(String nama, int no_akun, int nilai_akun) {
         this.nama = nama;
         this.no_akun = no_akun;
         this.nilai_akun = nilai_akun;

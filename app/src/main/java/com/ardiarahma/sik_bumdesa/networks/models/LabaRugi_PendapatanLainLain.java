@@ -3,12 +3,7 @@ package com.ardiarahma.sik_bumdesa.networks.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Windows 10 on 8/19/2019.
- */
-
-public class NeracaUmum_AsetLancar {
-
+public class LabaRugi_PendapatanLainLain {
     @SerializedName("nama")
     @Expose
     private String nama;
@@ -21,7 +16,7 @@ public class NeracaUmum_AsetLancar {
     @Expose
     private int nilai_akun;
 
-    public NeracaUmum_AsetLancar(String nama, int no_akun, int nilai_akun) {
+    public LabaRugi_PendapatanLainLain(String nama, int no_akun, int nilai_akun) {
         this.nama = nama;
         this.no_akun = no_akun;
         this.nilai_akun = nilai_akun;

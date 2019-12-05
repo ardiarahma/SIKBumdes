@@ -106,7 +106,7 @@ public class EkuitasActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     if (ekuitasResponse.getStatus().equals("success")){
                         nilai_modal.setText(String.valueOf(ekuitasResponse.getEkuitas_modals().getNilai_akun()));
-                        nilai_saldoDitahan.setText(String.valueOf(ekuitasResponse.getEkuitas_saldos().getSaldo_ditahan().getNilai_akun()));
+//                        nilai_saldoDitahan.setText(String.valueOf(ekuitasResponse.getEkuitas_saldos().getSaldo_ditahan().getNilai_akun()));
                         nilai_saldoBerjalan.setText(String.valueOf(ekuitasResponse.getEkuitas_saldos().getSaldo_berjalan()));
                         total_sum.setText(String.valueOf(ekuitasResponse.getTotalEkuitas()));
                     }

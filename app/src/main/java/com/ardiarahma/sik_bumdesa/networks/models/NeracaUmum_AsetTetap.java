@@ -1,34 +1,53 @@
 package com.ardiarahma.sik_bumdesa.networks.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Windows 10 on 8/19/2019.
  */
 
 public class NeracaUmum_AsetTetap {
 
-    String akun;
-    int jumlah;
+    @SerializedName("nama")
+    @Expose
+    private String nama;
 
-    public NeracaUmum_AsetTetap(String akun, int jumlah) {
-        this.akun = akun;
-        this.jumlah = jumlah;
+    @SerializedName("no_akun")
+    @Expose
+    private int no_akun;
+
+    @SerializedName("nilai_akun")
+    @Expose
+    private int nilai_akun;
+
+    public NeracaUmum_AsetTetap(String nama, int no_akun, int nilai_akun) {
+        this.nama = nama;
+        this.no_akun = no_akun;
+        this.nilai_akun = nilai_akun;
     }
 
-    public String getAkun() {
-        return akun;
+    public String getNama() {
+        return nama;
     }
 
-    public void setAkun(String akun) {
-        this.akun = akun;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public int getJumlah() {
-        return jumlah;
+    public int getNo_akun() {
+        return no_akun;
     }
 
-    public void setJumlah(int jumlah) {
-        this.jumlah = jumlah;
+    public void setNo_akun(int no_akun) {
+        this.no_akun = no_akun;
     }
 
+    public int getNilai_akun() {
+        return nilai_akun;
+    }
 
+    public void setNilai_akun(int nilai_akun) {
+        this.nilai_akun = nilai_akun;
+    }
 }

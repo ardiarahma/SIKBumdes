@@ -17,17 +17,18 @@ import com.ardiarahma.sik_bumdesa.activities.MonthYearPickerDialog;
 import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
 import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_BiayaAdapter;
-import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_LainLainAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_PendapatanLainLainAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.LabaRugi_PendapatanAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_Biaya;
+import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_BiayaLainLain;
 import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_LainLain;
 import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_Pendapatan;
+import com.ardiarahma.sik_bumdesa.networks.models.LabaRugi_PendapatanLainLain;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.LabaRugiResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -47,10 +48,11 @@ public class LabaRugiActivity extends AppCompatActivity {
     RecyclerView rv_pendapatan, rv_biaya, rv_lain_lainnya;
     LabaRugi_BiayaAdapter biayaAdapter;
     LabaRugi_PendapatanAdapter pendapatanAdapter;
-    LabaRugi_LainLainAdapter lainLainAdapter;
+    LabaRugi_PendapatanLainLainAdapter lainLainAdapter;
     ArrayList<LabaRugi_Biaya> labaRugi_biayas;
     ArrayList<LabaRugi_Pendapatan> labaRugi_pendapatans;
-    ArrayList<LabaRugi_LainLain> labaRugi_lainLains;
+    ArrayList<LabaRugi_PendapatanLainLain> pendapatanLainLains;
+    ArrayList<LabaRugi_BiayaLainLain> biayaLainLains;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +108,7 @@ public class LabaRugiActivity extends AppCompatActivity {
                 loadLabaRugi();
             }
         });
-        pd.show(getFragmentManager(), "MonthYearPickerDialog")
+        pd.show(getFragmentManager(), "MonthYearPickerDialog");
     }
 
     public void loadLabaRugi() {
@@ -131,20 +133,23 @@ public class LabaRugiActivity extends AppCompatActivity {
                         tv_Laba.setText(String.valueOf(labaRugiResponse.getLabaUsaha()));
                         tv_totalLainnya.setText(String.valueOf(labaRugiResponse.getTotalLainLain()));
                         tv_totalAll.setText(String.valueOf(labaRugiResponse.getSaldoLabaRugi()));
+
                         labaRugi_biayas = labaRugiResponse.getLabaRugiBiayas();
                         biayaAdapter = new LabaRugi_BiayaAdapter(LabaRugiActivity.this, labaRugi_biayas);
                         RecyclerView.LayoutManager eLayoutManager = new LinearLayoutManager(getApplicationContext());
                         rv_biaya.setLayoutManager(eLayoutManager);
                         rv_biaya.setItemAnimator(new DefaultItemAnimator());
                         rv_biaya.setAdapter(biayaAdapter);
+
                         labaRugi_pendapatans = labaRugiResponse.getLabaRugiPendapatans();
                         pendapatanAdapter = new LabaRugi_PendapatanAdapter(LabaRugiActivity.this, labaRugi_pendapatans);
                         RecyclerView.LayoutManager eLayoutManager2 = new LinearLayoutManager(getApplicationContext());
                         rv_pendapatan.setLayoutManager(eLayoutManager2);
                         rv_pendapatan.setItemAnimator(new DefaultItemAnimator());
                         rv_pendapatan.setAdapter(pendapatanAdapter);
-                        labaRugi_lainLains = labaRugiResponse.getLabaRugiLainLains();
-                        lainLainAdapter = new LabaRugi_LainLainAdapter(LabaRugiActivity.this, labaRugi_lainLains);
+
+                        pendapatanLainLains = labaRugiResponse.getLabaRugiLainLains();
+                        lainLainAdapter = new LabaRugi_PendapatanLainLainAdapter(LabaRugiActivity.this, labaRugi_lainLains);
                         RecyclerView.LayoutManager eLayoutManager3 = new LinearLayoutManager(getApplicationContext());
                         rv_lain_lainnya.setLayoutManager(eLayoutManager3);
                         rv_lain_lainnya.setItemAnimator(new DefaultItemAnimator());
