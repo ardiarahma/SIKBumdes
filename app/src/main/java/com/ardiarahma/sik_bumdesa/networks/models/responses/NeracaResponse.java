@@ -45,7 +45,7 @@ public class NeracaResponse {
 
     @SerializedName("Liabilitas Jangka Panjang")
     @Expose
-    private NeracaUmum_LiabilitasJangkaPanjang neracaUmumLiabilitasJangkaPanjang;
+    private ArrayList<NeracaUmum_LiabilitasJangkaPanjang> neracaUmum_liabilitasJangkaPanjangs = null;
 
     @SerializedName("Total Liabilitas Jangka Panjang")
     @Expose
@@ -71,7 +71,7 @@ public class NeracaResponse {
     @Expose
     private int totalLiaEku;
 
-    public NeracaResponse(String status, ArrayList<NeracaUmum_AsetLancar> neracaUmum_asetLancars, int totalAsetLancar, ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps, int totalAsetTetap, ArrayList<NeracaUmum_LiabilitasLancar> neracaUmum_liabilitasLancars, int totalLiabilitas_lancar, NeracaUmum_LiabilitasJangkaPanjang neracaUmumLiabilitasJangkaPanjang, int totalLiabilitas_JP, NeracaUmum_NeracaEkuitas neracaUmumNeracaEkuitas, int totalAset, int totalLiabilitas, int totalEkuitas, int totalLiaEku) {
+    public NeracaResponse(String status, ArrayList<NeracaUmum_AsetLancar> neracaUmum_asetLancars, int totalAsetLancar, ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps, int totalAsetTetap, ArrayList<NeracaUmum_LiabilitasLancar> neracaUmum_liabilitasLancars, int totalLiabilitas_lancar, ArrayList<NeracaUmum_LiabilitasJangkaPanjang> neracaUmum_liabilitasJangkaPanjangs, int totalLiabilitas_JP, NeracaUmum_NeracaEkuitas neracaUmumNeracaEkuitas, int totalAset, int totalLiabilitas, int totalEkuitas, int totalLiaEku) {
         this.status = status;
         this.neracaUmum_asetLancars = neracaUmum_asetLancars;
         this.totalAsetLancar = totalAsetLancar;
@@ -79,7 +79,7 @@ public class NeracaResponse {
         this.totalAsetTetap = totalAsetTetap;
         this.neracaUmum_liabilitasLancars = neracaUmum_liabilitasLancars;
         this.totalLiabilitas_lancar = totalLiabilitas_lancar;
-        this.neracaUmumLiabilitasJangkaPanjang = neracaUmumLiabilitasJangkaPanjang;
+        this.neracaUmum_liabilitasJangkaPanjangs = neracaUmum_liabilitasJangkaPanjangs;
         this.totalLiabilitas_JP = totalLiabilitas_JP;
         this.neracaUmumNeracaEkuitas = neracaUmumNeracaEkuitas;
         this.totalAset = totalAset;
@@ -144,12 +144,12 @@ public class NeracaResponse {
         this.totalLiabilitas_lancar = totalLiabilitas_lancar;
     }
 
-    public NeracaUmum_LiabilitasJangkaPanjang getNeracaUmumLiabilitasJangkaPanjang() {
-        return neracaUmumLiabilitasJangkaPanjang;
+    public ArrayList<NeracaUmum_LiabilitasJangkaPanjang> getNeracaUmum_liabilitasJangkaPanjangs() {
+        return neracaUmum_liabilitasJangkaPanjangs;
     }
 
-    public void setNeracaUmumLiabilitasJangkaPanjang(NeracaUmum_LiabilitasJangkaPanjang neracaUmumLiabilitasJangkaPanjang) {
-        this.neracaUmumLiabilitasJangkaPanjang = neracaUmumLiabilitasJangkaPanjang;
+    public void setNeracaUmum_liabilitasJangkaPanjangs(ArrayList<NeracaUmum_LiabilitasJangkaPanjang> neracaUmum_liabilitasJangkaPanjangs) {
+        this.neracaUmum_liabilitasJangkaPanjangs = neracaUmum_liabilitasJangkaPanjangs;
     }
 
     public int getTotalLiabilitas_JP() {

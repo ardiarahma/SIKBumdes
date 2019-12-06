@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class NeracaUmum_AsetTetapAdapter extends RecyclerView.Adapter<NeracaUmum_AsetTetapAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps;
+    private ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps = new ArrayList<>();
 
     public NeracaUmum_AsetTetapAdapter(Context context, ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps) {
         this.context = context;

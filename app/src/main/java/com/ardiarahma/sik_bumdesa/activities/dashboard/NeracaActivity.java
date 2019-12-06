@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ import com.ardiarahma.sik_bumdesa.networks.RetrofitClient;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
 import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaUmum_AsetLancarAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaUmum_AsetTetapAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaUmum_LiabilitasJangkaPanjangAdapter;
 import com.ardiarahma.sik_bumdesa.networks.adapters.NeracaUmum_LiabilitasLancarAdapter;
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_AsetLancar;
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_AsetTetap;
@@ -44,9 +46,9 @@ public class NeracaActivity extends AppCompatActivity {
     TextView tv_months, tv_years;
 
     TextView tv_totalAsetLancar, tv_totalAsetTetap, tv_totalLiabilitasLancar, tv_totalLiabilitasJP;
-    TextView tv_jumlahModal, tv_jumlahSaldoDitahan, tv_jumlahSaldoBerjalan, tv_nilaiLiabilitasJP;
+    TextView tv_jumlahModal, tv_jumlahSaldoDitahan, tv_jumlahSaldoBerjalan;
     TextView tv_totalAset, tv_totalLiabilitas, tv_totalEkuitas, tv_totalLiaEku;
-    RecyclerView rv_asetLancar, rv_asetTetap, rv_liabilitasLancar;
+    RecyclerView rv_asetLancar, rv_asetTetap, rv_liabilitasLancar, rv_liabilitasJP;
 
     ArrayList<NeracaUmum_AsetLancar> neracaUmum_asetLancars;
     ArrayList<NeracaUmum_AsetTetap> neracaUmum_asetTetaps;
@@ -56,6 +58,7 @@ public class NeracaActivity extends AppCompatActivity {
     NeracaUmum_AsetLancarAdapter asetLancarAdapter;
     NeracaUmum_AsetTetapAdapter asetTetapAdapter;
     NeracaUmum_LiabilitasLancarAdapter liabilitasLancarAdapter;
+    NeracaUmum_LiabilitasJangkaPanjangAdapter liabilitasJangkaPanjangAdapter;
 
 
 
@@ -93,8 +96,8 @@ public class NeracaActivity extends AppCompatActivity {
         rv_asetLancar = findViewById(R.id.rv_aset_lancar);
         rv_asetTetap = findViewById(R.id.rv_aset_tetap);
         rv_liabilitasLancar = findViewById(R.id.rv_labilitaslancar);
+        rv_liabilitasJP= findViewById(R.id.rv_liabilitasJP);
 
-        tv_nilaiLiabilitasJP = findViewById(R.id.nilai_liabilitas);
         tv_jumlahModal = findViewById(R.id.jumlah_modalAwal);
         tv_jumlahSaldoBerjalan = findViewById(R.id.jumlah_saldoBerjalan);
         tv_jumlahSaldoDitahan = findViewById(R.id.jumlah_saldoDitahan);
@@ -173,7 +176,13 @@ public class NeracaActivity extends AppCompatActivity {
                          rv_liabilitasLancar.setItemAnimator(new DefaultItemAnimator());
                          rv_liabilitasLancar.setAdapter(liabilitasLancarAdapter);
 
-                         tv_nilaiLiabilitasJP.setText(String.valueOf(neracaResponse.getNeracaUmumLiabilitasJangkaPanjang().getNilai_akun()));
+                         neracaUmum_liabilitasJangkaPanjangs = neracaResponse.getNeracaUmum_liabilitasJangkaPanjangs();
+                         liabilitasJangkaPanjangAdapter = new NeracaUmum_LiabilitasJangkaPanjangAdapter(NeracaActivity.this, neracaUmum_liabilitasJangkaPanjangs);
+                         RecyclerView.LayoutManager layoutManager4 = new LinearLayoutManager(getApplicationContext());
+                         rv_liabilitasJP.setLayoutManager(layoutManager4);
+                         rv_liabilitasJP.setItemAnimator(new DefaultItemAnimator());
+                         rv_liabilitasJP.setAdapter(liabilitasLancarAdapter);
+
                          tv_jumlahModal.setText(String.valueOf(neracaResponse.getNeracaUmumNeracaEkuitas().getEkuitas_modal()));
                          tv_jumlahSaldoDitahan.setText(String.valueOf(neracaResponse.getNeracaUmumNeracaEkuitas().getEkuitas_saldoDitahan()));
                          tv_jumlahSaldoBerjalan.setText(String.valueOf(neracaResponse.getNeracaUmumNeracaEkuitas().getEkuitas_saldojalan()));
@@ -185,6 +194,7 @@ public class NeracaActivity extends AppCompatActivity {
              @Override
              public void onFailure(Call<NeracaResponse> call, Throwable t) {
                  Toast.makeText(NeracaActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
+                 Log.e("debug", "onFailure : ERROR > " + t.getMessage());
 
              }
          });
