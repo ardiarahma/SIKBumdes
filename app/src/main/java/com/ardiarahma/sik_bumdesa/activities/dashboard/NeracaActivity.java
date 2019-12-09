@@ -183,8 +183,8 @@ public class NeracaActivity extends AppCompatActivity {
                          rv_liabilitasJP.setItemAnimator(new DefaultItemAnimator());
                          rv_liabilitasJP.setAdapter(liabilitasLancarAdapter);
 
-                         tv_jumlahModal.setText(String.valueOf(neracaResponse.getNeracaUmumNeracaEkuitas().getEkuitas_modal()));
-                         tv_jumlahSaldoDitahan.setText(String.valueOf(neracaResponse.getNeracaUmumNeracaEkuitas().getEkuitas_saldoDitahan()));
+                         tv_jumlahModal.setText(String.valueOf(neracaResponse.getNeracaUmumNeracaEkuitas().getEkuitas_modal().getNilai_akun()));
+                         tv_jumlahSaldoDitahan.setText(String.valueOf(neracaResponse.getNeracaUmumNeracaEkuitas().getEkuitas_saldoDitahan().getNilai_akun()));
                          tv_jumlahSaldoBerjalan.setText(String.valueOf(neracaResponse.getNeracaUmumNeracaEkuitas().getEkuitas_saldojalan()));
 
                      }

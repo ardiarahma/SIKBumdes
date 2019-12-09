@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity
     RelativeLayout v1, v2, v3, v4, v5;
     TextView welcome, nav_company_name, nav_company_email;
 
-    User user = SharedPref.getInstance(this).getBaseUser();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         this.setTitle("SIK Bumdes");
+
+        User user = SharedPref.getInstance(this).getBaseUser();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
