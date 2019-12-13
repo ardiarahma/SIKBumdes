@@ -35,7 +35,6 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
         android:layout_margin="10dp"
         app:cardCornerRadius="20dp">
 
@@ -50,9 +49,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:gravity="center"
                 android:background="#0000"
-
+                android:gravity="center"
                 android:src="@drawable/ic_date" />
 
             <TextView
@@ -60,540 +58,974 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
+                android:gravity="center"
                 android:text="Bulan"
-                android:textSize="16dp"
                 android:textAlignment="center"
-                android:gravity="center"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/year"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
+                android:gravity="center"
                 android:text="Tahun"
-                android:textSize="16dp"
                 android:textAlignment="center"
-                android:gravity="center"/>
+                android:textSize="16sp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <ScrollView
-        android:id="@+id/area"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/card">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/area"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Aset Lancar"
-                android:textColor="@color/three"
-                android:textSize="16sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_aset_lancar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:nestedScrollingEnabled="false" />
+            android:layout_height="match_parent"
+            android:scrollbarThumbHorizontal="@null"
+            android:scrollbarThumbVertical="@null">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Total Aset Lancar"
-                    android:textColor="@color/three"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/total_aset_lancar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/three"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D3D3D3" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Aset Tetap"
-                android:textColor="@color/three"
-                android:textSize="16sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_aset_tetap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:nestedScrollingEnabled="false" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Total Aset Tetap"
-                    android:textColor="@color/three"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/total_aset_tetap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/three"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D3D3D3" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Liabilitas Lancar"
-                android:textColor="@color/three"
-                android:textSize="16sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_labilitaslancar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:nestedScrollingEnabled="false" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Total Liabilitas Lancar"
-                    android:textColor="@color/three"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/total_liabilitas_lancar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/three"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D3D3D3" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Liabilitas Jangka Panjang"
-                android:textColor="@color/three"
-                android:textSize="16sp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_liabilitasJP"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:nestedScrollingEnabled="false" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Total Liabilitas Jangka Panjang"
-                    android:textColor="@color/three"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/total_liabilitas_jangkapanjang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/three"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D3D3D3" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ekuitas"
-                android:textColor="@color/three"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="3dp"
-                    android:src="@drawable/layout_circle_gray"
-                    android:tint="#919CA5" />
+                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/layoutData"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="7dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
-                        android:id="@+id/modalAwal"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:text="Modal Disetor"
-                        android:textColor="#696969"
-                        android:textSize="13sp" />
+                        android:text="Aset Lancar"
+                        android:textColor="@color/three"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_aset_lancar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:nestedScrollingEnabled="false" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Total Aset Lancar"
+                            android:textColor="@color/three"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/total_aset_lancar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/three"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D3D3D3" />
 
                     <TextView
-                        android:id="@+id/jumlah_modalAwal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="0"
-                        android:textAlignment="textEnd"
-                        android:textColor="#696969"
-                        android:textSize="13sp" />
+                        android:text="Aset Tetap"
+                        android:textColor="@color/three"
+                        android:textSize="16sp" />
 
-                </LinearLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_aset_tetap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:nestedScrollingEnabled="false" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Total Aset Tetap"
+                            android:textColor="@color/three"
+                            android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="3dp"
-                    android:src="@drawable/layout_circle_gray"
-                    android:tint="#919CA5" />
+                        <TextView
+                            android:id="@+id/total_aset_tetap"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/three"
+                            android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="7dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D3D3D3" />
 
                     <TextView
-                        android:id="@+id/saldoDitahan"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:text="Saldo Laba Ditahan"
-                        android:textColor="#696969"
-                        android:textSize="13sp" />
+                        android:text="Liabilitas Lancar"
+                        android:textColor="@color/three"
+                        android:textSize="16sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_labilitaslancar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:nestedScrollingEnabled="false" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Total Liabilitas Lancar"
+                            android:textColor="@color/three"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/total_liabilitas_lancar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/three"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D3D3D3" />
 
                     <TextView
-                        android:id="@+id/jumlah_saldoDitahan"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="0"
-                        android:textAlignment="textEnd"
-                        android:textColor="#696969"
-                        android:textSize="13sp" />
+                        android:text="Liabilitas Jangka Panjang"
+                        android:textColor="@color/three"
+                        android:textSize="16sp" />
 
-                </LinearLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_liabilitasJP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:nestedScrollingEnabled="false" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Total Liabilitas Jangka Panjang"
+                            android:textColor="@color/three"
+                            android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="3dp"
-                    android:src="@drawable/layout_circle_gray"
-                    android:tint="#919CA5" />
+                        <TextView
+                            android:id="@+id/total_liabilitas_jangkapanjang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/three"
+                            android:textSize="16sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="7dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D3D3D3" />
 
                     <TextView
-                        android:id="@+id/saldoBerjalan"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:text="Saldo Laba Periode Berjalan"
-                        android:textColor="#696969"
-                        android:textSize="13sp" />
+                        android:text="Ekuitas"
+                        android:textColor="@color/three"
+                        android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/jumlah_saldoBerjalan"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:text="0"
-                        android:textAlignment="textEnd"
-                        android:textColor="#696969"
-                        android:textSize="13sp" />
+                        android:orientation="horizontal">
 
-                </LinearLayout>
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="3dp"
+                            android:src="@drawable/layout_circle_gray"
+                            android:tint="#919CA5" />
 
-            </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="7dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D3D3D3" />
+                            <TextView
+                                android:id="@+id/modalAwal"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="1"
+                                android:text="Modal Disetor"
+                                android:textColor="#696969"
+                                android:textSize="13sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/jumlah_modalAwal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:text="0"
+                                android:textAlignment="textEnd"
+                                android:textColor="#696969"
+                                android:textSize="13sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Total Aset"
-                    android:textColor="@color/three"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/total_aset"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/three"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    </LinearLayout>
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D3D3D3" />
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="3dp"
+                            android:src="@drawable/layout_circle_gray"
+                            android:tint="#919CA5" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="7dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Total Liabilitas"
-                    android:textColor="@color/three"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/saldoDitahan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="1"
+                                android:text="Saldo Laba Ditahan"
+                                android:textColor="#696969"
+                                android:textSize="13sp" />
 
-                <TextView
-                    android:id="@+id/total_liabilitas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/three"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/jumlah_saldoDitahan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:text="0"
+                                android:textAlignment="textEnd"
+                                android:textColor="#696969"
+                                android:textSize="13sp" />
 
-            </LinearLayout>
+                        </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D3D3D3" />
+                    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Total Ekuitas"
-                    android:textColor="@color/three"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="3dp"
+                            android:src="@drawable/layout_circle_gray"
+                            android:tint="#919CA5" />
 
-                <TextView
-                    android:id="@+id/total_ekuitas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/three"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="7dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-            </LinearLayout>
+                            <TextView
+                                android:id="@+id/saldoBerjalan"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="1"
+                                android:text="Saldo Laba Periode Berjalan"
+                                android:textColor="#696969"
+                                android:textSize="13sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#D3D3D3" />
+                            <TextView
+                                android:id="@+id/jumlah_saldoBerjalan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="5dp"
+                                android:text="0"
+                                android:textAlignment="textEnd"
+                                android:textColor="#696969"
+                                android:textSize="13sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                        </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="Total Liabilitas dan Ekuitas"
-                    android:textColor="@color/three"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/total_liabilitasekuitas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/three"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D3D3D3" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-            <!--<android.support.v7.widget.CardView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_marginBottom="15dp"-->
-                <!--app:cardCornerRadius="15dp">-->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Total Aset"
+                            android:textColor="@color/three"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                <!--<LinearLayout-->
+                        <TextView
+                            android:id="@+id/total_aset"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/three"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D3D3D3" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Total Liabilitas"
+                            android:textColor="@color/three"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_liabilitas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/three"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D3D3D3" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Total Ekuitas"
+                            android:textColor="@color/three"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_ekuitas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/three"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#D3D3D3" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:text="Total Liabilitas dan Ekuitas"
+                            android:textColor="@color/three"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/total_liabilitasekuitas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/three"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!--<android.support.v7.widget.CardView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_marginBottom="15dp"-->
+                    <!--app:cardCornerRadius="15dp">-->
+
+                    <!--<LinearLayout-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
                     <!--android:orientation="vertical">-->
 
                     <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:layout_marginBottom="5dp"-->
-                        <!--android:text="Total Laba/Rugi Periode Berjalan"-->
-                        <!--android:textAlignment="center"-->
-                        <!--android:textColor="@color/three"-->
-                        <!--android:textSize="16sp"-->
-                        <!--android:textStyle="bold" />-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:text="Total Laba/Rugi Periode Berjalan"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textColor="@color/three"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:textStyle="bold" />-->
 
                     <!--<TextView-->
-                        <!--android:id="@+id/total_sum"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginBottom="10dp"-->
-                        <!--android:textAlignment="center"-->
-                        <!--android:textSize="16sp" />-->
+                    <!--android:id="@+id/total_sum"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--android:textAlignment="center"-->
+                    <!--android:textSize="16sp" />-->
 
-                <!--</LinearLayout>-->
+                    <!--</LinearLayout>-->
 
-            <!--</android.support.v7.widget.CardView>-->
+                    <!--</android.support.v7.widget.CardView>-->
 
-        </LinearLayout>
-    </ScrollView>
+                </LinearLayout>
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical"
+                    app:shimmer_duration="1000">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="90dp"
+                            android:layout_height="20dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="120dp"
+                                android:layout_height="20dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#D3D3D3" />
+
+                        <View
+                            android:layout_width="90dp"
+                            android:layout_height="20dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="120dp"
+                                android:layout_height="20dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#D3D3D3" />
+
+                        <View
+                            android:layout_width="90dp"
+                            android:layout_height="20dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="120dp"
+                                android:layout_height="20dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#D3D3D3" />
+
+                        <View
+                            android:layout_width="90dp"
+                            android:layout_height="20dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <View
+                            android:layout_width="300dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/shimmer" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="120dp"
+                                android:layout_height="20dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#D3D3D3" />
+
+                        <View
+                            android:layout_width="90dp"
+                            android:layout_height="20dp"
+                            android:background="@color/shimmer" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="140dp"
+                                android:layout_height="17dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="17dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="140dp"
+                                android:layout_height="17dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="17dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="140dp"
+                                android:layout_height="17dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="17dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#D3D3D3" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="100dp"
+                                android:layout_height="20dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#D3D3D3" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="100dp"
+                                android:layout_height="20dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="#D3D3D3" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="100dp"
+                                android:layout_height="20dp"
+                                android:background="@color/shimmer" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <View
+                                android:layout_width="60dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end"
+                                android:background="@color/shimmer" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.DeleteKlasifikasiRes
 import com.ardiarahma.sik_bumdesa.networks.models.responses.EkuitasResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalAnotherCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalCreateResponse;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunOneResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.KlasifikasiAkunResponse;
@@ -200,13 +201,21 @@ public interface ApiService {
             @Field("id_kwitansi") String kwitansi_id
     );
 
+    @GET("jurnal")
+    Call<JurnalResponse> getJurnal(
+            @Header("Authorization") String token,
+            @Query("tanggal") String date,
+            @Query("month") String month,
+            @Query("year") String year
+    );
+
     //===================== Buku Besar =====================
 
     //===================== Laba Rugi =====================
     @GET("laba-rugi")
     Call<LabaRugiResponse> labaRugi(
             @Header("Authorization") String token,
-            @Query("month") int klasifikasiId,
+            @Query("month") int month,
             @Query("year") int year
     );
 

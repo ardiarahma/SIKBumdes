@@ -1,6 +1,7 @@
 package com.ardiarahma.sik_bumdesa.activities.dashboard;
 
 import android.app.DatePickerDialog;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +29,13 @@ import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_LiabilitasJangkaPan
 import com.ardiarahma.sik_bumdesa.networks.models.NeracaUmum_LiabilitasLancar;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaResponse;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,7 +65,9 @@ public class NeracaActivity extends AppCompatActivity {
     NeracaUmum_LiabilitasLancarAdapter liabilitasLancarAdapter;
     NeracaUmum_LiabilitasJangkaPanjangAdapter liabilitasJangkaPanjangAdapter;
 
-
+    SwipeRefreshLayout swipeRefresh;
+    LinearLayout layoutData;
+    ShimmerFrameLayout shimmerFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,12 @@ public class NeracaActivity extends AppCompatActivity {
         yearFormat = new SimpleDateFormat("yyyy", Locale.US);
         tv_months = findViewById(R.id.month);
         tv_years = findViewById(R.id.year);
+
+        Calendar calendarNow = Calendar.getInstance(TimeZone.getDefault());
+        int monthNow = calendarNow.get(Calendar.MONTH) + 1;
+        int yearNow = calendarNow.get(Calendar.YEAR);
+        tv_months.setText(String.valueOf(monthNow));
+        tv_years.setText(String.valueOf(yearNow));
 
         date_btn = findViewById(R.id.date_btn);
         date_btn.setOnClickListener(new View.OnClickListener() {
@@ -107,12 +120,19 @@ public class NeracaActivity extends AppCompatActivity {
         tv_totalLiabilitas = findViewById(R.id.total_liabilitas);
         tv_totalLiaEku = findViewById(R.id.total_liabilitasekuitas);
 
-    }
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        layoutData = findViewById(R.id.layoutData);
+        shimmerFrameLayout = findViewById(R.id.shimmerContainer);
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        showDate();
+        swipeRefresh.setEnabled(true);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadNeracaUmum();
+            }
+        });
+
+        loadNeracaUmum();
     }
 
     public void showDate(){
@@ -120,8 +140,15 @@ public class NeracaActivity extends AppCompatActivity {
         pd.setListener(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-
-                tv_months.setText(String.valueOf(selectedMonth));
+                String monthS = "" + selectedMonth;
+                String dayS = "" + selectedDay;
+                if (selectedMonth < 10) {
+                    monthS = "0" + selectedMonth;
+                }
+                if (selectedDay < 10) {
+                    dayS = "0" + selectedDay;
+                }
+                tv_months.setText(monthS);
                 tv_years.setText(String.valueOf(selectedYear));
                 loadNeracaUmum();
             }
@@ -130,6 +157,9 @@ public class NeracaActivity extends AppCompatActivity {
     }
 
      public void loadNeracaUmum(){
+         layoutData.setVisibility(View.GONE);
+         shimmerFrameLayout.setVisibility(View.VISIBLE);
+         shimmerFrameLayout.startShimmer();
          User user = SharedPref.getInstance(this).getBaseUser();
          String token = "Bearer " + user.getToken();
          int month = Integer.parseInt(tv_months.getText().toString());
@@ -144,6 +174,8 @@ public class NeracaActivity extends AppCompatActivity {
              @Override
              public void onResponse(Call<NeracaResponse> call, Response<NeracaResponse> response) {
                  NeracaResponse neracaResponse = response.body();
+                 shimmerFrameLayout.setVisibility(View.GONE);
+                 layoutData.setVisibility(View.VISIBLE);
                  if (response.isSuccessful()){
                      if (neracaResponse.getStatus().equals("success")){
                          tv_totalAsetLancar.setText(String.valueOf(neracaResponse.getTotalAsetLancar()));
@@ -189,10 +221,16 @@ public class NeracaActivity extends AppCompatActivity {
 
                      }
                  }
+                 shimmerFrameLayout.stopShimmer();
+                 swipeRefresh.setRefreshing(false);
              }
 
              @Override
              public void onFailure(Call<NeracaResponse> call, Throwable t) {
+                 shimmerFrameLayout.stopShimmer();
+                 shimmerFrameLayout.setVisibility(View.GONE);
+                 layoutData.setVisibility(View.GONE);
+                 swipeRefresh.setRefreshing(false);
                  Toast.makeText(NeracaActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
                  Log.e("debug", "onFailure : ERROR > " + t.getMessage());
 
