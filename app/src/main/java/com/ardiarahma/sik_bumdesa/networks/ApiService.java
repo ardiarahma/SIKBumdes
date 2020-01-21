@@ -1,6 +1,7 @@
 package com.ardiarahma.sik_bumdesa.networks;
 
 import com.ardiarahma.sik_bumdesa.networks.models.Jurnal;
+import com.ardiarahma.sik_bumdesa.networks.models.responses.BukuBesarResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunCreateResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.DataAkunUpdateResponse;
@@ -24,6 +25,7 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaAwalResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.NeracaResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.ParentAkunResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.RegisterResponse;
+import com.google.gson.annotations.Expose;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -210,6 +212,13 @@ public interface ApiService {
     );
 
     //===================== Buku Besar =====================
+    @GET("buku_besar")
+    Call<BukuBesarResponse> getBukuBesar(
+            @Header("Authorization") String token,
+            @Query("month") String month,
+            @Query("year") String year,
+            @Query("id_data_akun") int account_id
+    );
 
     //===================== Laba Rugi =====================
     @GET("laba-rugi")

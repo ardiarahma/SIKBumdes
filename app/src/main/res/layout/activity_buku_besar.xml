@@ -31,335 +31,337 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ScrollView
+    <android.support.v7.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="15dp">
+
+            <ImageButton
+                android:id="@+id/buku_date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="#0000"
+                android:gravity="center"
+                android:src="@drawable/ic_date" />
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:text="Bulan"
+                android:textAlignment="center"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:text="Tahun"
+                android:textAlignment="center"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/card"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="20dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/date"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_margin="15dp">
-
-                    <ImageButton
-                        android:id="@+id/jurnal_date"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.2"
-                        android:background="#0000"
-                        android:gravity="center"
-
-                        android:src="@drawable/ic_date" />
-
-                    <TextView
-                        android:id="@+id/month"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.4"
-                        android:gravity="center"
-                        android:text="Bulan"
-                        android:textAlignment="center"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:id="@+id/year"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.4"
-                        android:gravity="center"
-                        android:text="Tahun"
-                        android:textAlignment="center"
-                        android:textSize="16dp" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                app:cardCornerRadius="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:orientation="vertical">
-
-                    <Spinner
-                        android:id="@+id/sp_account"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.4"
-                            android:paddingLeft="10dp"
-                            android:text="Saldo Awal"
-                            android:textColor="@color/three"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:id="@+id/saldo_awal"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="0.4"
-                            android:text="1.000.000"
-                            android:textAlignment="textEnd"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.4"
-                            android:paddingLeft="10dp"
-                            android:text="Saldo Akhir"
-                            android:textColor="@color/three"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:id="@+id/saldo_akhir"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
-                            android:layout_weight="0.4"
-                            android:text="10.500.000"
-                            android:textAlignment="textEnd"
-                            android:textSize="16dp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="20dp">
-
-                <TableLayout
+                    android:id="@+id/layoutNoData"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp">
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <TableRow
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tidak ada data"
+                        android:textColor="@color/three"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!--android:visibility="gone">-->
+
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:gravity="center_vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        app:cardCornerRadius="20dp">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            android:gravity="center"
-                            android:text="Tgl"
-                            android:textColor="@color/three" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="15dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:gravity="center"
-                            android:text="Keterangan"
-                            android:textColor="@color/three" />
+                            <Spinner
+                                android:id="@+id/sp_account"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp" />
 
-                        <TextView
-                            android:layout_gravity="center"
-                            android:layout_weight="0.05"
-                            android:text="Debit"
-                            android:textColor="@color/three" />
+                            <TextView
+                                android:id="@+id/account_id"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
 
-                        <TextView
-                            android:layout_weight="0.05"
-                            android:gravity="center"
-                            android:text="Kredit"
-                            android:textColor="@color/three" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:gravity="center"
-                            android:text="Saldo"
-                            android:textColor="@color/three" />
-                    </TableRow>
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.4"
+                                    android:paddingLeft="10dp"
+                                    android:text="Saldo Awal"
+                                    android:textColor="@color/three"
+                                    android:textSize="16dp" />
 
-                    <TableRow>
+                                <TextView
+                                    android:id="@+id/tv_saldoAwal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_weight="0.4"
+                                    android:text="1.000.000"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="16dp" />
+                            </LinearLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            android:gravity="center"
-                            android:text="1" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp">
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:ellipsize="end"
-                            android:gravity="start"
-                            android:text="Saldo awal" />
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.4"
+                                    android:paddingLeft="10dp"
+                                    android:text="Saldo Akhir"
+                                    android:textColor="@color/three"
+                                    android:textSize="16dp" />
 
-                        <TextView
-                            android:layout_gravity="center"
-                            android:layout_weight="0.05"
-                            android:text="1.000.000" />
+                                <TextView
+                                    android:id="@+id/tv_saldoAkhir"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_weight="0.4"
+                                    android:text="10.500.000"
+                                    android:textAlignment="textEnd"
+                                    android:textSize="16dp" />
+                            </LinearLayout>
 
-                        <TextView
-                            android:layout_weight="0.05"
-                            android:gravity="center"
-                            android:text="0" />
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:gravity="end"
-                            android:paddingRight="10dp"
-                            android:text="1.000.000" />
-                    </TableRow>
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="20dp">
 
-                    <TableRow>
+                        <!--<com.facebook.shimmer.ShimmerFrameLayout-->
+                        <!--android:id="@+id/shimmerContainer"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--android:orientation="vertical"-->
+                        <!--app:shimmer_duration="1000">-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            android:gravity="center"
-                            android:text="1" />
+                        <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginStart="15dp"-->
+                        <!--android:layout_marginEnd="15dp"-->
+                        <!--android:orientation="vertical">-->
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:ellipsize="end"
-                            android:gravity="start"
-                            android:text="Menerima Pendapatan Wisata" />
+                        <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:background="@color/shimmer" />-->
 
-                        <TextView
-                            android:layout_gravity="center"
-                            android:layout_weight="0.05"
-                            android:text="10.000.000" />
+                        <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:layout_marginTop="5dp"-->
+                        <!--android:layout_marginBottom="5dp"-->
+                        <!--android:background="@color/shimmer" />-->
 
-                        <TextView
-                            android:layout_weight="0.05"
-                            android:gravity="center"
-                            android:text="0" />
+                        <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:background="@color/shimmer" />-->
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:gravity="end"
-                            android:paddingRight="10dp"
-                            android:text="10.000.000" />
-                    </TableRow>
+                        <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="20dp"-->
+                        <!--android:layout_marginTop="5dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:background="@color/shimmer" />-->
 
-                    <TableRow>
+                        <!--</LinearLayout>-->
+                        <!--</com.facebook.shimmer.ShimmerFrameLayout>-->
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            android:gravity="center"
-                            android:text="5" />
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:ellipsize="end"
-                            android:gravity="start"
-                            android:text="Pembayaran Gaji Karyawan" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:layout_gravity="center"
-                            android:layout_weight="0.05"
-                            android:text="0" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_weight="0.05"
-                            android:gravity="center"
-                            android:text="500.000" />
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
+                                    android:gravity="center"
+                                    android:text="Tgl"
+                                    android:textColor="@color/three" />
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:gravity="end"
-                            android:paddingRight="10dp"
-                            android:text="500.000" />
-                    </TableRow>
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
+                                    android:gravity="center"
+                                    android:text="Keterangan"
+                                    android:textColor="@color/three" />
 
-                    <TableRow>
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.05"
+                                    android:text="Debit"
+                                    android:textColor="@color/three" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            android:gravity="center" />
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.05"
+                                    android:gravity="center"
+                                    android:text="Kredit"
+                                    android:textColor="@color/three" />
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:ellipsize="end"
-                            android:gravity="start" />
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
+                                    android:gravity="center"
+                                    android:text="Saldo"
+                                    android:textColor="@color/three" />
 
-                        <TextView
-                            android:layout_gravity="center"
-                            android:layout_weight="0.05" />
+                            </LinearLayout>
 
-                        <TextView
-                            android:layout_weight="0.05"
-                            android:gravity="center" />
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_bukubesar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp">
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:gravity="end"
-                            android:paddingRight="10dp" />
-                    </TableRow>
+                            </android.support.v7.widget.RecyclerView>
 
-                    <TableRow>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            android:gravity="center" />
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
+                                    android:gravity="center" />
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:text="Total"
-                            android:textColor="@color/three" />
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
+                                    android:ellipsize="end"
+                                    android:gravity="center"
+                                    android:text="Total"
+                                    android:textColor="@color/three" />
 
-                        <TextView
-                            android:layout_gravity="center"
-                            android:layout_weight="0.05"
-                            android:text="11.000.000"
-                            android:textColor="@color/three" />
+                                <TextView
+                                    android:id="@+id/tv_totaldebit"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.05"
+                                    android:width="0dp"
+                                    android:text="11.000.000"
+                                    android:textColor="@color/three" />
 
-                        <TextView
-                            android:layout_weight="0.05"
-                            android:gravity="center"
-                            android:text="500.000"
-                            android:textColor="@color/three" />
+                                <TextView
+                                    android:id="@+id/tv_totalkredit"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.05"
+                                    android:gravity="center"
+                                    android:text="500.000"
+                                    android:textColor="@color/three" />
 
-                        <TextView
-                            android:layout_weight="0.1"
-                            android:gravity="end"
-                            android:paddingRight="10dp"
-                            android:text="10.500.000"
-                            android:textColor="@color/three" />
-                    </TableRow>
-                </TableLayout>
-            </android.support.v7.widget.CardView>
+                                <TextView
+                                    android:id="@+id/tv_totalsaldo"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
+                                    android:gravity="end"
+                                    android:paddingRight="10dp"
+                                    android:text="10.500.000"
+                                    android:textColor="@color/three" />
+                            </LinearLayout>
 
-        </LinearLayout>
+                        </LinearLayout>
 
-    </ScrollView>
+                    </android.support.v7.widget.CardView>
 
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
