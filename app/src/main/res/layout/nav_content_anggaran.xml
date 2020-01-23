@@ -4,13 +4,213 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AnggaranActivity"
     tools:showIn="@layout/nav_app_bar_anggaran">
 
-    <TextView
+    <android.support.v7.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="15dp">
+
+            <ImageButton
+                android:id="@+id/date_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="#0000"
+                android:gravity="center"
+                android:src="@drawable/ic_date" />
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:text="Bulan"
+                android:textAlignment="center"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="center"
+                android:text="Tahun"
+                android:textAlignment="center"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <ScrollView
+        android:id="@+id/area"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="ini content anggaran"/>
+        android:layout_below="@id/card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Penerimaan"
+                android:textColor="@color/three"
+                android:textSize="19sp"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Penerimaan Pendapatan Bumdes"
+                android:textColor="@color/three"
+                android:textSize="16sp"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_pendapatan_bumdes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Penerimaan Penyertaan Modal"
+                android:textColor="@color/three"
+                android:textSize="16sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_penyertaan_modal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Penerimaan Dari Pembiayaan"
+                android:textColor="@color/three"
+                android:textSize="16sp" />
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="3dp"
+                    android:src="@drawable/layout_circle_gray"
+                    android:tint="#919CA5" />
+
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="7dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/penerimaan_biaya"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="Penerimaan Dari Pembiayaan"
+                    android:textColor="#696969"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/jumlah_penerimaanBiaya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="00000"
+                    android:textAlignment="textEnd"
+                    android:textColor="#696969"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#D3D3D3" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Belanja"
+                android:textColor="@color/three"
+                android:textSize="19sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_belanja"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Surplus/Defisit"
+                        android:textAlignment="center"
+                        android:textColor="@color/three"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/total_surplus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:textAlignment="center"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

@@ -1,10 +1,11 @@
 package com.ardiarahma.sik_bumdesa.activities.navigation_drawer;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,16 +13,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ardiarahma.sik_bumdesa.R;
 import com.ardiarahma.sik_bumdesa.activities.LoginActivity;
 import com.ardiarahma.sik_bumdesa.activities.MainActivity;
+import com.ardiarahma.sik_bumdesa.activities.MonthYearPickerDialog;
 import com.ardiarahma.sik_bumdesa.networks.SharedPref;
+import com.ardiarahma.sik_bumdesa.networks.adapters.Anggaran_BelanjaAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.Anggaran_BumdesAdapter;
+import com.ardiarahma.sik_bumdesa.networks.adapters.Anggaran_ModalAdapter;
+import com.ardiarahma.sik_bumdesa.networks.models.Anggaran_Belanja;
+import com.ardiarahma.sik_bumdesa.networks.models.Anggaran_Bumdes;
+import com.ardiarahma.sik_bumdesa.networks.models.Anggaran_Modal;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -39,6 +52,18 @@ public class AnggaranActivity extends AppCompatActivity
     String token = "Bearer " + user.getToken();
     String accept = "application/json";
 
+    ImageButton date_btn;
+    SimpleDateFormat monthFormat, yearFormat;
+    TextView tv_months, tv_years;
+
+    RecyclerView rv_bumdes, rv_modal, rv_pembelanjaan;
+    ArrayList<Anggaran_Bumdes> anggaranBumdes;
+    ArrayList<Anggaran_Modal> anggaranModals;
+    ArrayList<Anggaran_Belanja> anggaranBelanjas;
+    Anggaran_BumdesAdapter bumdesAdapter;
+    Anggaran_ModalAdapter modalAdapter;
+    Anggaran_BelanjaAdapter belanjaAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +71,11 @@ public class AnggaranActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        View headerView = navigationView.getHeaderView(0);
-        nav_company_name = headerView.findViewById(R.id.nav_company_name);
-        nav_company_email = headerView.findViewById(R.id.nav_company_email);
-        nav_company_name.setText(user.getNama());
-        nav_company_email.setText(user.getEmail());
+//        View headerView = navigationView.getHeaderView(0);
+//        nav_company_name = headerView.findViewById(R.id.nav_company_name);
+//        nav_company_email = headerView.findViewById(R.id.nav_company_email);
+//        nav_company_name.setText(user.getNama());
+//        nav_company_email.setText(user.getEmail());
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -68,6 +93,79 @@ public class AnggaranActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        monthFormat = new SimpleDateFormat("MM", Locale.US);
+        yearFormat = new SimpleDateFormat("yyyy", Locale.US);
+        tv_months = findViewById(R.id.month);
+        tv_years = findViewById(R.id.year);
+
+        date_btn = findViewById(R.id.date_btn);
+        date_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDate();
+            }
+        });
+
+        loadData();
+
+        rv_bumdes = findViewById(R.id.rv_pendapatan_bumdes);
+        rv_modal = findViewById(R.id.rv_penyertaan_modal);
+        rv_pembelanjaan = findViewById(R.id.rv_belanja);
+
+        bumdesAdapter = new Anggaran_BumdesAdapter(AnggaranActivity.this, anggaranBumdes);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AnggaranActivity.this);
+        rv_bumdes.setLayoutManager(layoutManager);
+        rv_bumdes.setAdapter(bumdesAdapter);
+
+        modalAdapter = new Anggaran_ModalAdapter(AnggaranActivity.this, anggaranModals);
+        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(AnggaranActivity.this);
+        rv_modal.setLayoutManager(layoutManager1);
+        rv_modal.setAdapter(modalAdapter);
+
+        belanjaAdapter = new Anggaran_BelanjaAdapter(AnggaranActivity.this, anggaranBelanjas);
+        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(AnggaranActivity.this);
+        rv_pembelanjaan.setLayoutManager(layoutManager2);
+        rv_pembelanjaan.setAdapter(belanjaAdapter);
+    }
+
+    public void loadData(){
+        anggaranBumdes = new ArrayList<>();
+        anggaranBumdes.add(new Anggaran_Bumdes("Pendapatan Wisata", 0000));
+        anggaranBumdes.add(new Anggaran_Bumdes("Pendapatan Homestay", 0000));
+        anggaranBumdes.add(new Anggaran_Bumdes("Pendapatan Resto", 0000));
+        anggaranBumdes.add(new Anggaran_Bumdes("Pendapatan Event", 0000));
+
+        anggaranModals = new ArrayList<>();
+        anggaranModals.add(new Anggaran_Modal("Penyertaan Modal Desa", 000));
+        anggaranModals.add(new Anggaran_Modal("Penyertaan Modal Masyarakat", 000));
+        anggaranModals.add(new Anggaran_Modal("Penyertaan Modal Pihak Ketiga", 000));
+
+        anggaranBelanjas = new ArrayList<>();
+        anggaranBelanjas.add(new Anggaran_Belanja("Belanja Pegawai", 000));
+        anggaranBelanjas.add(new Anggaran_Belanja("Belanja Barang dan Jasa", 000));
+        anggaranBelanjas.add(new Anggaran_Belanja("Belanja Modal", 000));
+        anggaranBelanjas.add(new Anggaran_Belanja("Belanja Pembiayaan", 000));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        showDate();
+    }
+
+    public void showDate(){
+        MonthYearPickerDialog pd = new MonthYearPickerDialog();
+        pd.setListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+
+                tv_months.setText(String.valueOf(selectedMonth));
+                tv_years.setText(String.valueOf(selectedYear));
+//                loadEkuitas();
+            }
+        });
+        pd.show(getFragmentManager(), "MonthYearPickerDialog");
     }
 
     @Override
