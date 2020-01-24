@@ -185,7 +185,7 @@ public interface ApiService {
     Call<JurnalCreateResponse> add_jurnal(
             @Header("Authorization") String token,
             @Field("tanggal") String date,
-            @Field("id_data_akun") int akun_id_1,
+            @Field("id_data_akun") String akun_id_1,
             @Field("jumlah") int jumlahstr,
             @Field("posisi_normal") String status,
             @Field("no_kwitansi") String kwitansi,
@@ -193,7 +193,7 @@ public interface ApiService {
     );
 
     @FormUrlEncoded
-    @POST("jurnal/store")
+    @POST("jurnal/store_jurnal")
     Call<JurnalCreateResponse> add_another_jurnal(
             @Header("Authorization") String token,
             @Field("tanggal") String date,
@@ -212,11 +212,11 @@ public interface ApiService {
     );
 
     //===================== Buku Besar =====================
-    @GET("buku_besar")
+    @GET("buku-besar")
     Call<BukuBesarResponse> getBukuBesar(
             @Header("Authorization") String token,
-            @Query("month") String month,
-            @Query("year") String year,
+            @Query("month") int month,
+            @Query("year") int year,
             @Query("id_data_akun") int account_id
     );
 

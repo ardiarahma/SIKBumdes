@@ -70,7 +70,6 @@ public class BukuBesarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buku_besar);
-//        setContentView(R.layout.maintenance);
 
         toolbar_back = findViewById(R.id.toolbar_back);
         toolbar_back.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +81,7 @@ public class BukuBesarActivity extends AppCompatActivity {
 
         sp_akun = findViewById(R.id.sp_account);
         akun_id = findViewById(R.id.account_id);
+        akun_id.setText("0");
 
         rv_bukubesar = findViewById(R.id.rv_bukubesar);
         swipeRefresh = findViewById(R.id.swipeRefresh);
@@ -93,27 +93,11 @@ public class BukuBesarActivity extends AppCompatActivity {
         monthFormat = new SimpleDateFormat("MM", Locale.US);
         yearFormat = new SimpleDateFormat("yyyy", Locale.US);
 
-
         Calendar calendarNow = Calendar.getInstance(TimeZone.getDefault());
-        int dayNow = calendarNow.get(Calendar.DAY_OF_MONTH);
         int monthNow = calendarNow.get(Calendar.MONTH) + 1;
         int yearNow = calendarNow.get(Calendar.YEAR);
         tv_months.setText(String.valueOf(monthNow));
         tv_years.setText(String.valueOf(yearNow));
-
-        dayFormatted = String.valueOf(dayNow);
-        monthFormatted = String.valueOf(monthNow);
-        yearFormatted = String.valueOf(yearNow);
-
-        Calendar startDate = Calendar.getInstance();
-        startDate.set(Calendar.DAY_OF_MONTH, 1);
-
-        Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 1);
-        endDate.set(Calendar.DAY_OF_MONTH, 1);
-        endDate.add(Calendar.DATE, -1);
-
-        loadAkun();
 
         sp_akun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -123,7 +107,8 @@ public class BukuBesarActivity extends AppCompatActivity {
                 ((TextView) parent.getChildAt(0)).setGravity(Gravity.END);
                 GetAllAkun AllAkun = (GetAllAkun) parent.getSelectedItem();
                 akun_id.setText(String.valueOf(AllAkun.getAkunId()));
-                accountId = AllAkun.getAkunId();
+                loadList();
+//                accountId = AllAkun.getAkunId();
             }
 
             @Override
@@ -139,31 +124,24 @@ public class BukuBesarActivity extends AppCompatActivity {
                 if (bukuBesarAdapter != null) {
                     bukuBesarAdapter.refreshEvents(allBukuBesar);
                 }
-                loadList(monthFormatted, yearFormatted);
+                loadList();
             }
         });
-
 
         bukubesar_date = findViewById(R.id.buku_date);
         bukubesar_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                showBukuDate();
-                onBackPressed();
+                showBukuDate();
             }
         });
 
-
+        loadAkun();
+        loadList();
 //        loadList(monthFormatted, yearFormatted);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        loadAkun();
-    }
-
-    public void showBukuDate(){
+    public void showBukuDate() {
         MonthYearPickerDialog pd = new MonthYearPickerDialog();
         pd.setListener(new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -180,32 +158,13 @@ public class BukuBesarActivity extends AppCompatActivity {
                 String dateSelected = selectedYear + monthS + dummyDay;
                 tv_months.setText(monthS);
                 tv_years.setText(String.valueOf(selectedYear));
-                SimpleDateFormat originalFormat = new SimpleDateFormat("yyyyMMdd");
-                Date dateSelectFormat = null;
-                try {
-                    dateSelectFormat = originalFormat.parse(dateSelected);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                Calendar selectedCal = Calendar.getInstance();
-                selectedCal.setTime(dateSelectFormat);
-
-                Calendar startDate = Calendar.getInstance();
-                startDate.setTime(dateSelectFormat);
-                startDate.set(Calendar.DAY_OF_MONTH, 1);
-
-                Calendar endDate = Calendar.getInstance();
-                endDate.setTime(dateSelectFormat);
-                endDate.add(Calendar.MONTH, 1);
-                endDate.set(Calendar.DAY_OF_MONTH, 1);
-                endDate.add(Calendar.DATE, -1);
-                //loadAllJurnal(String.valueOf(selectedDay), String.valueOf(selectedMonth), String.valueOf(selectedYear));
+                loadList();
             }
         });
+        pd.show(getFragmentManager(), "MonthYearPickerDialog");
     }
 
-    public void loadAkun(){
+    public void loadAkun() {
         User user = SharedPref.getInstance(this).getBaseUser();
         String token = "Bearer " + user.getToken();
         Call<GetAllAkunResponse> call = RetrofitClient
@@ -224,7 +183,6 @@ public class BukuBesarActivity extends AppCompatActivity {
                         allAkunArrayAdapter = new ArrayAdapter<>(BukuBesarActivity.this, android.R.layout.simple_spinner_item, allAkuns);
                         allAkunArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         sp_akun.setAdapter(allAkunArrayAdapter);
-                        loadList(monthFormatted, yearFormatted);
                     }
                 }
             }
@@ -237,7 +195,7 @@ public class BukuBesarActivity extends AppCompatActivity {
         });
     }
 
-    public void loadList(String month, String year){
+    public void loadList() {
         layoutData.setVisibility(View.GONE);
         layoutNoData.setVisibility(View.GONE);
 //        shimmerFrameLayout.setVisibility(View.VISIBLE);
@@ -246,10 +204,11 @@ public class BukuBesarActivity extends AppCompatActivity {
         User user = SharedPref.getInstance(this).getBaseUser();
         String token = "Bearer " + user.getToken();
 
-       // int month = Integer.parseInt(tv_months.getText().toString());
-       // int year = Integer.parseInt(tv_years.getText().toString());
-        int account_id = accountId;
-
+        int month = Integer.parseInt(tv_months.getText().toString());
+        int year = Integer.parseInt(tv_years.getText().toString());
+        int account_id = Integer.parseInt(akun_id.getText().toString());
+//        String month = tv_months.getText().toString();
+//        String year = tv_years.getText().toString();
 
         Call<BukuBesarResponse> call = RetrofitClient
                 .getInstance()
@@ -287,7 +246,8 @@ public class BukuBesarActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BukuBesarResponse> call, Throwable t) {
-
+                swipeRefresh.setRefreshing(false);
+                Toast.makeText(BukuBesarActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
 

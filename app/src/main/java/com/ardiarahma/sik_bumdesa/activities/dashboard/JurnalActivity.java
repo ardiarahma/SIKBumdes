@@ -12,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -45,11 +46,15 @@ import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalCreateResponse
 import com.ardiarahma.sik_bumdesa.networks.models.responses.JurnalResponse;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -65,7 +70,7 @@ public class JurnalActivity extends AppCompatActivity {
     ImageButton toolbar_back;
 
     private int pYear, pMonth, pDay;
-    TextView textDate, datePost;
+    TextView textDate, textDate2, datePost, datePost2;
 
     com.getbase.floatingactionbutton.FloatingActionButton fab1;
     HorizontalCalendar horizontalCalendar;
@@ -81,7 +86,7 @@ public class JurnalActivity extends AppCompatActivity {
     TextView date;
     SimpleDateFormat dateFormat, monthFormat, yearFormat;
 
-    EditText tv_keterangan, tv_jumlah, tv_kwitansi;
+    EditText tv_keterangan, tv_jumlah, tv_jumlah2, tv_kwitansi, tv_kwitansi2;
     TextView getKwitansi, kwitansi_id;
     Spinner debit_spinner, kredit_spinner, status_spinner_1, status_spinner_2;
     TextView akun_id_1, status_id_1, akun_id_2, status_id_2;
@@ -244,16 +249,16 @@ public class JurnalActivity extends AppCompatActivity {
                     }
                 });
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, posisi);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                status_spinner_1.setAdapter(adapter);
+                ArrayAdapter<String> adapterStatus = new ArrayAdapter<>(JurnalActivity.this, android.R.layout.simple_spinner_item, posisi);
+                adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                status_spinner_1.setAdapter(adapterStatus);
                 status_spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#8c8c8c"));
                         ((TextView) parent.getChildAt(0)).setTextSize(16);
                         ((TextView) parent.getChildAt(0)).setGravity(Gravity.END);
-                        String selectedItem = String.valueOf(parent.getItemIdAtPosition(position)).toString();
+                        String selectedItem = parent.getSelectedItem().toString();
                         if (selectedItem.equals("Debit")) {
                             status_id_1.setText("d");
                         } else if (selectedItem.equals("Kredit")) {
@@ -279,9 +284,7 @@ public class JurnalActivity extends AppCompatActivity {
                 dSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        validationJurnal();
-                        createJurnal();
-//                        dialog.hide();
+                        addAnotherJurnal();
                     }
                 });
                 dialog.show();
@@ -448,7 +451,7 @@ public class JurnalActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GetAllAkunResponse> call, Throwable t) {
-                pDialog.dismissWithAnimation();
+//                pDialog.dismissWithAnimation();
                 Toast.makeText(JurnalActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -487,22 +490,26 @@ public class JurnalActivity extends AppCompatActivity {
     }
 
     public void addAnotherJurnal() {
+        dialog.hide();
         dialog1 = new Dialog(JurnalActivity.this);
         dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog1.setCancelable(false);
+        dialog1.setCancelable(true);
         dialog1.setContentView(R.layout.add_jurnal_kredit);
         dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        tv_jumlah = dialog1.findViewById(R.id.tv_jumlah);
+        tv_jumlah2 = dialog1.findViewById(R.id.tv_jumlah);
         getKwitansi = dialog1.findViewById(R.id.getKwitansi);
         kredit_spinner = dialog1.findViewById(R.id.kredit_spinner);
         status_spinner_2 = dialog1.findViewById(R.id.status_spinner);
         datepicker = dialog1.findViewById(R.id.date_btn);
-        textDate = dialog1.findViewById(R.id.date);
-        datePost = dialog1.findViewById(R.id.datePost);
+        textDate2 = dialog1.findViewById(R.id.date);
+        datePost2 = dialog1.findViewById(R.id.datePost);
         akun_id_2 = dialog1.findViewById(R.id.id_kredit);
         status_id_2 = dialog1.findViewById(R.id.id_status);
         kwitansi_id = dialog1.findViewById(R.id.id_kwitansi);
+
+        textDate2.setText(textDate.getText().toString());
+        datePost2.setText(datePost.getText().toString());
 
         String isiKwitansi = tv_kwitansi.getText().toString().trim();
         getKwitansi.setText(isiKwitansi);
@@ -525,16 +532,16 @@ public class JurnalActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, posisi);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        status_spinner_2.setAdapter(adapter);
+        ArrayAdapter<String> adapterStatus = new ArrayAdapter<>(JurnalActivity.this, android.R.layout.simple_spinner_item, posisi);
+        adapterStatus.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        status_spinner_2.setAdapter(adapterStatus);
         status_spinner_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#8c8c8c"));
                 ((TextView) parent.getChildAt(0)).setTextSize(16);
                 ((TextView) parent.getChildAt(0)).setGravity(Gravity.END);
-                String selectedItem = String.valueOf(parent.getItemIdAtPosition(position)).toString();
+                String selectedItem = parent.getSelectedItem().toString();
                 if (selectedItem.equals("Debit")) {
                     status_id_2.setText("d");
                 } else if (selectedItem.equals("Kredit")) {
@@ -561,8 +568,7 @@ public class JurnalActivity extends AppCompatActivity {
         dSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog1.hide();
-                validationAnotherJurnal();
+                createJurnal();
             }
         });
 
@@ -573,11 +579,12 @@ public class JurnalActivity extends AppCompatActivity {
         User user = SharedPref.getInstance(this).getBaseUser();
         String token = "Bearer " + user.getToken();
 
-        String date = datePost.getText().toString();
-        String kwitansi = tv_kwitansi.getText().toString();
-        String ket = tv_keterangan.getText().toString();
-        int id_akun = Integer.parseInt(akun_id_1.getText().toString());
-        String status = status_id_1.getText().toString();
+        final String date = datePost.getText().toString();
+        final String kwitansi = tv_kwitansi.getText().toString();
+        final String ket = tv_keterangan.getText().toString();
+        //int id_akun = Integer.parseInt(akun_id_1.getText().toString());
+        final String id_akun = akun_id_1.getText().toString();
+        final String status = status_id_1.getText().toString();
         String jumlah = tv_jumlah.getText().toString().trim();
 
         if (jumlah.isEmpty()) {
@@ -586,7 +593,7 @@ public class JurnalActivity extends AppCompatActivity {
             return;
         }
 
-        int jumlahstr = Integer.parseInt(tv_jumlah.getText().toString());
+        final int jumlahstr = Integer.parseInt(tv_jumlah.getText().toString());
 
         if (kwitansi.isEmpty()) {
             tv_kwitansi.setError("Kwitansi harus diisi");
@@ -609,97 +616,116 @@ public class JurnalActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JurnalCreateResponse> call, Response<JurnalCreateResponse> response) {
 //                pDialog.dismissWithAnimation();
-                dialog.hide();
+                Log.e("debug", "First here");
+                Log.e("debug", date);
+                Log.e("debug", id_akun);
+                Log.e("debug", String.valueOf(jumlahstr));
+                Log.e("debug", status);
+                Log.e("debug", kwitansi);
+                Log.e("debug", ket);
                 JurnalCreateResponse jurnalCreateResponse = response.body();
                 if (response.isSuccessful()) {
-                    if (jurnalCreateResponse.equals("success")) {
-                        int id_kwitansi = jurnalCreateResponse.getResult().getId();
-                        kwitansi_id.setText(String.valueOf(id_kwitansi));
-                        addAnotherJurnal();
-//                        SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-//                        sweet_dialog.setTitleText("Jurnal debit berhasil ditambahkan");
-//                        sweet_dialog.show();
-//                        dialog.dismiss();
-//                        vDialog.dismiss();
+                    if (jurnalCreateResponse.getStatus().equals("success")) {
+                        Log.e("debug", "Here I am");
+                        kwitansi_id.setText(String.valueOf(jurnalCreateResponse.getResult().getId()));
+                        createAnotherJurnal();
+                    } else {
+                        Toast.makeText(JurnalActivity.this, "Data tidak berhasil disimpan", Toast.LENGTH_LONG).show();
+                        Log.e("debug", "At least here");
                     }
-
-//                    if (parentAdapter != null) {
-//                        parentAdapter.refreshEvents(neracaAwalParentArrayList);
-//                    }
-//                    loadParent();
+                } else {
+                    try {
+                        String errorBody = response.errorBody().string();
+                        JSONObject jsonObject = new JSONObject(errorBody.trim());
+                        jsonObject = jsonObject.getJSONObject("error");
+                        Iterator<String> keys = jsonObject.keys();
+                        StringBuilder errors = new StringBuilder();
+                        String separator = "";
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            JSONArray arr = jsonObject.getJSONArray(key);
+                            for (int i = 0; i < arr.length(); i++) {
+                                errors.append(separator).append(key).append(" : ").append(arr.getString(i));
+                                separator = "\n";
+                            }
+                        }
+                        Toast.makeText(JurnalActivity.this, errors.toString(), Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(JurnalActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    Log.e("debug", "How?");
                 }
             }
 
             @Override
             public void onFailure(Call<JurnalCreateResponse> call, Throwable t) {
-                pDialog.dismissWithAnimation();
-                Toast.makeText(JurnalActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
-
+                Log.e("debug", "I don't wanna here");
+                Toast.makeText(JurnalActivity.this, t.toString(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     public void createAnotherJurnal() {
+        Log.e("debug", "first");
         User user = SharedPref.getInstance(this).getBaseUser();
         String token = "Bearer " + user.getToken();
 
-        String date = datePost.getText().toString();
-        String kwitansi = kwitansi_id.getText().toString();
-        String ket = tv_keterangan.getText().toString();
-        int id_akun = Integer.parseInt(akun_id_2.getText().toString());
-        String status = status_id_2.getText().toString();
-        String jumlah = tv_jumlah.getText().toString().trim();
+        final String date2 = datePost2.getText().toString();
+        final String kwitansi2 = kwitansi_id.getText().toString();
+        final int id_akun2 = Integer.parseInt(akun_id_2.getText().toString());
+        final String status2 = status_id_2.getText().toString();
+        final String jumlah2 = tv_jumlah2.getText().toString().trim();
 
-        if (jumlah.isEmpty()) {
-            tv_jumlah.setError("Jumlah harus diisi");
-            tv_jumlah.requestFocus();
+        if (jumlah2.isEmpty()) {
+            tv_jumlah2.setError("Jumlah harus diisi");
+            tv_jumlah2.requestFocus();
             return;
         }
 
-        int jumlahstr = Integer.parseInt(tv_jumlah.getText().toString());
+        final int jumlahstr2 = Integer.parseInt(jumlah2);
 
-        if (kwitansi.isEmpty()) {
-            tv_kwitansi.setError("Kwitansi harus diisi");
-            tv_kwitansi.requestFocus();
-            return;
-        }
-
-        if (ket.isEmpty()) {
-            tv_keterangan.setError("Keterangan harus diisi");
-            tv_keterangan.requestFocus();
-            return;
-        }
-
-        Call<JurnalCreateResponse> call = RetrofitClient
+        final Call<JurnalCreateResponse> call = RetrofitClient
                 .getInstance()
                 .getApi()
-                .add_another_jurnal(token, date, id_akun, jumlahstr, status, kwitansi);
+                .add_another_jurnal(token, date2, id_akun2, jumlahstr2, status2, kwitansi2);
 
         call.enqueue(new Callback<JurnalCreateResponse>() {
             @Override
             public void onResponse(Call<JurnalCreateResponse> call, Response<JurnalCreateResponse> response) {
+                Log.e("debug", "first here");
+                Log.e("debug", date2);
+                Log.e("debug", String.valueOf(id_akun2));
+                Log.e("debug", String.valueOf(jumlahstr2));
+                Log.e("debug", status2);
+                Log.e("debug", kwitansi2);
                 JurnalCreateResponse jurnalCreateResponse = response.body();
                 if (response.isSuccessful()) {
-                    if (jurnalCreateResponse.equals("success")) {
+                    if (jurnalCreateResponse.getStatus().equals("success")) {
+                        Log.e("debug", "here");
+                        dialog.dismiss();
+                        dialog1.dismiss();
                         SweetAlertDialog sweet_dialog = new SweetAlertDialog(JurnalActivity.this, SweetAlertDialog.SUCCESS_TYPE);
                         sweet_dialog.setTitleText("Jurnal berhasil ditambahkan");
                         sweet_dialog.show();
-                        dialog.dismiss();
-                        vDialog.dismiss();
+//                        vDialog.dismiss();
+                    } else {
+                        Log.e("debug", "maybe here");
                     }
 
 //                    if (parentAdapter != null) {
 //                        parentAdapter.refreshEvents(neracaAwalParentArrayList);
 //                    }
 //                    loadParent();
+                } else {
+                    Log.e("debug", "why here");
+                    Toast.makeText(JurnalActivity.this, "Data tidak berhasil disimpan", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<JurnalCreateResponse> call, Throwable t) {
-
+                Log.e("debug", "what the here");
+                Toast.makeText(JurnalActivity.this, "Data tidak berhasil disimpan", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -755,7 +781,6 @@ public class JurnalActivity extends AppCompatActivity {
                 swipeRefresh.setRefreshing(false);
                 Toast.makeText(JurnalActivity.this, "Kesalahan terjadi, coba beberapa saat lagi.", Toast.LENGTH_SHORT).show();
                 Log.e("debug", "onFailure : ERROR > " + t.getMessage());
-
             }
         });
     }
