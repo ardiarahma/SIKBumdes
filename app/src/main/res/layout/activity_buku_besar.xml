@@ -192,7 +192,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginRight="10dp"
                                     android:layout_weight="0.4"
-                                    android:text="10.500.000"
+                                    android:text="-"
                                     android:textAlignment="textEnd"
                                     android:textSize="16dp" />
                             </LinearLayout>
@@ -328,6 +328,7 @@
                                     android:layout_weight="0.1"
                                     android:ellipsize="end"
                                     android:gravity="center"
+                                    android:textStyle="bold"
                                     android:text="Total"
                                     android:textColor="@color/three" />
 
@@ -357,7 +358,6 @@
                                     android:layout_weight="0.1"
                                     android:gravity="end"
                                     android:paddingRight="10dp"
-                                    android:text="10.500.000"
                                     android:textColor="@color/three" />
                             </LinearLayout>
 

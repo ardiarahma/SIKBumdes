@@ -66,6 +66,8 @@ public class BukuBesarActivity extends AppCompatActivity {
     LinearLayout layoutData, layoutNoData;
 //    ShimmerFrameLayout shimmerFrameLayout;
 
+    TextView tv_totaldebit, tv_totalkredit, tv_saldoawal, tv_saldoakhir;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,6 +137,11 @@ public class BukuBesarActivity extends AppCompatActivity {
                 showBukuDate();
             }
         });
+
+        tv_saldoawal = findViewById(R.id.tv_saldoAwal);
+        tv_saldoakhir = findViewById(R.id.tv_saldoAkhir);
+        tv_totaldebit = findViewById(R.id.tv_totaldebit);
+        tv_totalkredit = findViewById(R.id.tv_totalkredit);
 
         loadAkun();
         loadList();
@@ -235,8 +242,11 @@ public class BukuBesarActivity extends AppCompatActivity {
                             layoutNoData.setVisibility(View.GONE);
 //                            shimmerFrameLayout.setVisibility(View.GONE);
                             layoutData.setVisibility(View.VISIBLE);
-//                            tv_total_debit.setText(bukuBesarResponse.getTotal_debit());
-//                            tv_total_kredit.setText(bukuBesarResponse.getTotal_kredit());
+//                            tv_saldoawal.setText(bukuBesarResponse.getBuku_besar().get(allBukuBesar.size()-1).getSaldo_awal());
+                            tv_saldoawal.setText(bukuBesarResponse.getSaldo_awal().getJumlah());
+                            tv_saldoakhir.setText(String.valueOf(bukuBesarResponse.getBuku_besar().get(allBukuBesar.size() - 1).getSaldo()));
+                            tv_totaldebit.setText(String.valueOf(bukuBesarResponse.getTotal_debit()));
+                            tv_totalkredit.setText(String.valueOf(bukuBesarResponse.getTotal_kredit()));
                         }
                     }
                 }

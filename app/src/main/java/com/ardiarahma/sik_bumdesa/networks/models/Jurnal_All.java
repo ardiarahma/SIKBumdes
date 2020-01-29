@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Jurnal_All {
 
+    @SerializedName("id_jurnal")
+    @Expose
+    private int id_jurnal;
+
     @SerializedName("tanggal")
     @Expose
     private String tanggal;
@@ -33,7 +37,8 @@ public class Jurnal_All {
     @Expose
     private int jumlah;
 
-    public Jurnal_All(String tanggal, String no_kwitansi, String keterangan, int id, String nama, String posisi_normal, int jumlah) {
+    public Jurnal_All(int id_jurnal, String tanggal, String no_kwitansi, String keterangan, int id, String nama, String posisi_normal, int jumlah) {
+        this.id_jurnal = id_jurnal;
         this.tanggal = tanggal;
         this.no_kwitansi = no_kwitansi;
         this.keterangan = keterangan;
@@ -41,6 +46,14 @@ public class Jurnal_All {
         this.nama = nama;
         this.posisi_normal = posisi_normal;
         this.jumlah = jumlah;
+    }
+
+    public int getId_jurnal() {
+        return id_jurnal;
+    }
+
+    public void setId_jurnal(int id_jurnal) {
+        this.id_jurnal = id_jurnal;
     }
 
     public String getTanggal() {
