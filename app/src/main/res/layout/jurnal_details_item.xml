@@ -4,18 +4,14 @@
     android:id="@+id/classAcc_spinner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp"
+    android:layout_marginBottom="10dp"
     android:orientation="vertical"
-    app:cardCornerRadius="15dp">
-
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -33,7 +29,7 @@
                 android:paddingLeft="15dp"
                 android:text="Keterangan Jurnal"
                 android:textColor="#FFFFFF"
-                android:textSize="18dp" />
+                android:textSize="16sp" />
 
         </android.support.v7.widget.CardView>
 
@@ -41,8 +37,8 @@
             android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -53,7 +49,7 @@
                 android:paddingLeft="10dp"
                 android:text="Nama Akun"
                 android:textColor="@color/three"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/detail_akun"
@@ -61,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:text="Kas"
-                android:textSize="16dp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -79,7 +75,7 @@
                 android:paddingLeft="10dp"
                 android:text="Jumlah"
                 android:textColor="@color/three"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/detail_jumlah"
@@ -87,10 +83,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:text="10000000"
-                android:textSize="16dp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/three" />
@@ -115,7 +111,7 @@
                     android:text="No Akun"
                     android:textAlignment="center"
                     android:textColor="@color/three"
-                    android:textSize="17dp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/detail_nAkun"
@@ -123,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:text="5110"
                     android:textAlignment="center"
-                    android:textSize="16dp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -148,7 +144,7 @@
                     android:text="No Kwitansi"
                     android:textAlignment="center"
                     android:textColor="@color/three"
-                    android:textSize="17dp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/detail_kwitansi"
@@ -156,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:text="A123"
                     android:textAlignment="center"
-                    android:textSize="16dp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -181,7 +177,7 @@
                     android:text="Jenis"
                     android:textAlignment="center"
                     android:textColor="@color/three"
-                    android:textSize="17dp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/detail_posisi"
@@ -189,26 +185,26 @@
                     android:layout_height="wrap_content"
                     android:text="D"
                     android:textAlignment="center"
-                    android:textSize="16dp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/cancel_button"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/default_cancel_button"
-            android:text="Kembali"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#ffffff"
-            android:textStyle="bold" />
+        <!--<Button-->
+            <!--android:id="@+id/cancel_button"-->
+            <!--android:layout_width="120dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@drawable/default_cancel_button"-->
+            <!--android:text="Kembali"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:textStyle="bold" />-->
 
     </LinearLayout>
 

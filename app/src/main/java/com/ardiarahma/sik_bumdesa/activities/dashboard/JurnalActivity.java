@@ -52,6 +52,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -730,7 +731,7 @@ public class JurnalActivity extends AppCompatActivity {
         });
     }
 
-    public void loadAllJurnal(String day, String month, String year) {
+    public void loadAllJurnal(final String day, final String month, final String year) {
         layoutData.setVisibility(View.GONE);
         layoutNoData.setVisibility(View.GONE);
         shimmerFrameLayout.setVisibility(View.VISIBLE);
@@ -766,6 +767,8 @@ public class JurnalActivity extends AppCompatActivity {
                             tv_total_debit.setText(jurnalResponse.getTotal_debit());
                             tv_total_kredit.setText(jurnalResponse.getTotal_kredit());
                         }
+                        Log.e("debug", day + " " + month + " " + year);
+//                        Log.e("debug", ArrayList.toString(jurnalAlls));
                     }
                 }
                 shimmerFrameLayout.stopShimmer();

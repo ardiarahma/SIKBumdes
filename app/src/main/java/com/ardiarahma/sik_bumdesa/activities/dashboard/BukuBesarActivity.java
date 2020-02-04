@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,13 +30,16 @@ import com.ardiarahma.sik_bumdesa.networks.models.GetAllAkun;
 import com.ardiarahma.sik_bumdesa.networks.models.User;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.BukuBesarResponse;
 import com.ardiarahma.sik_bumdesa.networks.models.responses.GetAllAkunResponse;
-import com.facebook.shimmer.ShimmerFrameLayout;
 
-import java.text.ParseException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -229,24 +233,60 @@ public class BukuBesarActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     if (bukuBesarResponse.getStatus().equals("success")) {
                         allBukuBesar = bukuBesarResponse.getBuku_besar();
-                        bukuBesarAdapter = new BukuBesarAdapter(allBukuBesar);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                        rv_bukubesar.setLayoutManager(layoutManager);
-                        rv_bukubesar.setItemAnimator(new DefaultItemAnimator());
-                        rv_bukubesar.setAdapter(bukuBesarAdapter);
-                        if (layoutManager.getItemCount() == 0) {
+                        if (bukuBesarResponse.getBuku_besar().get(0).getSaldo_awal() != null) {
+                            bukuBesarAdapter = new BukuBesarAdapter(allBukuBesar);
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                            rv_bukubesar.setLayoutManager(layoutManager);
+                            rv_bukubesar.setItemAnimator(new DefaultItemAnimator());
+                            rv_bukubesar.setAdapter(bukuBesarAdapter);
+
+//                            ArrayList<String> strArray = new ArrayList<>();
+//
+//                            String tess = response.body().toString();
+//                            JSONObject jsonObject = null;
+//                            try {
+//                                jsonObject = new JSONObject(tess.trim());
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                            try {
+//                                JSONArray jsonEmailArray = jsonObject.getJSONArray("buku_besar");
+//                                for(int i=0; i<=jsonEmailArray.length(); i++){
+//                                    strArray.add(jsonEmailArray.getString(i));
+//                                }
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            StringBuilder builder = new StringBuilder();
+//                            for(String s : strArray) {
+//                                builder.append(s);
+//                            }
+//                            String str = builder.toString();
+//
+//                            Log.e("debug", str);
+
+                            if (layoutManager.getItemCount() == 0) {
 //                            shimmerFrameLayout.setVisibility(View.GONE);
+                                layoutData.setVisibility(View.GONE);
+                                layoutNoData.setVisibility(View.VISIBLE);
+                            } else {
+                                layoutNoData.setVisibility(View.GONE);
+//                            shimmerFrameLayout.setVisibility(View.GONE);
+                                layoutData.setVisibility(View.VISIBLE);
+//                            tv_saldoawal.setText(bukuBesarResponse.getBuku_besar().get(allBukuBesar.size()-1).getSaldo_awal());
+                                if (bukuBesarResponse.getSaldo_awal() != null) {
+                                    tv_saldoawal.setText(bukuBesarResponse.getSaldo_awal().getJumlah());
+                                } else {
+                                    tv_saldoawal.setText("0");
+                                }
+                                tv_saldoakhir.setText(String.valueOf(bukuBesarResponse.getBuku_besar().get(allBukuBesar.size() - 1).getSaldo()));
+                                tv_totaldebit.setText(String.valueOf(bukuBesarResponse.getTotal_debit()));
+                                tv_totalkredit.setText(String.valueOf(bukuBesarResponse.getTotal_kredit()));
+                            }
+                        } else {
                             layoutData.setVisibility(View.GONE);
                             layoutNoData.setVisibility(View.VISIBLE);
-                        } else {
-                            layoutNoData.setVisibility(View.GONE);
-//                            shimmerFrameLayout.setVisibility(View.GONE);
-                            layoutData.setVisibility(View.VISIBLE);
-//                            tv_saldoawal.setText(bukuBesarResponse.getBuku_besar().get(allBukuBesar.size()-1).getSaldo_awal());
-                            tv_saldoawal.setText(bukuBesarResponse.getSaldo_awal().getJumlah());
-                            tv_saldoakhir.setText(String.valueOf(bukuBesarResponse.getBuku_besar().get(allBukuBesar.size() - 1).getSaldo()));
-                            tv_totaldebit.setText(String.valueOf(bukuBesarResponse.getTotal_debit()));
-                            tv_totalkredit.setText(String.valueOf(bukuBesarResponse.getTotal_kredit()));
                         }
                     }
                 }

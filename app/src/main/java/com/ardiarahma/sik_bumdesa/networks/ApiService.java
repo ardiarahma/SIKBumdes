@@ -154,10 +154,10 @@ public interface ApiService {
             @Query("year") int year
     );
 
-    @GET("neraca-awal/show_klasifikasi")
+    @GET("neraca-awal/klasifikasi_akun")
     Call<NeracaAwalKlasifikasiResponse> neracaKlasifikasi(
             @Header("Authorization") String token,
-            @Query("id_parent") int parentId
+            @Query("id_parent_akun") int parentId
     );
 
     @GET("neraca-awal/show_akun")
