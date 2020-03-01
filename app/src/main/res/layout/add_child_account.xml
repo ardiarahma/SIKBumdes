@@ -31,7 +31,7 @@
                 android:layout_weight="0.5"
                 android:text="Parent"
                 android:textColor="@color/three"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/parentAcc_spinner"
@@ -54,7 +54,7 @@
                 android:layout_weight="0.5"
                 android:text="Klasifikasi Akun"
                 android:textColor="@color/three"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/childAcc_spinner"
@@ -70,7 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="Kode Akun"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:inputType="number"/>
 
         <EditText
             android:id="@+id/nama_akun"
@@ -78,7 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:hint="Nama Akun"
-            android:textSize="16dp" />
+            android:textSize="16sp"
+            android:inputType="textCapWords"/>
 
         <LinearLayout
             android:id="@+id/linear3"
@@ -93,7 +95,7 @@
                 android:layout_weight="0.5"
                 android:text="Posisi Normal"
                 android:textColor="@color/three"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/posisi_spinner"
@@ -156,10 +158,9 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
-            />
+
         </LinearLayout>
 
     </LinearLayout>
-
 
 </android.support.v7.widget.CardView>

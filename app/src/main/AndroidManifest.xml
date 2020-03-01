@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ardiarahma.sik_bumdesa">
+    package="com.example.sik_bumdesa">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,50 +12,50 @@
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.SplashScreenActivity">
+        <activity android:name="com.example.sik_bumdesa.activities.LoginActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RegistrationActivity" />
-        <activity android:name=".activities.ForgotPasswordActivity" />
-        <activity android:name=".activities.ResetPasswordActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.RegistrationActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.ForgotPasswordActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.ResetPasswordActivity" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.example.sik_bumdesa.activities.MainActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.dashboard.BukuBesarActivity"
+            android:name="com.example.sik_bumdesa.activities.dashboard.BukuBesarActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activities.dashboard.NeracaActivity" />
-        <activity android:name=".activities.dashboard.EkuitasActivity" />
-        <activity android:name=".activities.dashboard.JurnalDetailsActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.dashboard.NeracaActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.dashboard.EkuitasActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.dashboard.JurnalDetailsActivity" />
         <activity
-            android:name=".activities.dashboard.JurnalActivity"
+            android:name="com.example.sik_bumdesa.activities.dashboard.JurnalActivity"
             android:label="@string/title_activity_jurnal2"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.dashboard.LabaRugiActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.dashboard.LabaRugiActivity" />
         <activity
-            android:name=".activities.navigation_drawer.AccountActivity"
+            android:name="com.example.sik_bumdesa.activities.navigation_drawer.AccountActivity"
             android:label="@string/title_activity_account"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.navigation_drawer.NeracaAwalActivity"
+            android:name="com.example.sik_bumdesa.activities.navigation_drawer.NeracaAwalActivity"
             android:label="@string/title_activity_neraca_awal"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.navigation_drawer.AnggaranActivity"
+            android:name="com.example.sik_bumdesa.activities.navigation_drawer.AnggaranActivity"
             android:label="@string/title_activity_anggaran"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.navigation_drawer.UserActivity"
+            android:name="com.example.sik_bumdesa.activities.navigation_drawer.UserActivity"
             android:label="@string/title_activity_user"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.navigation_drawer.AccountClassificationActivity" />
+        <activity android:name="com.example.sik_bumdesa.activities.navigation_drawer.AccountClassificationActivity" />
         <activity
-            android:name=".activities.navigation_drawer.AccountDataActivity"/>
+            android:name="com.example.sik_bumdesa.activities.navigation_drawer.AccountDataActivity"/>
     </application>
 
 </manifest>

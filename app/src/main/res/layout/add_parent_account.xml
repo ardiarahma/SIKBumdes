@@ -11,10 +11,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:hint="Kode Klasifikasi Akun"
+            android:inputType="number"
             android:textSize="16sp" />
 
         <EditText
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:hint="Nama Klasifikasi Akun"
+            android:inputType="textCapWords"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -73,9 +75,9 @@
                 android:id="@+id/cancel_button"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/default_cancel_button"
                 android:text="Batal"
                 android:textAllCaps="false"
@@ -87,8 +89,8 @@
                 android:id="@+id/save_button"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/default_button"
                 android:text="Simpan"
                 android:textAllCaps="false"

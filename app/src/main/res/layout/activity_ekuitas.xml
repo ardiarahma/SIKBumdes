@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ardiarahma.sik_bumdesa.activities.dashboard.LabaRugiActivity">
+    tools:context="com.example.sik_bumdesa.activities.dashboard.LabaRugiActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

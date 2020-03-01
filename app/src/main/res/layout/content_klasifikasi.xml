@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.ardiarahma.sik_bumdesa.activities.navigation_drawer.AccountClassificationActivity"
+    tools:context="com.example.sik_bumdesa.activities.navigation_drawer.AccountClassificationActivity"
     tools:showIn="@layout/activity_account_classification">
 
     <android.support.v7.widget.RecyclerView
